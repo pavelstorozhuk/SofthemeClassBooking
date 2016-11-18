@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Role]
+(
+	[Id] UNIQUEIDENTIFIER PRIMARY KEY,
+	[Name] nvarchar(256) NOT NULL
+)
+GO

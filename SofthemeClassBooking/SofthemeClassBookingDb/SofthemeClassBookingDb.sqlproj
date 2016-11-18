@@ -61,7 +61,10 @@
   <ItemGroup>
     <Build Include="ClassRoom.sql" />
     <Build Include="Event.sql" />
-    <Build Include="Participants.sql" />
     <Build Include="Feedback.sql" />
+    <Build Include="Participant.sql" />
+    <Build Include="User.sql" />
+    <Build Include="Role.sql" />
+    <Build Include="UserRole.sql" />
   </ItemGroup>
 </Project>
