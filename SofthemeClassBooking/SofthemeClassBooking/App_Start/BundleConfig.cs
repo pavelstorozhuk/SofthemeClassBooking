@@ -8,6 +8,7 @@ namespace SofthemeClassBooking
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            #region Script
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -23,9 +24,20 @@ namespace SofthemeClassBooking
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/map").Include(
+                        "~/Scripts/map/jquery.min.js",
+                      "~/Scripts/map/jquery.mapit.min.js",
+                      "~/Scripts/map/initializer.js"));
+            #endregion
+
+            #region Style
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/layout").Include(
+                  "~/Content/layout/layout.css"));
+            #endregion
         }
     }
 }

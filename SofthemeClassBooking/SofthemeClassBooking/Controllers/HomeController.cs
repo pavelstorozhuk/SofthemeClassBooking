@@ -26,5 +26,24 @@ namespace SofthemeClassBooking.Controllers
 
             return View();
         }
+
+        public ActionResult Schedule()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult Map()
+        {
+            return  PartialView();
+        }
+
+        public ActionResult Feedback()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
     }
 }
