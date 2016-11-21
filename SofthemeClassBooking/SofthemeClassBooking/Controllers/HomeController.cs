@@ -34,9 +34,9 @@ namespace SofthemeClassBooking.Controllers
             return View();
         }
 
-        public ActionResult Map()
+        public ActionResult Testt()
         {
-            return  PartialView();
+            return PartialView();
         }
 
         public ActionResult Feedback()

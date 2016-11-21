@@ -1,10 +1,4 @@
-﻿body {
-    margin: 0;
-    padding: 0;
-    font-family: "Arial";
-}
-
-nav {
+﻿nav {
     box-shadow: 0px 4px 4px 0px #D7D9E1;
     font-size: 14px;
     height: 61px;
@@ -101,7 +95,7 @@ nav .containerNav {
 }
 
 footer {
-    position: absolute;
+    position: relative;
     right: 0;
     bottom: 0;
     left: 0;

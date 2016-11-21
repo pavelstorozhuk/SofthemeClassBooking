@@ -178,7 +178,10 @@
     <Content Include="Content\images\logo-gray.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\marker_red.png" />
+    <Content Include="Content\images\planet.png" />
+    <Content Include="Content\images\walls.png" />
     <Content Include="Content\layout\layout.css" />
+    <Content Include="Content\PlanEvent\planevent.css" />
     <Content Include="Scripts\map\initializers.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -237,7 +240,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Schedule.cshtml" />
     <Content Include="Views\Home\Feedback.cshtml" />
-    <Content Include="Views\Home\Map.cshtml" />
+    <Content Include="Views\Home\Testt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

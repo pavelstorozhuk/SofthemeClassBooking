@@ -10,46 +10,45 @@
     @Scripts.Render("~/bundles/map")
 </head>
 <body>
-<nav>
-    <div class="containerLogo">
-        <a href="@Url.Action("Index", "Home")">
-            <img src="~/Content/images/logo.png" alt="Softheme" />
-        </a>
+    <nav>
+        <div class="containerLogo">
+            <a href="@Url.Action("Index", "Home")">
+                <img src="~/Content/images/logo.png" alt="Softheme" />
+            </a>
 
-    </div>
-
-    <div class="containerNav">
-        <div>
-            <ul>
-                <li>
-                    <a href="@Url.Action("Schedule", "Home")" @(ViewContext.RouteData.Values["action"].ToString().Equals("Schedule") ? "class=current" : "")>
-                        <div class="nav-text">Рассписание</div>
-                    </a>
-                    <div @(ViewContext.RouteData.Values["action"].ToString().Equals("Schedule") ? "class=nav-line-display" : "class=nav-line-hide")></div>
-                </li>
-                <li>
-                    <a href="@Url.Action("Feedback", "Home")" @(ViewContext.RouteData.Values["action"].ToString().Equals("Feedback") ? "class=current" : "")>
-                        <div class="nav-text">Обратная связь</div>
-                    </a>
-                    <div @(ViewContext.RouteData.Values["action"].ToString().Equals("Feedback") ? "class=nav-line-display" : "class=nav-line-hide")></div>
-                </li>
-                <li>
-                    <a href="#"><div class="nav-text">Вход</div></a>
-                    <div class="nav-line"></div>
-                </li>
-            </ul>
         </div>
-    </div>
-</nav>
 
-<div class="container body-content">
+        <div class="containerNav">
+            <div>
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Schedule", "Home")" @(ViewContext.RouteData.Values["action"].ToString().Equals("Schedule") ? "class=current" : "")>
+                            <div class="nav-text">Рассписание</div>
+                        </a>
+                        <div @(ViewContext.RouteData.Values["action"].ToString().Equals("Schedule") ? "class=nav-line-display" : "class=nav-line-hide")></div>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Feedback", "Home")" @(ViewContext.RouteData.Values["action"].ToString().Equals("Feedback") ? "class=current" : "")>
+                            <div class="nav-text">Обратная связь</div>
+                        </a>
+                        <div @(ViewContext.RouteData.Values["action"].ToString().Equals("Feedback") ? "class=nav-line-display" : "class=nav-line-hide")></div>
+                    </li>
+                    <li>
+                        <a href="#"><div class="nav-text">Вход</div></a>
+                        <div class="nav-line"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div>
         @RenderBody()
-        <hr />
     </div>
 
-    @Html.Partial("Map","Home")
+    <div id="map_canvas"></div>
 
-<footer>
+    <footer>
         <div class="container">
             <div class="image">
                 <img src="~/Content/images/logo-gray.png" alt="Softheme" />
@@ -63,9 +62,7 @@
         </div>
     </footer>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    
-    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/map/initializers.js"></script>
+
 </body>
 </html>

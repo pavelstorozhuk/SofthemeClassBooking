@@ -26,8 +26,7 @@ namespace SofthemeClassBooking
 
             bundles.Add(new ScriptBundle("~/bundles/map").Include(
                         "~/Scripts/map/jquery.min.js",
-                      "~/Scripts/map/jquery.mapit.min.js",
-                      "~/Scripts/map/initializer.js"));
+                      "~/Scripts/map/jquery.mapit.min.js"));
             #endregion
 
             #region Style

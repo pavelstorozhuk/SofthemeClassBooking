@@ -1,0 +1,68 @@
+﻿
+div .plan-section {
+    height: 517px;
+    width: 100%;
+    background-color: #EBEEF7;
+}
+
+div .plan-walls {
+    padding: 0px;
+    margin: 0px;
+    letter-spacing: 1px;
+    width: 100%;
+    height: 100%;
+    background-image: url("../images/walls.png");
+    text-align: center;
+    background-position: center; 
+    background-repeat: no-repeat;
+}
+
+div .plan-room-name-wrapper {
+    position: relative;
+}
+
+div .plan-room-name-position {
+    position: absolute;
+    top: 173px; 
+    left: 390px;
+}
+
+div .plan-room-name-HR {
+    display: table-cell;
+    vertical-align: middle;
+    color: #FFFFFF;
+    font-size: 12px;
+    background-color: #ACB0B6;
+    width: 70px;
+    height: 39px;
+    border-radius: 13px;
+}
+
+div .plan-room-name-textblock {
+    display: inline-block;   
+}
+
+div .plan-room-name-header {
+
+    height: 12px;
+}
+
+
+div .plan-room-position-HR {
+    position: absolute;
+    top: 150px; 
+    left: 300px;
+}
+
+div .plan-room-HR {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    background-color: #D7D9DE;
+}
+
+
+div .calemder-section {
+    height: 335px;
+}
+
