@@ -1,0 +1,29 @@
+﻿.feedback {
+    height: 773px;
+    background-color: #FFFFFF;
+}
+
+.feedback-container {
+    margin-top: 36px;
+    margin-left: 121px;
+    color: #4A5158;
+}
+
+.feedback-container h2 {
+    margin-bottom:18px;
+}
+
+.feedback-image {
+    margin-top: 17px;
+    height: 293px;
+    background-image: url("images/contact-bg.png");
+    background-repeat: no-repeat;
+}
+.feedback-left {
+    display: inline-block;
+    width: 500px;
+}
+.feedback-form {
+    display: inline-block;
+    width: 500px;width: 500px;
+}

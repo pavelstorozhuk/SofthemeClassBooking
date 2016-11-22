@@ -2,35 +2,9 @@
     ViewBag.Title = "Home Page";
 }
 
-<link rel="stylesheet" href="~/Content/PlanEvent/planevent.css" />
-
-<div class="plan-section">
-    <div class="plan-walls">
-
-        <div class="plan-room-name-wrapper">
-
-            <div class="plan-room-name-position">
-                <div class="plan-room-name-HR">
-                    <div class="plan-room-name-textblock">
-                        <div class="plan-room-name-header ">HR</div>
-                        <div>office</div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="plan-room-name-wrapper">
-            <div class="plan-room-position-HR">
-                <div class="plan-room-HR">
-
-                </div>
-            </div>
-        </div>
-
-
-    </div>
-</div>
+@{
+    Html.RenderPartial("PartialView/ClassRoomsPartial");
+}
 
 <div style="height: 335px">
     calendar goes here

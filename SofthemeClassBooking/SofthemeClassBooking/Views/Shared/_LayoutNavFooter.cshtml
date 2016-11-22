@@ -10,17 +10,13 @@
     @Scripts.Render("~/bundles/map")
 </head>
 <body>
-  @{
-      Html.RenderPartial("PartialView/NavigationPartial");
-  }
+    @{
+        Html.RenderPartial("PartialView/NavigationPartial");
+    }
 
     <div>
         @RenderBody()
     </div>
-
-    @{
-        Html.RenderPartial("PartialView/MapPartial");
-    }
 
     @{
         Html.RenderPartial("PartialView/FooterPartial");
