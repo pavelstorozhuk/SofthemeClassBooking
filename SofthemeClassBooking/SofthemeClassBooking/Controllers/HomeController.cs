@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,19 +14,6 @@ namespace SofthemeClassBooking.Controllers
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
 
         public ActionResult Schedule()
         {
@@ -34,16 +22,26 @@ namespace SofthemeClassBooking.Controllers
             return View("Index");
         }
 
-        public ActionResult Testt()
+        [HttpGet]
+        public ActionResult PlanPartial()
         {
+            Thread.Sleep(2000);
             return PartialView();
         }
 
-        public ActionResult Feedback()
+        [HttpGet]
+        public ActionResult MapPartial()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            Thread.Sleep(2000);
+            return PartialView();
         }
+
+        [HttpGet]
+        public ActionResult CalenderPartial()
+        {
+            Thread.Sleep(2000);
+            return PartialView();
+        }
+
     }
 }

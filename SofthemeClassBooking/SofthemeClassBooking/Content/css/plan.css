@@ -1,11 +1,21 @@
-﻿
-div .plan-section {
+﻿#map-section {
+	height: 442px;
+	width: 100%;
+}
+
+#plan-section {
     position: relative;
     z-index: -1;
     height: 517px;
     width: 100%;
     background-color: #EBEEF7;
 }
+
+.plan-loading-section{
+    padding-top: 18%;
+    text-align: center;
+ }
+
 
 div .plan-walls {
     padding: 0px;

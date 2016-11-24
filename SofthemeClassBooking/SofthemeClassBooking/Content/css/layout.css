@@ -84,14 +84,8 @@ nav .containerLogo {
 
 nav .containerNav {
     float: right;
-    display: inline-block;
     height: inherit;
     width: 45%;
-}
-
-#map_canvas {
-	height: 442px;
-	width: 100%;
 }
 
 footer {
