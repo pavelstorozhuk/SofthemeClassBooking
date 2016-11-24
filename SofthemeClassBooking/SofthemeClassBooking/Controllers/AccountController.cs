@@ -60,6 +60,10 @@ namespace SofthemeClassBooking.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
+        public ActionResult SofthemeLogin()
+        {
+            return View();
+        }
 
         //
         // POST: /Account/Login
@@ -151,7 +155,7 @@ namespace SofthemeClassBooking.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -391,7 +395,7 @@ namespace SofthemeClassBooking.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut();
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
 

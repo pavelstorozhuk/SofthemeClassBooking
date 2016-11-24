@@ -26,5 +26,9 @@ namespace SofthemeClassBooking.Controllers
 
             return View();
         }
+        public ActionResult SofthemeLogin()
+        {
+            return View();
+        }
     }
 }
