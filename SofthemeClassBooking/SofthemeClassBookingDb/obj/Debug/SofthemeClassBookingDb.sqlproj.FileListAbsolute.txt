@@ -1,9 +1,5 @@
 C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBookingDb\bin\Debug\SofthemeClassBookingDb.dacpac
 C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBookingDb\bin\Debug\SofthemeClassBookingDb.dll
 C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBookingDb\bin\Debug\SofthemeClassBookingDb.pdb
-C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBookingDb\obj\Debug\Model.xml
-C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBookingDb\obj\Debug\refactor.xml
-C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBookingDb\obj\Debug\postdeploy.sql
-C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBookingDb\obj\Debug\predeploy.sql
 C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBookingDb\obj\Debug\SofthemeClassBookingDb.dll
 C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBookingDb\obj\Debug\SofthemeClassBookingDb.pdb
