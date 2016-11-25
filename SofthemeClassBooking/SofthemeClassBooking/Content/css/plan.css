@@ -1,76 +1,63 @@
 ﻿#map-section {
-	height: 442px;
-	width: 100%;
+    height: 442px;
+    width: 100%;
 }
 
 #plan-section {
     position: relative;
-    z-index: -1;
     height: 517px;
     width: 100%;
     background-color: #EBEEF7;
 }
 
-.plan-loading-section{
+.plan-loading-section {
     padding-top: 18%;
     text-align: center;
- }
+}
 
-
-div .plan-walls {
+.plan-walls-background {
     padding: 0px;
     margin: 0px;
     letter-spacing: 1px;
     width: 100%;
     height: 100%;
     background-image: url("../images/walls.png");
-    position: relative;
+    position: absolute;
     text-align: center;
-    background-position: center; 
+    background-position: center;
     background-repeat: no-repeat;
+    pointer-events: none;
 }
 
-div .plan-room-name-wrapper {
+div .plan-wrapper {
     position: relative;
-     z-index: 0;
 }
 
-div .plan-room-wrapper {
-    position: relative;
-     z-index: -1;
-}
-
-div .plan-room-name {
-    display: table-cell;
-    vertical-align: middle;
-    color: #FFFFFF;
-    font-size: 12px;
-    background-color: #ACB0B6;
-    width: 70px;
-    height: 39px;
-    border-radius: 13px;
-}
-
-div .plan-room-name-textblock {
-    display: inline-block;   
-}
-
-div .plan-room-name-header {
+div .plan-room-text {
     display: inline-block;
-    height: 12px;
-    padding-left: 7px;
-    padding-right: 7px;
+    font-size: 12px;
+    padding: 10px;
+    background-color: #ACB0B6;
+    color: #FFFFFF;
+    opacity: 0.7;
+    border-radius: 13px;
+    letter-spacing: 1px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+    min-width: 70px;
 }
+
 
 /*Room 100*/
 
 div .plan-room-position-100 {
     position: absolute;
-    top: 141px; 
+    top: 141px;
     left: 135px;
 }
 
-div .plan-room-100 {   
+div .plan-room-100 {
     width: 170px;
     height: 96px;
     background-color: #D7D9DE;
@@ -79,24 +66,30 @@ div .plan-room-100 {
 
 div .plan-room-name-position-HR {
     position: absolute;
-    top: 173px; 
+    top: 173px;
     left: 390px;
 }
 
 div .plan-room-position-HR {
     position: absolute;
-    top: 141px; 
+    top: 141px;
     left: 305px;
 }
 
-div .plan-room-HR {   
+div .plan-room-HR {
     width: 234px;
     height: 100px;
     background-color: #D7D9DE;
+    line-height: 100px;
+    text-align: center;
 }
 
-div .plan-room-HR-selected {
-    display: none;
+div .plan-room-HR:hover {
+    cursor: pointer;
+    background-color: #828A9D;
+}
+
+div .plan-room-HR-busy {
     width: 234px;
     height: 100px;
     background-color: #F95752;
@@ -118,13 +111,13 @@ div .plan-room-HR-available-hovered {
 
 div .plan-room-name-position-Einstein {
     position: absolute;
-    top: 173px; 
+    top: 173px;
     left: 595px;
 }
 
 div .plan-room-position-Einstein {
     position: absolute;
-    top: 141px; 
+    top: 141px;
     left: 540px;
 }
 
@@ -132,9 +125,16 @@ div .plan-room-Einstein {
     width: 188px;
     height: 102px;
     background-color: #D7D9DE;
+    line-height: 100px;
+    text-align: center;
 }
 
-div .plan-room-Einstein-selected {
+div .plan-room-Einstein:hover {
+    cursor: pointer;
+    background-color: #828A9D;
+}
+
+div .plan-room-Einstein-busy {
     display: none;
     width: 188px;
     height: 102px;
@@ -147,27 +147,21 @@ div .plan-room-Einstein-available {
     background-color: #9FA6B6;
 }
 
-div .plan-room-Einstein-available-hovered {
-    width: 188px;
-    height: 102px;
-    background-color: #828A9D;
-}
-
 /* Info 103*/
 
 div .plan-room-name-position-Info {
     position: absolute;
-    top: 173px; 
+    top: 173px;
     left: 734px;
 }
 
 div .plan-room-position-Info {
     position: absolute;
-    top: 141px; 
+    top: 141px;
     left: 728px;
 }
 
-div .plan-room-Info {   
+div .plan-room-Info {
     width: 87px;
     height: 102px;
     background-color: #D7D9DE;
@@ -177,17 +171,17 @@ div .plan-room-Info {
 
 div .plan-room-name-position-Web1 {
     position: absolute;
-    top: 173px; 
+    top: 173px;
     left: 825px;
 }
 
 div .plan-room-position-Web1 {
     position: absolute;
-    top: 141px; 
+    top: 141px;
     left: 814px;
 }
 
-div .plan-room-Web1 {   
+div .plan-room-Web1 {
     width: 100px;
     height: 90px;
     background-color: #D7D9DE;
@@ -197,17 +191,17 @@ div .plan-room-Web1 {
 
 div .plan-room-name-position-Web2 {
     position: absolute;
-    top: 173px; 
+    top: 173px;
     left: 922px;
 }
 
 div .plan-room-position-Web2 {
     position: absolute;
-    top: 141px; 
+    top: 141px;
     left: 913px;
 }
 
-div .plan-room-Web2 {   
+div .plan-room-Web2 {
     width: 94px;
     height: 100px;
     background-color: #D7D9DE;
@@ -217,17 +211,17 @@ div .plan-room-Web2 {
 
 div .plan-room-name-position-Web3 {
     position: absolute;
-    top: 173px; 
+    top: 173px;
     left: 1015px;
 }
 
 div .plan-room-position-Web3 {
     position: absolute;
-    top: 141px; 
+    top: 141px;
     left: 1009px;
 }
 
-div .plan-room-Web3 {   
+div .plan-room-Web3 {
     width: 91px;
     height: 100px;
     background-color: #D7D9DE;
@@ -251,17 +245,17 @@ div .plan-room-name-English {
 
 div .plan-room-name-position-English {
     position: absolute;
-    top: 193px; 
+    top: 193px;
     left: 1086px;
 }
 
 div .plan-room-position-English {
     position: absolute;
-    top: 141px; 
+    top: 141px;
     left: 1100px;
 }
 
-div .plan-room-English {   
+div .plan-room-English {
     width: 42px;
     height: 142px;
     background-color: #D7D9DE;
@@ -275,17 +269,17 @@ div .calemder-section {
 
 div .plan-room-name-position-Tesla {
     position: absolute;
-    top: 313px; 
+    top: 313px;
     left: 495px;
 }
 
 div .plan-room-position-Tesla {
     position: absolute;
-    top: 280px; 
+    top: 280px;
     left: 440px;
 }
 
-div .plan-room-Tesla {   
+div .plan-room-Tesla {
     width: 190px;
     height: 100px;
     background-color: #D7D9DE;
@@ -314,17 +308,17 @@ div .plan-room-Tesla-available-hovered {
 
 div .plan-room-name-position-Newton {
     position: absolute;
-    top: 313px; 
+    top: 313px;
     left: 685px;
 }
 
 div .plan-room-position-Newton {
     position: absolute;
-    top: 280px; 
+    top: 280px;
     left: 630px;
 }
 
-div .plan-room-Newton {   
+div .plan-room-Newton {
     width: 190px;
     height: 100px;
     background-color: #D7D9DE;

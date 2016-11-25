@@ -62,10 +62,10 @@
     <Folder Include="Scripts\PostDeploy" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\ClassRoom.sql" />
-    <Build Include="Tables\Event.sql" />
-    <Build Include="Tables\Feedback.sql" />
-    <Build Include="Tables\Participant.sql" />
+    <Build Include="Tables\ClassRooms.sql" />
+    <Build Include="Tables\Events.sql" />
+    <Build Include="Tables\Feedbacks.sql" />
+    <Build Include="Tables\Participants.sql" />
     <Build Include="Tables\AspNetUsers.sql" />
     <Build Include="Tables\AspNetUserRoles.sql" />
     <Build Include="Tables\AspNetUserLogins.sql" />

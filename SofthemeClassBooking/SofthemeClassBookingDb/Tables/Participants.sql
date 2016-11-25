@@ -1,0 +1,11 @@
+﻿CREATE TABLE [Participants]
+(
+ [Id]  INT PRIMARY KEY IDENTITY,
+ [Name] NVARCHAR(60	) NOT NULL,
+ [EventId] INT NOT NULL
+)
+GO
+
+ALTER TABLE [Participants] ADD CONSTRAINT FK_Participant_Event FOREIGN KEY (EventId) 
+ REFERENCES [Events](Id)
+GO

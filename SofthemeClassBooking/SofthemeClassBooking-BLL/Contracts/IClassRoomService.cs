@@ -2,7 +2,7 @@
 
 namespace SofthemeClassBooking_BLL.Contracts
 {
-    public interface IClassRoomService : IService<ClassRoom>
+    public interface IClassRoomService : IService<ClassRooms>
     {
 
     }

@@ -12,47 +12,53 @@ namespace SofthemeClassBooking_DAL
         {
         }
 
-        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<ClassRoom> ClassRooms { get; set; }
-        public virtual DbSet<Event> Events { get; set; }
-        public virtual DbSet<Feedback> Feedbacks { get; set; }
-        public virtual DbSet<Participant> Participants { get; set; }
+        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<ClassRooms> ClassRooms { get; set; }
+        public virtual DbSet<Events> Events { get; set; }
+        public virtual DbSet<Feedbacks> Feedbacks { get; set; }
+        public virtual DbSet<Participants> Participants { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AspNetRole>()
+            modelBuilder.Entity<AspNetRoles>()
                 .HasMany(e => e.AspNetUsers)
                 .WithMany(e => e.AspNetRoles)
                 .Map(m => m.ToTable("AspNetUserRoles").MapLeftKey("RoleId").MapRightKey("UserId"));
 
-            modelBuilder.Entity<AspNetUser>()
+            modelBuilder.Entity<AspNetUsers>()
                 .HasMany(e => e.AspNetUserClaims)
-                .WithRequired(e => e.AspNetUser)
+                .WithRequired(e => e.AspNetUsers)
                 .HasForeignKey(e => e.UserId);
 
-            modelBuilder.Entity<AspNetUser>()
+            modelBuilder.Entity<AspNetUsers>()
                 .HasMany(e => e.AspNetUserLogins)
-                .WithRequired(e => e.AspNetUser)
+                .WithRequired(e => e.AspNetUsers)
                 .HasForeignKey(e => e.UserId);
 
-            modelBuilder.Entity<AspNetUser>()
+            modelBuilder.Entity<AspNetUsers>()
                 .HasMany(e => e.Events)
-                .WithRequired(e => e.AspNetUser)
-                .HasForeignKey(e => e.AuthorId)
+                .WithRequired(e => e.AspNetUsers)
+                .HasForeignKey(e => e.UserId)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<ClassRoom>()
+            modelBuilder.Entity<ClassRooms>()
                 .HasMany(e => e.Events)
-                .WithRequired(e => e.ClassRoom)
+                .WithRequired(e => e.ClassRooms)
+                .HasForeignKey(e => e.ClassRoomId)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Event>()
+            modelBuilder.Entity<Events>()
                 .HasMany(e => e.Participants)
-                .WithRequired(e => e.Event)
+                .WithRequired(e => e.Events)
+                .HasForeignKey(e => e.EventId)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Feedbacks>()
+                .Property(e => e.Email)
+                .IsUnicode(false);
         }
     }
 }

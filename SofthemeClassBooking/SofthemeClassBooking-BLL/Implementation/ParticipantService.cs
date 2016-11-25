@@ -8,27 +8,27 @@ namespace SofthemeClassBooking_BLL.Implementation
 {
     public class ParticipantService : IParticipantService
     {
-        public void Add(Participant classRoom)
+        public void Add(Participants classRoom)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Participant> GetAll()
+        public IEnumerable<Participants> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Participant> GetMany(Expression<Func<Participant, bool>> where)
+        public IEnumerable<Participants> GetMany(Expression<Func<Participants, bool>> where)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(Participant classRoom)
+        public void Remove(Participants classRoom)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Participant classRoom)
+        public void Update(Participants classRoom)
         {
             throw new NotImplementedException();
         }

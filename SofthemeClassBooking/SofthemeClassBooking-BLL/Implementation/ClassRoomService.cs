@@ -12,27 +12,27 @@ namespace SofthemeClassBooking_BLL.Implementation
 {
     public class ClassRoomService : IClassRoomService
     {
-        public void Add(ClassRoom classRoom)
+        public void Add(ClassRooms classRoom)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ClassRoom> GetAll()
+        public IEnumerable<ClassRooms> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ClassRoom> GetMany(Expression<Func<ClassRoom, bool>> where)
+        public IEnumerable<ClassRooms> GetMany(Expression<Func<ClassRooms, bool>> where)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(ClassRoom classRoom)
+        public void Remove(ClassRooms classRoom)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(ClassRoom classRoom)
+        public void Update(ClassRooms classRoom)
         {
             throw new NotImplementedException();
         }

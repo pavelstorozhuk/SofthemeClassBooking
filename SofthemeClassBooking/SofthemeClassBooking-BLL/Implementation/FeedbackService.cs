@@ -22,9 +22,9 @@ namespace SofthemeClassBooking_BLL.Implementation
             throw new NotImplementedException();
         }
 
-        private Feedback Map(IFeedbackEntity feedbackEntity)
+        private Feedbacks Map(IFeedbackEntity feedbackEntity)
         {
-            return new Feedback
+            return new Feedbacks
             {
                 Name = feedbackEntity.Name,
                 Email = feedbackEntity.Email,

@@ -2,7 +2,7 @@
 
 namespace SofthemeClassBooking_BLL.Contracts
 {
-    public interface IEventService : IService<Event>
+    public interface IEventService : IService<Events>
     {
 
     }

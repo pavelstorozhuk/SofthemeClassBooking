@@ -10,19 +10,19 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
-INSERT INTO ClassRoom(Name) VALUES ('HR office');
+INSERT INTO ClassRooms(Name) VALUES ('HR office');
 GO
-INSERT INTO ClassRoom(Name) VALUES ('Einstein Classroom');
+INSERT INTO ClassRooms(Name) VALUES ('Einstein Classroom');
 GO
-INSERT INTO ClassRoom(Name) VALUES ('Info Центр');
+INSERT INTO ClassRooms(Name) VALUES (N'Info Центр');
 GO
-INSERT INTO ClassRoom(Name) VALUES ('Web & Marketing');
+INSERT INTO ClassRooms(Name) VALUES ('Web & Marketing');
 GO
-INSERT INTO ClassRoom(Name) VALUES ('HR office');
+INSERT INTO ClassRooms(Name) VALUES ('HR office');
 GO
-INSERT INTO ClassRoom(Name) VALUES ('English');
+INSERT INTO ClassRooms(Name) VALUES ('English');
 GO
-INSERT INTO ClassRoom(Name) VALUES ('Tesla Classroom');
+INSERT INTO ClassRooms(Name) VALUES ('Tesla Classroom');
 GO
-INSERT INTO ClassRoom(Name) VALUES ('Newton Classroom');
+INSERT INTO ClassRooms(Name) VALUES ('Newton Classroom');
 GO

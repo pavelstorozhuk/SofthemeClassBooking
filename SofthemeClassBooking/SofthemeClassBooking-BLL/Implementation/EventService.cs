@@ -8,27 +8,27 @@ namespace SofthemeClassBooking_BLL.Implementation
 {
     public class EventService : IEventService
     {
-        public void Add(Event classRoom)
+        public void Add(Events classRoom)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Event> GetAll()
+        public IEnumerable<Events> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Event> GetMany(Expression<Func<Event, bool>> where)
+        public IEnumerable<Events> GetMany(Expression<Func<Events, bool>> where)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(Event classRoom)
+        public void Remove(Events classRoom)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Event classRoom)
+        public void Update(Events classRoom)
         {
             throw new NotImplementedException();
         }

@@ -51,15 +51,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataContext\Identity\AspNetRole.cs" />
-    <Compile Include="DataContext\Identity\AspNetUser.cs" />
-    <Compile Include="DataContext\Identity\AspNetUserClaim.cs" />
-    <Compile Include="DataContext\Identity\AspNetUserLogin.cs" />
+    <Compile Include="DataContext\Identity\AspNetRoles.cs" />
+    <Compile Include="DataContext\Identity\AspNetUserClaims.cs" />
+    <Compile Include="DataContext\Identity\AspNetUserLogins.cs" />
+    <Compile Include="DataContext\Identity\AspNetUsers.cs" />
     <Compile Include="ClassBookingContext.cs" />
-    <Compile Include="DataContext\ClassRoom.cs" />
-    <Compile Include="DataContext\Event.cs" />
-    <Compile Include="DataContext\Feedback.cs" />
-    <Compile Include="DataContext\Participant.cs" />
+    <Compile Include="DataContext\ClassRooms.cs" />
+    <Compile Include="DataContext\Events.cs" />
+    <Compile Include="DataContext\Feedbacks.cs" />
+    <Compile Include="DataContext\Participants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
