@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using SofthemeClassBooking_BLL.Entities.Contract;
 
 namespace SofthemeClassBooking.Models
 {
-    public class FeedbackModel
+    public class FeedbackModel : IFeedbackEntity
     {
         private const string DangerMessagePath = "<img src='../Content/images/danger.png'/> ";
         private const string ErrorEmptyMessage = DangerMessagePath + "Это поле обязательно для заполения";
@@ -15,7 +16,7 @@ namespace SofthemeClassBooking.Models
 
         [Required(ErrorMessage = ErrorEmptyMessage)]
         [StringLength(50, ErrorMessage = ErrorMessageMaxLengthReached)]
-        public string LastName { get; set; }
+        public string Surname { get; set; }
 
         [Required(ErrorMessage = ErrorEmptyMessage)]
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$", ErrorMessage = ErrorEmailMessage)]

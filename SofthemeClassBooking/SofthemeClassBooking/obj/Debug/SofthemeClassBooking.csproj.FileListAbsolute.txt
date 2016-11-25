@@ -108,3 +108,7 @@ D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\Micro
 D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\obj\Debug\SofthemeClassBooking.csprojResolveAssemblyReference.cache
 D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\obj\Debug\SofthemeClassBooking.dll
 D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\obj\Debug\SofthemeClassBooking.pdb
+D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\SofthemeClassBooking-BLL.dll
+D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\SofthemeClassBooking-DAL.dll
+D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\SofthemeClassBooking-BLL.pdb
+D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\SofthemeClassBooking-DAL.pdb

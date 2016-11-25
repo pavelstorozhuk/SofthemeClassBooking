@@ -22,7 +22,7 @@
 
             <div class="feedback-form"> 
                 
-                @using (Html.BeginForm("Send", "Feedback", FormMethod.Post, new { role = "form", id = "feedback" }))
+                @using (Html.BeginForm("Send", "Feedback", FormMethod.Post, new { role = "form", id = "feedback", autocomplete = "off" }))
                 {
                     @Html.AntiForgeryToken()
 
@@ -35,9 +35,9 @@
                         </div>
                         <div class="feedback-form-inline-lastname">
                             <div class="feedback-form-incorrect-block">
-                                @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "feedback-form-incorrect-with-image" })
+                                @Html.ValidationMessageFor(m => m.Surname, "", new { @class = "feedback-form-incorrect-with-image" })
                             </div>
-                            @Html.TextBoxFor(m => m.LastName, new { id = "lastName", placeholder = "Фамилия", @class = "feedback-form-lastname" })
+                            @Html.TextBoxFor(m => m.Surname, new { id = "lastName", placeholder = "Фамилия", @class = "feedback-form-lastname" })
                         </div>
                     </div>
 
@@ -84,6 +84,8 @@
                          dataType: 'json',
                          success: function (result) {
                              $('#result-message').html(result.message);
+                             $("#feedback").trigger('reset');
+                             $("#submit").toggleClass('feedback-form-button-submit-ok feedback-form-button-submit');
                          }
                      });
                  }

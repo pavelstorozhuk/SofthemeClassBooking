@@ -22,7 +22,6 @@
 
 .feedback-write-message h2 {
     display: inline;
-    margin: 0;
     padding: 0;
 }
 
@@ -142,8 +141,6 @@
     color: #626D81;
 }
 
-.feedback-form-incorrect-with-image {
-    /*background-image: url("../images/danger.png");
-    background-repeat: no-repeat;
-    padding-left: 13px;*/
+input:-webkit-autofill {
+    background-color: #F5F6FB !important;
 }

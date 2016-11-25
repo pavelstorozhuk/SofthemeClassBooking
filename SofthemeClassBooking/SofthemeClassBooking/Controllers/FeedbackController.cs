@@ -4,13 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SofthemeClassBooking.Models;
+using SofthemeClassBooking_BLL.Contracts;
+using SofthemeClassBooking_BLL.Implementation;
 
 namespace SofthemeClassBooking.Controllers
 {
     public class FeedbackController : Controller
     {
+        private IFeedbackService _feedbackService;
 
-
+        public FeedbackController()
+        {
+            _feedbackService = new FeedbackService();
+        }
 
         [HttpGet]
         [AllowAnonymous]
@@ -25,6 +31,7 @@ namespace SofthemeClassBooking.Controllers
 
             if (ModelState.IsValid)
             {
+                _feedbackService.Add(feedback);
                 return Json(new { message = "Спасибо. Ваше сообщение отправлено администратору." });
             }
 

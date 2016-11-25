@@ -45,8 +45,10 @@ div .plan-room-name-textblock {
 }
 
 div .plan-room-name-header {
-
+    display: inline-block;
     height: 12px;
+    padding-left: 7px;
+    padding-right: 7px;
 }
 
 /*Room 100*/
