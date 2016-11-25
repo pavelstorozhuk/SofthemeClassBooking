@@ -1,0 +1,85 @@
+﻿@section stylesUp {
+    @Styles.Render("~/Styles/plan.css")
+}
+
+
+<div id="plan-section">
+    <div id="plan-loading">
+        <div class="plan-loading-section">
+            <div>Загрузка плана этажа...</div>
+            <div>
+                <img src="~/Content/images/gif/ajax-loader.gif" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="height: 335px">
+    calendar goes here
+</div>
+
+<div id="map-section">
+    <div id="map-loading">
+        <div class="plan-loading-section">
+            <div>Загрузка карты...</div>
+            <div>
+                <img src="~/Content/images/gif/ajax-loader.gif" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(document)
+        .ready(function () {
+            $.ajax({
+                url: '@Url.Action("PlanPartial","Home")',
+                method: 'GET',
+                cache: false,
+                dataType: 'html',
+
+                success: function (result) {
+                    $('#plan-section').html(result);
+                },
+
+                error: function(result) {
+                    $('#plan-section').html(result);
+                },
+
+                function() {
+                    $('#plan-loading').hide();
+                }
+
+            });
+
+
+            $.ajax({
+                url: '@Url.Action("MapPartial","Home")',
+                method: 'GET',
+                cache: false,
+                dataType: 'html',
+
+                success: function (result) {
+                    $('#map-section').html(result);
+                },
+
+                error: function (result) {
+                    $('#map-section').html(result);
+                },
+
+                function() {
+                    $('#map-loading').hide();
+                }
+
+            });
+
+        });
+
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/map")
+}

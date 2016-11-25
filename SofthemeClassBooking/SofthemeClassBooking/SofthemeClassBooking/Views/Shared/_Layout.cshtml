@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Styles/css")
+    @Styles.Render("~/Styles/layout")
+    
+    @RenderSection("stylesUp", required: false)
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+</head>
+<body>
+
+    <nav>
+        <div class="containerLogo">
+            <a href="@Url.Action("Index", "Home")">
+                <img src="~/Content/images/logo.png" alt="Softheme" />
+            </a>
+
+        </div>
+
+        <div class="containerNav">
+            <div>
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Schedule", "Home")"
+                           @(ViewContext.RouteData.Values["controller"].ToString().Equals("Home")
+                             && (ViewContext.RouteData.Values["action"].ToString().Equals("Schedule")
+                                 || ViewContext.RouteData.Values["action"].ToString().Equals("Index")) ? "class=current" : "")>
+                            <div class="nav-text">Рассписание</div>
+                        </a>
+                        <div @(ViewContext.RouteData.Values["controller"].ToString().Equals("Home")
+                               && (ViewContext.RouteData.Values["action"].ToString().Equals("Schedule")
+                                   || ViewContext.RouteData.Values["action"].ToString().Equals("Index")) ? "class=nav-line-display" : "class=nav-line-hide")></div>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Feedback")" @(ViewContext.RouteData.Values["controller"].ToString().Equals("Feedback") ? "class=current" : "")>
+                            <div class="nav-text">Обратная связь</div>
+                        </a>
+                        <div @(ViewContext.RouteData.Values["controller"].ToString().Equals("Feedback") ? "class=nav-line-display" : "class=nav-line-hide")></div>
+                    </li>
+                    <li>
+                        @Html.Partial("_LoginPartial")
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div>
+        @RenderBody()
+    </div>
+
+<footer>
+    <div class="container">
+        <div class="image">
+            <img src="~/Content/images/logo-gray.png" alt="Softheme" />
+        </div>
+        <div class="line">
+            <hr />
+        </div>
+        <div class="text">
+            Все права защищены &copy;
+        </div>
+    </div>
+</footer>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

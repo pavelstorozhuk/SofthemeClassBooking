@@ -1,0 +1,122 @@
+﻿#map-section {
+	height: 442px;
+	width: 100%;
+}
+
+#plan-section {
+    position: relative;
+    z-index: -1;
+    height: 517px;
+    width: 100%;
+    background-color: #EBEEF7;
+}
+
+.plan-loading-section{
+    padding-top: 18%;
+    text-align: center;
+ }
+
+
+div .plan-walls {
+    padding: 0px;
+    margin: 0px;
+    letter-spacing: 1px;
+    width: 100%;
+    height: 100%;
+    background-image: url("../images/walls.png");
+    position: relative;
+    text-align: center;
+    background-position: center; 
+    background-repeat: no-repeat;
+}
+
+div .plan-room-name-wrapper {
+    position: relative;
+     z-index: 0;
+}
+
+div .plan-room-wrapper {
+    position: relative;
+     z-index: -1;
+}
+
+div .plan-room-name-textblock {
+    display: inline-block;   
+}
+
+div .plan-room-name-header {
+    display: inline-block;
+    height: 12px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+/*Room 100*/
+
+div .plan-room-position-100 {
+    position: absolute;
+    top: 141px; 
+    left: 135px;
+}
+
+div .plan-room-100 {   
+    width: 170px;
+    height: 96px;
+    background-color: #D7D9DE;
+}
+/* HR 101*/
+
+div .plan-room-name-position-HR {
+    position: absolute;
+    top: 173px; 
+    left: 390px;
+}
+
+div .plan-room-name-HR {
+    display: table-cell;
+    vertical-align: middle;
+    color: #FFFFFF;
+    font-size: 12px;
+    background-color: #ACB0B6;
+    width: 70px;
+    height: 39px;
+    border-radius: 13px;
+}
+
+div .plan-room-position-HR {
+    position: absolute;
+    top: 141px; 
+    left: 305px;
+}
+
+div .plan-room-HR {   
+    width: 234px;
+    height: 100px;
+    background-color: #D7D9DE;
+}
+
+div .plan-room-HR-selected {
+    display: none;
+    width: 234px;
+    height: 100px;
+    background-color: #F95752;
+}
+
+div .plan-room-HR-available {
+    width: 234px;
+    height: 100px;
+    background-color: #9FA6B6;
+}
+
+div .plan-room-HR-available-hovered {
+    width: 234px;
+    height: 100px;
+    background-color: #828A9D;
+}
+
+
+
+div .calemder-section {
+    height: 335px;
+}
+
