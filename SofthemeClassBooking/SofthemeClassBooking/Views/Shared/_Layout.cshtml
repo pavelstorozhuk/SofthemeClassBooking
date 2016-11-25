@@ -21,38 +21,15 @@
             </a>
 
         </div>
-
+        
+      
         <div class="containerNav">
             <div>
-                <ul>
-                    <li>
-                        <a href="@Url.Action("Schedule", "Home")"
-                        @(ViewContext.RouteData.Values["controller"].ToString().Equals("Home")
-                           && (ViewContext.RouteData.Values["action"].ToString().Equals("Schedule")
-                           || ViewContext.RouteData.Values["action"].ToString().Equals("Index")) ? "class=current" : "")>
-                        <div class="nav-text">Рассписание</div>
-                        </a>
-                        <div @(ViewContext.RouteData.Values["controller"].ToString().Equals("Home")
-                           && (ViewContext.RouteData.Values["action"].ToString().Equals("Schedule")
-                           || ViewContext.RouteData.Values["action"].ToString().Equals("Index")) ? "class=nav-line-display" : "class=nav-line-hide")></div>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Index", "Feedback")" @(ViewContext.RouteData.Values["controller"].ToString().Equals("Feedback") ? "class=current" : "")>
-                            <div class="nav-text">Обратная связь</div>
-                        </a>
-                        <div @(ViewContext.RouteData.Values["controller"].ToString().Equals("Feedback") ? "class=nav-line-display" : "class=nav-line-hide")></div>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <div class="nav-text">Вход</div>
-                        </a>
-                        <div class="nav-line"></div>
-                    </li>
-                </ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </nav>
-
+    <i class="fa fa-user-o" aria-hidden="true"></i>
     <div>
         @RenderBody()
     </div>

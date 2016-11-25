@@ -21,7 +21,7 @@ namespace SofthemeClassBooking.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("name=ClassBookingContext", throwIfV1Schema: false)
         {
         }
 

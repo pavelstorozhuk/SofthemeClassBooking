@@ -112,3 +112,7 @@ D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\Softh
 D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\SofthemeClassBooking-DAL.dll
 D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\SofthemeClassBooking-BLL.pdb
 D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\SofthemeClassBooking-DAL.pdb
+C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\SofthemeClassBooking-BLL.dll
+C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\SofthemeClassBooking-DAL.dll
+C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\SofthemeClassBooking-BLL.pdb
+C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\SofthemeClassBooking-DAL.pdb

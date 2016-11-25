@@ -25,21 +25,21 @@ namespace SofthemeClassBooking.Controllers
         [HttpGet]
         public ActionResult PlanPartial()
         {
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
             return PartialView();
         }
 
         [HttpGet]
         public ActionResult MapPartial()
         {
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
             return PartialView();
         }
 
         [HttpGet]
         public ActionResult CalenderPartial()
         {
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
             return PartialView();
         }
 

@@ -1,0 +1,17 @@
+﻿
+@using SofthemeClassBooking.Models
+@model LoginViewModel
+
+
+
+@using (Html.BeginForm("SofthemeLogin", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.TextBoxFor(m => m.Email, new { placeholder = "Адрес электронной почты" })
+    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+    @Html.TextBoxFor(m => m.Password, new { placeholder = "Пароль", type = "password" })
+    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" });
+
+    <input type="submit" value="Войти" id="submit">
+}

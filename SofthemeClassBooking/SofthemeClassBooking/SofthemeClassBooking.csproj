@@ -160,8 +160,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -178,13 +180,36 @@
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\feedback.css" />
+    <Content Include="Content\css\registration.css" />
+    <Content Include="Content\images\addEvent.png" />
     <Content Include="Content\images\contact-bg.png" />
     <Content Include="Content\images\danger.png" />
     <Content Include="Content\images\gif\ajax-loader.gif" />
+    <Content Include="Content\images\lines\line-details-einstein.png" />
+    <Content Include="Content\images\lines\line-details-empty.png" />
+    <Content Include="Content\images\lines\line-details-english.png" />
+    <Content Include="Content\images\lines\line-details-hr.png" />
+    <Content Include="Content\images\lines\line-details-info.png" />
+    <Content Include="Content\images\lines\line-details-newton.png" />
+    <Content Include="Content\images\lines\line-details-tesla.png" />
+    <Content Include="Content\images\lines\line-details-web-1.png" />
+    <Content Include="Content\images\lines\line-details-web-2.png" />
+    <Content Include="Content\images\lines\line-details-web-3.png" />
     <Content Include="Content\images\logo-gray.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\marker_red.png" />
+    <Content Include="Content\images\path\path-einstein.png" />
+    <Content Include="Content\images\path\path-empty.png" />
+    <Content Include="Content\images\path\path-hr.png" />
+    <Content Include="Content\images\path\path-ienglish.png" />
+    <Content Include="Content\images\path\path-info.png" />
+    <Content Include="Content\images\path\path-newton.png" />
+    <Content Include="Content\images\path\path-tesla.png" />
+    <Content Include="Content\images\path\path-web-1.png" />
+    <Content Include="Content\images\path\path-web-2.png" />
+    <Content Include="Content\images\path\path-web-3.png" />
     <Content Include="Content\images\planet.png" />
+    <Content Include="Content\images\profile.png" />
     <Content Include="Content\images\walls.png" />
     <Content Include="Content\css\layout.css" />
     <Content Include="Content\css\plan.css" />
@@ -247,6 +272,14 @@
     <Content Include="Views\Home\MapPartial.cshtml" />
     <Content Include="Views\Home\PlanPartial.cshtml" />
     <Content Include="Views\Home\CalenderPartial.cshtml" />
+    <Content Include="Views\Login\ChangePasswordPartialView.cshtml" />
+    <Content Include="Views\Login\Enter.cshtml" />
+    <Content Include="Views\Login\RegistrationPartialView.cshtml" />
+    <Content Include="Views\Login\RegistrationResult.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\SofthemeRegistration.cshtml" />
+    <Content Include="Views\Shared\_LayoutAuthorization.cshtml" />
+    <Content Include="Views\Event\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

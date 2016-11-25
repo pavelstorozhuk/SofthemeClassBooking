@@ -1,0 +1,25 @@
+﻿
+@using SofthemeClassBooking.Models
+@model RegisterViewModel
+
+
+@using (Html.BeginForm("SofthemeRegistration", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.TextBoxFor(m => m.UserName, new { placeholder = "Имя Фамилия" })
+    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+    @Html.TextBoxFor(m => m.Email, new { placeholder = "Адрес электронной почты" })
+    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+    @Html.TextBoxFor(m => m.Password, new { placeholder = "Пароль", type = "password" })
+    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" });
+    @Html.TextBoxFor(m => m.Password, new { placeholder = "Пароль", type = "password" })
+
+    <input  style="width:auto" type="submit" value="Зарегистрироваться" id="mysubmit" />
+
+
+}
+<script>
+    
+  
+</script>

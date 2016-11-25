@@ -40,6 +40,17 @@ div .plan-room-wrapper {
      z-index: -1;
 }
 
+div .plan-room-name {
+    display: table-cell;
+    vertical-align: middle;
+    color: #FFFFFF;
+    font-size: 12px;
+    background-color: #ACB0B6;
+    width: 70px;
+    height: 39px;
+    border-radius: 13px;
+}
+
 div .plan-room-name-textblock {
     display: inline-block;   
 }
@@ -70,17 +81,6 @@ div .plan-room-name-position-HR {
     position: absolute;
     top: 173px; 
     left: 390px;
-}
-
-div .plan-room-name-HR {
-    display: table-cell;
-    vertical-align: middle;
-    color: #FFFFFF;
-    font-size: 12px;
-    background-color: #ACB0B6;
-    width: 70px;
-    height: 39px;
-    border-radius: 13px;
 }
 
 div .plan-room-position-HR {
@@ -114,9 +114,237 @@ div .plan-room-HR-available-hovered {
     background-color: #828A9D;
 }
 
+/* Einstein 102*/
 
+div .plan-room-name-position-Einstein {
+    position: absolute;
+    top: 173px; 
+    left: 595px;
+}
+
+div .plan-room-position-Einstein {
+    position: absolute;
+    top: 141px; 
+    left: 540px;
+}
+
+div .plan-room-Einstein {
+    width: 188px;
+    height: 102px;
+    background-color: #D7D9DE;
+}
+
+div .plan-room-Einstein-selected {
+    display: none;
+    width: 188px;
+    height: 102px;
+    background-color: #F95752;
+}
+
+div .plan-room-Einstein-available {
+    width: 188px;
+    height: 102px;
+    background-color: #9FA6B6;
+}
+
+div .plan-room-Einstein-available-hovered {
+    width: 188px;
+    height: 102px;
+    background-color: #828A9D;
+}
+
+/* Info 103*/
+
+div .plan-room-name-position-Info {
+    position: absolute;
+    top: 173px; 
+    left: 734px;
+}
+
+div .plan-room-position-Info {
+    position: absolute;
+    top: 141px; 
+    left: 728px;
+}
+
+div .plan-room-Info {   
+    width: 87px;
+    height: 102px;
+    background-color: #D7D9DE;
+}
+
+/* Web & Marketing 104*/
+
+div .plan-room-name-position-Web1 {
+    position: absolute;
+    top: 173px; 
+    left: 825px;
+}
+
+div .plan-room-position-Web1 {
+    position: absolute;
+    top: 141px; 
+    left: 814px;
+}
+
+div .plan-room-Web1 {   
+    width: 100px;
+    height: 90px;
+    background-color: #D7D9DE;
+}
+
+/* Web & Marketing 105*/
+
+div .plan-room-name-position-Web2 {
+    position: absolute;
+    top: 173px; 
+    left: 922px;
+}
+
+div .plan-room-position-Web2 {
+    position: absolute;
+    top: 141px; 
+    left: 913px;
+}
+
+div .plan-room-Web2 {   
+    width: 94px;
+    height: 100px;
+    background-color: #D7D9DE;
+}
+
+/* Web & Marketing 106*/
+
+div .plan-room-name-position-Web3 {
+    position: absolute;
+    top: 173px; 
+    left: 1015px;
+}
+
+div .plan-room-position-Web3 {
+    position: absolute;
+    top: 141px; 
+    left: 1009px;
+}
+
+div .plan-room-Web3 {   
+    width: 91px;
+    height: 100px;
+    background-color: #D7D9DE;
+}
+
+/* English 106*/
+
+div .plan-room-name-English {
+    display: table-cell;
+    vertical-align: middle;
+    color: #FFFFFF;
+    font-size: 12px;
+    background-color: #ACB0B6;
+    border-radius: 13px;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+div .plan-room-name-position-English {
+    position: absolute;
+    top: 193px; 
+    left: 1086px;
+}
+
+div .plan-room-position-English {
+    position: absolute;
+    top: 141px; 
+    left: 1100px;
+}
+
+div .plan-room-English {   
+    width: 42px;
+    height: 142px;
+    background-color: #D7D9DE;
+}
 
 div .calemder-section {
     height: 335px;
 }
 
+/* Tesla 107*/
+
+div .plan-room-name-position-Tesla {
+    position: absolute;
+    top: 313px; 
+    left: 495px;
+}
+
+div .plan-room-position-Tesla {
+    position: absolute;
+    top: 280px; 
+    left: 440px;
+}
+
+div .plan-room-Tesla {   
+    width: 190px;
+    height: 100px;
+    background-color: #D7D9DE;
+}
+
+div .plan-room-Tesla-selected {
+    display: none;
+    width: 190px;
+    height: 100px;
+    background-color: #F95752;
+}
+
+div .plan-room-Tesla-available {
+    width: 190px;
+    height: 100px;
+    background-color: #9FA6B6;
+}
+
+div .plan-room-Tesla-available-hovered {
+    width: 190px;
+    height: 100px;
+    background-color: #828A9D;
+}
+
+/* Newton 108*/
+
+div .plan-room-name-position-Newton {
+    position: absolute;
+    top: 313px; 
+    left: 685px;
+}
+
+div .plan-room-position-Newton {
+    position: absolute;
+    top: 280px; 
+    left: 630px;
+}
+
+div .plan-room-Newton {   
+    width: 190px;
+    height: 100px;
+    background-color: #D7D9DE;
+}
+
+div .plan-room-Newton-selected {
+    display: none;
+    width: 190px;
+    height: 100px;
+    background-color: #F95752;
+}
+
+div .plan-room-Newton-available {
+    width: 190px;
+    height: 100px;
+    background-color: #9FA6B6;
+}
+
+div .plan-room-Newton-available-hovered {
+    width: 190px;
+    height: 100px;
+    background-color: #828A9D;
+}

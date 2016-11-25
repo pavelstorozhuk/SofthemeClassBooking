@@ -35,6 +35,10 @@ namespace SofthemeClassBooking
                       "~/Content/css/bootstrap.css",
                       "~/Content/css/global.css"));
 
+            bundles.Add(new StyleBundle("~/Styles/registration").Include(
+                "~/Content/css/registration.css"
+            ));
+
             bundles.Add(new StyleBundle("~/Styles/layout").Include(
                   "~/Content/css/layout.css"));
 
