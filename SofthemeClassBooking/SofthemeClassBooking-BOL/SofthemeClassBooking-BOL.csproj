@@ -41,12 +41,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="ClassRoomModel.cs" />
+    <Compile Include="Contract\IAspNetRole.cs" />
+    <Compile Include="Contract\IClassRoom.cs" />
+    <Compile Include="Contract\IEvent.cs" />
+    <Compile Include="Contract\IFeedback.cs" />
+    <Compile Include="Contract\IParticipant.cs" />
+    <Compile Include="Contract\IAspNetUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Contract\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

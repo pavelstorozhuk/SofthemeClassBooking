@@ -13,9 +13,9 @@ namespace SofthemeClassBooking.Controllers
     {
         private IFeedbackService _feedbackService;
 
-        public FeedbackController()
+        public FeedbackController(IFeedbackService feedbackService)
         {
-            _feedbackService = new FeedbackService();
+            _feedbackService = feedbackService;
         }
 
         [HttpGet]

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using SofthemeClassBooking_BLL.Contracts;
+using SofthemeClassBooking_BOL.Contract;
 using SofthemeClassBooking_DAL;
-using SofthemeClassBooking_BLL.Entities.Contract;
 
 namespace SofthemeClassBooking_BLL.Implementation
 {
     public class FeedbackService : IFeedbackService
     {
-        public void Add(IFeedbackEntity feedbackEntity)
+        public void Add(IFeedback feedbackEntity)
         {
             using (var context = new ClassBookingContext())
             {
@@ -17,19 +17,19 @@ namespace SofthemeClassBooking_BLL.Implementation
             }
         }
 
-        public IEnumerable<IFeedbackEntity> GetAll()
+        public IEnumerable<IFeedback> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        private Feedbacks Map(IFeedbackEntity feedbackEntity)
+        private Feedbacks Map(IFeedback feedback)
         {
             return new Feedbacks
             {
-                Name = feedbackEntity.Name,
-                Email = feedbackEntity.Email,
-                Surname = feedbackEntity.Surname,
-                Text = feedbackEntity.Message
+                Name = feedback.Name,
+                Email = feedback.Email,
+                Surname = feedback.Surname,
+                Text = feedback.Text
             };
         }
     }

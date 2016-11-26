@@ -49,10 +49,10 @@
                     </div>
 
                     <div class="feedback-form-incorrect-block">
-                        @Html.ValidationMessageFor(m => m.Message, "", new { @class = "feedback-form-incorrect-with-image" })
+                        @Html.ValidationMessageFor(m => m.Text, "", new { @class = "feedback-form-incorrect-with-image" })
                     </div>
                     <div>
-                        @Html.TextAreaFor(m => m.Message, new { id = "message", @class = "feedback-form-message" })
+                        @Html.TextAreaFor(m => m.Text, new { id = "message", @class = "feedback-form-message" })
                     </div>
 
                     <div class="feedback-form-button-submit-block">

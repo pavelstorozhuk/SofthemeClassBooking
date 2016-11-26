@@ -54,7 +54,6 @@
     <Compile Include="Contracts\IFeedbackService.cs" />
     <Compile Include="Contracts\IParticipantService.cs" />
     <Compile Include="Contracts\IService.cs" />
-    <Compile Include="Entities\Contract\IFeedbackEntity.cs" />
     <Compile Include="Implementation\ClassRoomService.cs" />
     <Compile Include="Implementation\EventService.cs" />
     <Compile Include="Implementation\FeedbackService.cs" />
@@ -62,6 +61,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SofthemeClassBooking-BOL\SofthemeClassBooking-BOL.csproj">
+      <Project>{eed178a1-6573-42e5-b58c-71144d4fde2b}</Project>
+      <Name>SofthemeClassBooking-BOL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SofthemeClassBooking-DAL\SofthemeClassBooking-DAL.csproj">
       <Project>{216a2dce-ec4c-4c2a-a69d-8379f9ae821c}</Project>
       <Name>SofthemeClassBooking-DAL</Name>

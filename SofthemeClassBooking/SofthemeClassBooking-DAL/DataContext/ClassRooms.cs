@@ -20,17 +20,17 @@ namespace SofthemeClassBooking_DAL
         [StringLength(30)]
         public string Name { get; set; }
 
-        public byte? Capacity { get; set; }
+        public byte Capacity { get; set; }
 
-        public byte? QuantityOfBoards { get; set; }
+        public byte QuantityOfBoards { get; set; }
 
-        public byte? QuantityOfPrinters { get; set; }
+        public byte QuantityOfPrinters { get; set; }
 
-        public byte? QuantityOfTables { get; set; }
+        public byte QuantityOfTables { get; set; }
 
-        public byte? QuantityOfLaptops { get; set; }
+        public byte QuantityOfLaptops { get; set; }
 
-        public bool? IsLocked { get; set; }
+        public bool IsLocked { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Events> Events { get; set; }

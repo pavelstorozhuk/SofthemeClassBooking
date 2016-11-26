@@ -1,3 +1,6 @@
+using SofthemeClassBooking_BLL.Contracts;
+using SofthemeClassBooking_BLL.Implementation;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SofthemeClassBooking.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(SofthemeClassBooking.App_Start.NinjectWebCommon), "Stop")]
 
@@ -61,6 +64,8 @@ namespace SofthemeClassBooking.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IFeedbackService>().To<FeedbackService>();
+            kernel.Bind<IClassRoomService>().To<ClassRoomService>();
         }        
     }
 }

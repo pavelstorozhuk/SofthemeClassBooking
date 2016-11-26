@@ -177,6 +177,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ClassroomController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -187,6 +188,7 @@
     </Compile>
     <Compile Include="Helpers\ActiveMenuOptionHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ClassRoomViewModel.cs" />
     <Compile Include="Models\FeedbackModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -287,7 +289,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Feedback\Index.cshtml" />
     <Content Include="Views\Home\MapPartial.cshtml" />
-    <Content Include="Views\Home\PlanPartial.cshtml" />
+    <Content Include="Views\Classroom\Index.cshtml" />
     <Content Include="Views\Home\CalenderPartial.cshtml" />
     <Content Include="Views\Login\ChangePasswordPartialView.cshtml" />
     <Content Include="Views\Login\Enter.cshtml" />
@@ -313,9 +315,9 @@
       <Project>{5f25850b-88c1-47a3-9078-a3df59ce67a5}</Project>
       <Name>SofthemeClassBooking-BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SofthemeClassBooking-DAL\SofthemeClassBooking-DAL.csproj">
-      <Project>{216a2dce-ec4c-4c2a-a69d-8379f9ae821c}</Project>
-      <Name>SofthemeClassBooking-DAL</Name>
+    <ProjectReference Include="..\SofthemeClassBooking-BOL\SofthemeClassBooking-BOL.csproj">
+      <Project>{eed178a1-6573-42e5-b58c-71144d4fde2b}</Project>
+      <Name>SofthemeClassBooking-BOL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

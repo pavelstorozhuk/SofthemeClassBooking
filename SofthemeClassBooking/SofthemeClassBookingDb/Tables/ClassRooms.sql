@@ -2,11 +2,11 @@
 (
  [Id] INT PRIMARY KEY IDENTITY NOT NULL,
  [Name] NVARCHAR (30) NOT NULL,
- [Capacity] TINYINT DEFAULT 0,
- [QuantityOfBoards] TINYINT DEFAULT 0,
- [QuantityOfPrinters] TINYINT DEFAULT 0,
- [QuantityOfTables] TINYINT DEFAULT 0,
- [QuantityOfLaptops] TINYINT DEFAULT 0,
- [IsLocked]   BIT DEFAULT 0
+ [Capacity] TINYINT DEFAULT 0 NOT NULL,
+ [QuantityOfBoards] TINYINT DEFAULT 0 NOT NULL,
+ [QuantityOfPrinters] TINYINT DEFAULT 0 NOT NULL,
+ [QuantityOfTables] TINYINT DEFAULT 0 NOT NULL,
+ [QuantityOfLaptops] TINYINT DEFAULT 0 NOT NULL,
+ [IsLocked]   BIT DEFAULT 0 NOT NULL
 
 )

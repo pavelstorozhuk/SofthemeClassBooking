@@ -1,0 +1,31 @@
+﻿@model IEnumerable<SofthemeClassBooking_BOL.Contract.IClassRoom>
+
+
+@foreach (var classroom in Model)
+{
+    var nameParts = classroom.Name.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+    var className = classroom.IsLocked ? String.Empty : "-available";
+    var english = classroom.Id == 8 ? "plan-room-text-8" : "plan-room-text";
+
+    <div class="plan-wrapper">
+
+        <div class="plan-room-position-@classroom.Id">
+            <div class="plan-room-@classroom.Id@className">
+                @if (nameParts.Length > 0)
+                {
+
+                       <span class="@english">
+                        @for (int i = 0; i < nameParts.Length; i++)
+                        {
+                            if (i >= 1)
+                            { <br /> }
+                            <span>@nameParts[i]</span>
+                        }
+                    </span>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+<div class="plan-walls-background"></div>

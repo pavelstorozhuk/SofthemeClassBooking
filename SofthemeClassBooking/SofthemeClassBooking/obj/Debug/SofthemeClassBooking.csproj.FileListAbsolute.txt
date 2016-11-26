@@ -123,3 +123,5 @@ D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\WebAc
 D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\Ninject.xml
 D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\Ninject.Web.Common.xml
 D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\Ninject.Web.Mvc.xml
+D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\SofthemeClassBooking-BOL.dll
+D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\SofthemeClassBooking-BOL.pdb

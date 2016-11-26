@@ -10,6 +10,8 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
+INSERT INTO ClassRooms(Name) VALUES ('');
+GO
 INSERT INTO ClassRooms(Name) VALUES ('HR office');
 GO
 INSERT INTO ClassRooms(Name) VALUES ('Einstein Classroom');
@@ -18,7 +20,9 @@ INSERT INTO ClassRooms(Name) VALUES (N'Info Центр');
 GO
 INSERT INTO ClassRooms(Name) VALUES ('Web & Marketing');
 GO
-INSERT INTO ClassRooms(Name) VALUES ('HR office');
+INSERT INTO ClassRooms(Name) VALUES ('Web & Marketing');
+GO
+INSERT INTO ClassRooms(Name) VALUES ('Web & Marketing');
 GO
 INSERT INTO ClassRooms(Name) VALUES ('English');
 GO
