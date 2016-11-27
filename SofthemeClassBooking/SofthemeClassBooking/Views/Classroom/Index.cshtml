@@ -10,7 +10,7 @@
     <div class="plan-wrapper">
 
         <div class="plan-room-position-@classroom.Id">
-            <div class="plan-room-@classroom.Id@className">
+            <div id="@classroom.Id" class="plan-room-@classroom.Id@className plan-room @className">
                 @if (nameParts.Length > 0)
                 {
 
@@ -28,4 +28,40 @@
     </div>
 }
 
+
 <div class="plan-walls-background"></div>
+
+<div style="position: relative">
+    <div id="show" style="position: absolute; top: 424px; left: 458px;">
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).on("mouseover", ".plan-room", function () {
+        
+        if ($(this).hasClass('-available')) {
+            console.log(1);
+
+            var roomId = $(this).attr('id');
+            $('#show').show();
+            $.ajax({
+                url: '@Url.Action("AdditionalInfo", "Classroom")' + '/' + roomId,
+                method: 'GET',
+                cache: false,
+                dataType: 'html',
+
+                success: function (result) {
+                    $('#show').html(result);
+                },
+
+            });
+        }
+
+    });
+  
+    $(document).on("mouseleave", ".plan-room", function () {
+        $('#show').hide();
+    });
+</script>

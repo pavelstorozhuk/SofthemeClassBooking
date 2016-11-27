@@ -23,6 +23,12 @@ namespace SofthemeClassBooking.Controllers
             return PartialView(_classRoomService.GetAll());
         }
 
+        [HttpGet]
+        public ActionResult AdditionalInfo(int id)
+        {
+
+            return PartialView(_classRoomService.GetById(id));
+        }
 
     }
 }

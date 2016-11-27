@@ -64,5 +64,14 @@ namespace SofthemeClassBooking_BLL.Implementation
         {
             throw new NotImplementedException();
         }
+
+        public IClassRoom GetById(int id)
+        {
+            using (var context = new ClassBookingContext())
+            {
+                return Map(context.ClassRooms.Find(id));
+            }
+        }
+
     }
 }

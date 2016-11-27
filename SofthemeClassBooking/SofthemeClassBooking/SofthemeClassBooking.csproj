@@ -196,11 +196,17 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\additionalInfoRoom.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\feedback.css" />
     <Content Include="Content\css\registration.css" />
     <Content Include="Content\images\addEvent.png" />
+    <Content Include="Content\images\addinfo\icon-board.png" />
+    <Content Include="Content\images\addinfo\icon-laptop.png" />
+    <Content Include="Content\images\addinfo\icon-print.png" />
+    <Content Include="Content\images\addinfo\icon-proect.png" />
+    <Content Include="Content\images\addinfo\icon-table.png" />
     <Content Include="Content\images\contact-bg.png" />
     <Content Include="Content\images\danger.png" />
     <Content Include="Content\images\gif\ajax-loader.gif" />
@@ -299,6 +305,7 @@
     <Content Include="Views\Login\SofthemeRegistration.cshtml" />
     <Content Include="Views\Shared\_LayoutAuthorization.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
+    <Content Include="Views\Classroom\AdditionalInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

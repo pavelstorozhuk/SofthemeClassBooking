@@ -7,6 +7,6 @@ namespace SofthemeClassBooking_BLL.Contracts
 {
     public interface IClassRoomService : IService<IClassRoom>
     {
-
+        IClassRoom GetById(int id);
     }
 }
