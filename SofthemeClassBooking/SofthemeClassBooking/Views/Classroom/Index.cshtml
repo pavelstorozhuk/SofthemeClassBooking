@@ -14,7 +14,7 @@
                 @if (nameParts.Length > 0)
                 {
 
-                       <span class="@english">
+                    <span class="@english">
                         @for (int i = 0; i < nameParts.Length; i++)
                         {
                             if (i >= 1)
@@ -25,11 +25,14 @@
                 }
             </div>
         </div>
+       
     </div>
 }
 
 
 <div class="plan-walls-background"></div>
+
+<div id="plan-room-line"></div>
 
 <div style="position: relative">
     <div id="show" style="position: absolute; top: 424px; left: 458px;">
@@ -39,29 +42,33 @@
 
 <script type="text/javascript">
 
-    $(document).on("mouseover", ".plan-room", function () {
-        
-        if ($(this).hasClass('-available')) {
+        $(document).on("mouseover", ".plan-room", function () {
+
+            if ($(this).hasClass('-available')) {
+
+                var roomId = $(this).attr('id');
+                $('#show').show();
+                $.ajax({
+                    url: '@Url.Action("AdditionalInfo", "Classroom")' + '/' + roomId,
+                    method: 'GET',
+                    cache: false,
+                    dataType: 'html',
+
+                    success: function (result) {
+                        $('#show').html(result);
+                        $('#plan-room-line').attr('class','plan-room-line-detail-' + roomId);
+                        $('#plan-room-line').show();
+                    },
+
+                });
+
+            }
+
+        }).on("mouseleave", ".plan-room", function () {
+            $('#plan-room-line').hide();
+            $('#plan-room-line').attr('class', '');
+            $('#show').hide();
             console.log(1);
+        });
 
-            var roomId = $(this).attr('id');
-            $('#show').show();
-            $.ajax({
-                url: '@Url.Action("AdditionalInfo", "Classroom")' + '/' + roomId,
-                method: 'GET',
-                cache: false,
-                dataType: 'html',
-
-                success: function (result) {
-                    $('#show').html(result);
-                },
-
-            });
-        }
-
-    });
-  
-    $(document).on("mouseleave", ".plan-room", function () {
-        $('#show').hide();
-    });
 </script>

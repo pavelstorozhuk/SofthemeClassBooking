@@ -42,11 +42,11 @@ namespace SofthemeClassBooking
             bundles.Add(new StyleBundle("~/Styles/layout").Include(
                   "~/Content/css/layout.css"));
 
-            bundles.Add(new StyleBundle("~/Styles/feedback.css").Include(
+            bundles.Add(new StyleBundle("~/Styles/feedback").Include(
                     "~/Content/css/feedback.css"));
 
 
-            bundles.Add(new StyleBundle("~/Styles/plan.css").Include(
+            bundles.Add(new StyleBundle("~/Styles/plan").Include(
                     "~/Content/css/plan.css",
                     "~/Content/css/additionalInfoRoom.css"));
             #endregion
