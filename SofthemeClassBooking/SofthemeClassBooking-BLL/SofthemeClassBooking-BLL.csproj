@@ -54,6 +54,7 @@
     <Compile Include="Contracts\IFeedbackService.cs" />
     <Compile Include="Contracts\IParticipantService.cs" />
     <Compile Include="Contracts\IService.cs" />
+    <Compile Include="Enum\ClassRoomStatus.cs" />
     <Compile Include="Implementation\ClassRoomService.cs" />
     <Compile Include="Implementation\EventService.cs" />
     <Compile Include="Implementation\FeedbackService.cs" />

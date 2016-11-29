@@ -188,6 +188,8 @@
     </Compile>
     <Compile Include="Helpers\ActiveMenuOptionHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ClassRoomAdditionalViewModel.cs" />
+    <Compile Include="Models\ClassRoomChangeStatusModel.cs" />
     <Compile Include="Models\ClassRoomViewModel.cs" />
     <Compile Include="Models\FeedbackModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -223,16 +225,16 @@
     <Content Include="Content\images\logo-gray.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\marker_red.png" />
-    <Content Include="Content\images\path\path-einstein.png" />
-    <Content Include="Content\images\path\path-empty.png" />
-    <Content Include="Content\images\path\path-hr.png" />
-    <Content Include="Content\images\path\path-ienglish.png" />
-    <Content Include="Content\images\path\path-info.png" />
-    <Content Include="Content\images\path\path-newton.png" />
-    <Content Include="Content\images\path\path-tesla.png" />
-    <Content Include="Content\images\path\path-web-1.png" />
-    <Content Include="Content\images\path\path-web-2.png" />
-    <Content Include="Content\images\path\path-web-3.png" />
+    <Content Include="Content\images\path\path-3.png" />
+    <Content Include="Content\images\path\path-1.png" />
+    <Content Include="Content\images\path\path-2.png" />
+    <Content Include="Content\images\path\path-8.png" />
+    <Content Include="Content\images\path\path-4.png" />
+    <Content Include="Content\images\path\path-10.png" />
+    <Content Include="Content\images\path\path-9.png" />
+    <Content Include="Content\images\path\path-5.png" />
+    <Content Include="Content\images\path\path-6.png" />
+    <Content Include="Content\images\path\path-7.png" />
     <Content Include="Content\images\planet.png" />
     <Content Include="Content\images\profile.png" />
     <Content Include="Content\images\walls.png" />
@@ -306,6 +308,8 @@
     <Content Include="Views\Shared\_LayoutAuthorization.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Classroom\AdditionalInfo.cshtml" />
+    <Content Include="Views\Classroom\RoomPage.cshtml" />
+    <Content Include="Views\Classroom\PlanPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

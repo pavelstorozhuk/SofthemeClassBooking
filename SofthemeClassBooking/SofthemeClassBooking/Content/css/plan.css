@@ -37,16 +37,14 @@ div .plan-room-text {
     display: inline-block;
     font-size: 12px;
     padding: 10px;
-    background-color: #ACB0B6;
+    background-color: rgba(172, 176, 182, 0.7);
     color: #FFFFFF;
-    opacity: 0.7;
     border-radius: 13px;
     letter-spacing: 1px;
     vertical-align: middle;
     line-height: normal;
     min-width: 70px;
 }
-
 
 /*Room id=1*/
 
@@ -67,11 +65,20 @@ div .plan-room-1 {
 .plan-room-line-detail-1 {
     position: absolute;
     background-image: url("/Content/images/lines/line-details-1.png");
-    background-repeat: no-repeat;
     width: 260px;
     height: 214px;
-    top: 212px; 
+    top: 212px;
     left: 261px;
+    pointer-events: none;
+}
+
+.plan-room-path-1 {
+    position: absolute;
+    background-image: url("/Content/images/path/path-1.png");
+    width: 947px;
+    height: 212px;
+    top: 243px;
+    left: 148px;
     pointer-events: none;
 }
 
@@ -121,11 +128,20 @@ div .plan-room-2 {
 .plan-room-line-detail-2 {
     position: absolute;
     background-image: url("/Content/images/lines/line-details-2.png");
-    background-repeat: no-repeat;
     width: 148px;
     height: 218px;
     top: 208px;
     left: 373px;
+    pointer-events: none;
+}
+
+.plan-room-path-2 {
+    position: absolute;
+    background-image: url("/Content/images/path/path-2.png");
+    width: 947px;
+    height: 212px;
+    top: 243px;
+    left: 148px;
     pointer-events: none;
 }
 
@@ -169,7 +185,6 @@ div .plan-room-3 {
 .plan-room-line-detail-3 {
     position: absolute;
     background-image: url("/Content/images/lines/line-details-3.png");
-    background-repeat: no-repeat;
     width: 54px;
     height: 213px;
     top: 213px;
@@ -177,21 +192,30 @@ div .plan-room-3 {
     pointer-events: none;
 }
 
+.plan-room-path-3 {
+    position: absolute;
+    background-image: url("/Content/images/path/path-3.png");
+    width: 947px;
+    height: 212px;
+    top: 243px;
+    left: 148px;
+    pointer-events: none;
+}
+
 div .plan-room-3-available {
     width: 188px;
     height: 102px;
     background-color: #9FA6B6;
-     line-height: 100px;
+    line-height: 100px;
     text-align: center;
 }
 
-div .plan-room-3-available:hover {
-    cursor: pointer;
-    background-color: #828A9D;
-}
+    div .plan-room-3-available:hover {
+        cursor: pointer;
+        background-color: #828A9D;
+    }
 
 div .plan-room-3-busy {
-    display: none;
     width: 188px;
     height: 102px;
     background-color: #F95752;
@@ -219,11 +243,20 @@ div .plan-room-4 {
 .plan-room-line-detail-4 {
     position: absolute;
     background-image: url("/Content/images/lines/line-details-4.png");
-    background-repeat: no-repeat;
     width: 239px;
     height: 204px;
     top: 222px;
     left: 515px;
+    pointer-events: none;
+}
+
+.plan-room-path-4 {
+    position: absolute;
+    background-image: url("/Content/images/path/path-4.png");
+    width: 947px;
+    height: 212px;
+    top: 243px;
+    left: 148px;
     pointer-events: none;
 }
 
@@ -268,7 +301,6 @@ div .plan-room-5 {
 .plan-room-line-detail-5 {
     position: absolute;
     background-image: url("/Content/images/lines/line-details-5.png");
-    background-repeat: no-repeat;
     width: 325px;
     height: 211px;
     top: 215px;
@@ -276,6 +308,15 @@ div .plan-room-5 {
     pointer-events: none;
 }
 
+.plan-room-path-5 {
+    position: absolute;
+    background-image: url("/Content/images/path/path-5.png");
+    width: 947px;
+    height: 216px;
+    top: 241px;
+    left: 148px;
+    pointer-events: none;
+}
 
 div .plan-room-5-available {
     width: 100px;
@@ -316,11 +357,20 @@ div .plan-room-6 {
 .plan-room-line-detail-6 {
     position: absolute;
     background-image: url("/Content/images/lines/line-details-6.png");
-    background-repeat: no-repeat;
     width: 440px;
     height: 209px;
     top: 217px;
     left: 515px;
+    pointer-events: none;
+}
+
+.plan-room-path-6 {
+    position: absolute;
+    background-image: url("/Content/images/path/path-6.png");
+    width: 947px;
+    height: 246px;
+    top: 211px;
+    left: 148px;
     pointer-events: none;
 }
 
@@ -340,10 +390,10 @@ div .plan-room-6-available {
     text-align: center;
 }
 
-div .plan-room-6-available:hover {
-    cursor: pointer;
-    background-color: #828A9D;
-}
+    div .plan-room-6-available:hover {
+        cursor: pointer;
+        background-color: #828A9D;
+    }
 /* Web & Marketing 7*/
 
 div .plan-room-position-7 {
@@ -363,11 +413,20 @@ div .plan-room-7 {
 .plan-room-line-detail-7 {
     position: absolute;
     background-image: url("/Content/images/lines/line-details-7.png");
-    background-repeat: no-repeat;
     width: 530px;
     height: 212px;
     top: 214px;
     left: 515px;
+    pointer-events: none;
+}
+
+.plan-room-path-7 {
+    position: absolute;
+    background-image: url("/Content/images/path/path-7.png");
+    width: 947px;
+    height: 216px;
+    top: 241px;
+    left: 148px;
     pointer-events: none;
 }
 
@@ -415,7 +474,6 @@ div .plan-room-8 {
 .plan-room-line-detail-8 {
     position: absolute;
     background-image: url("/Content/images/lines/line-details-8.png");
-    background-repeat: no-repeat;
     width: 599px;
     height: 167px;
     top: 259px;
@@ -423,13 +481,23 @@ div .plan-room-8 {
     pointer-events: none;
 }
 
+.plan-room-path-8 {
+    position: absolute;
+    background-image: url("/Content/images/path/path-8.png");
+    width: 950px;
+    height: 200px;
+    top: 258px;
+    left: 148px;
+    pointer-events: none;
+}
+
+
 div .plan-room-text-8 {
     display: inline-block;
     font-size: 12px;
     padding: 10px;
-    background-color: #ACB0B6;
+    background-color: rgba(172, 176, 182, 0.7);
     color: #FFFFFF;
-    opacity: 0.7;
     border-radius: 13px;
     letter-spacing: 1px;
     vertical-align: middle;
@@ -450,10 +518,10 @@ div .plan-room-8-available {
     transform: rotate(90deg);
 }
 
-div .plan-room-8-available:hover {
-    cursor: pointer;
-    background-color: #828A9D;
-}
+    div .plan-room-8-available:hover {
+        cursor: pointer;
+        background-color: #828A9D;
+    }
 /* Tesla 9*/
 
 div .plan-room-position-9 {
@@ -473,7 +541,6 @@ div .plan-room-9 {
 .plan-room-line-detail-9 {
     position: absolute;
     background-image: url("/Content/images/lines/line-details-9.png");
-    background-repeat: no-repeat;
     width: 36px;
     height: 71px;
     top: 354px;
@@ -481,12 +548,21 @@ div .plan-room-9 {
     pointer-events: none;
 }
 
+.plan-room-path-9 {
+    position: absolute;
+    background-image: url("/Content/images/path/path-9.png");
+    width: 947px;
+    height: 200px;
+    top: 257px;
+    left: 148px;
+    pointer-events: none;
+}
+
 div .plan-room-9-busy {
-    display: none;
     width: 190px;
     height: 100px;
     background-color: #F95752;
-        line-height: 100px;
+    line-height: 100px;
     text-align: center;
 }
 
@@ -494,14 +570,14 @@ div .plan-room-9-available {
     width: 190px;
     height: 100px;
     background-color: #9FA6B6;
-        line-height: 100px;
+    line-height: 100px;
     text-align: center;
 }
 
-div .plan-room-9-available:hover {
-    cursor: pointer;
-    background-color: #828A9D;
-}
+    div .plan-room-9-available:hover {
+        cursor: pointer;
+        background-color: #828A9D;
+    }
 /* Newton 108*/
 
 div .plan-room-position-10 {
@@ -514,7 +590,7 @@ div .plan-room-10 {
     width: 190px;
     height: 100px;
     background-color: #D7D9DE;
-        line-height: 100px;
+    line-height: 100px;
     text-align: center;
 }
 
@@ -529,12 +605,21 @@ div .plan-room-10 {
     pointer-events: none;
 }
 
+.plan-room-path-10 {
+    position: absolute;
+    background-image: url("/Content/images/path/path-10.png");
+    width: 947px;
+    height: 200px;
+    top: 257px;
+    left: 148px;
+    pointer-events: none;
+}
+
 div .plan-room-10-busy {
-    display: none;
     width: 190px;
     height: 100px;
     background-color: #F95752;
-        line-height: 100px;
+    line-height: 100px;
     text-align: center;
 }
 
@@ -542,16 +627,75 @@ div .plan-room-10-available {
     width: 190px;
     height: 100px;
     background-color: #9FA6B6;
-        line-height: 100px;
+    line-height: 100px;
     text-align: center;
 }
 
-div .plan-room-10-available:hover {
-    cursor: pointer;
-    background-color: #828A9D;
-}
+    div .plan-room-10-available:hover {
+        cursor: pointer;
+        background-color: #828A9D;
+    }
 
 
 div .calemder-section {
     height: 335px;
+}
+
+
+.plan-noselect-text {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -khtml-user-select: none; /* Konqueror */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+.plan-room-edit-buttons-position {
+    position: absolute;
+    top: 21px;
+    left: 985px;
+}
+
+.plan-room-edit-buttons button {
+    margin: 10px;
+    display: block;
+    width: 150px;
+    border-radius: 17px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    font-family: 'Arial';
+}
+
+.plan-room-edit-buttons-up {
+    background-color: #747B86;
+    color: #FFFFFF;
+    height: 36px;
+}
+
+.plan-room-edit-buttons-up:hover {
+    background-color: #747B79;
+}
+
+.plan-room-edit-buttons-down {
+    background-color: #C8CEDA;
+    color: #4A5158;
+    height: 36px;
+}
+
+.plan-room-edit-buttons-down:hover {
+    background-color: #C8CED0;
+}
+
+.plan-show-additional-info-short {
+    position: absolute;
+    top: 424px;
+    left: 458px;
+}
+
+.plan-show-additional-info-detail {
+    position: absolute;
+    top: 426px;
+    left: 392px;
 }

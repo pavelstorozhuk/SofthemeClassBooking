@@ -60,6 +60,7 @@
 
 .plan-room-popup-edit-bottom {
     height: 44px;
+    padding-top: 6px;
 }
 
 .plan-room-popup-edit-up {
@@ -91,10 +92,10 @@
 .plan-room-popup-buttons button{
     border: none;
     border-radius: 13px;
-    font-size: 11px;
+    font-size: 10px;
     outline: none;
     cursor: pointer;
-    padding: 2px 7px;
+    padding: 1px 7px;
 }
 
 .plan-room-popup-buttons-cancel {
