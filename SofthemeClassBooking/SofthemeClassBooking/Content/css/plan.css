@@ -5,9 +5,21 @@
 
 #plan-section {
     position: relative;
+    margin-top: 2px;
     height: 517px;
     width: 100%;
     background-color: #EBEEF7;
+}
+
+.plan-stage {
+    position: absolute;
+    left: 47%;
+    top: 11%;
+    padding: 0;
+    margin: 0;
+    font-family: 'Arial';
+    font-weight: normal;
+    z-index: 1;
 }
 
 .plan-loading-section {

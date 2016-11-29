@@ -12,7 +12,7 @@
 
 .feedback-header {
     width: 100%;
-    margin-bottom: 18px;
+    margin-bottom: 8px;
 }
 
 .feedback-write-message {
@@ -27,6 +27,7 @@
 
 .feedback-result-message {
     display: inline-block; 
+    font-size: 14px;
     padding-top: 15px; 
     width: 490px; 
     text-align: center;
@@ -34,6 +35,7 @@
 
 .feedback-proposition-text {
     color: #4A5158;
+    font-size: 14px;
 }
 
 .feedback-image {
@@ -44,6 +46,7 @@
 }
 
 .feedback-left {
+    margin-top: 11px;
     float: left;
     width: 500px;
 }
@@ -52,17 +55,16 @@
     display: inline-block;
     margin-left: 31px;
     width: 500px;
-    width: 500px;
 }
 
     .feedback-form input[type="text"], button, textarea {
-        padding-left: 17px;
         border: none;
         outline: none;
         border-radius: 19px;
         height: 34px;
         background-color: #F5F6FB;
         resize: none;
+        text-indent: 17px;
     }
 
 .feedback-form-inline-name {
@@ -79,11 +81,11 @@
 }
 
 .feedback-form-lastname {
-    width: 273px;
+    width: 275px;
 }
 
 .feedback-form-email {
-    width: 490px;
+    width: 495px;
 }
 
 .feedback-form-message {
@@ -93,12 +95,12 @@
 }
 
 .feedback-form-button-submit-block {
-    margin-top: 15px;
+    margin-top: 11px;
     text-align: center;
 }
 
 .feedback-form-button-submit {
-    padding-left: 0px;
+    text-indent: 0px;
     color: #858B94;
     background-color: #C8CEDA;
     text-align: center;
@@ -106,7 +108,7 @@
 }
 
 .feedback-form-button-submit-ok {
-    padding-left: 0px;
+    text-indent: 0px;
     background-color: #F95752;
     color: #FEFEFF;
     text-align: center;

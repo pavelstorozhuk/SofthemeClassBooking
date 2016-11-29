@@ -59,16 +59,13 @@
 }
 
 .plan-room-popup-edit-bottom {
-    height: 44px;
-    padding-top: 6px;
+    padding-top: 3px;
 }
 
 .plan-room-popup-edit-up {
     height: 26px;
     padding-top: 10px;
-    padding-bottom: 10px;
 }
-
 
 
 .plan-room-popup-edit-info {
@@ -113,7 +110,7 @@
     position: relative;
     float: left;
     line-height: 30px;
-    padding-top: 5px;
+
     padding-left: 17px;
     padding-right: 17px;
     font-size: 12px;

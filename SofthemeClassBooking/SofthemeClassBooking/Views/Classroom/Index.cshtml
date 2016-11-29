@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<SofthemeClassBooking_BOL.Contract.IClassRoom>
 
 
+<h1 class="plan-stage">Этаж 10</h1>
 @foreach (var classroom in Model)
 {
     var nameParts = classroom.Name.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
@@ -14,7 +15,7 @@
                 @if (nameParts.Length > 0)
                 {
 
-                    <span class="@english plan-noselect-text">
+                    <span id="plan-room-showname-@classroom.Id" class="@english plan-noselect-text">
                         @for (int i = 0; i < nameParts.Length; i++)
                         {
                             if (i >= 1)
@@ -38,13 +39,3 @@
 
 <div id="plan-room-line"></div>
 <div id="plan-room-path"></div>
-
-<script type="text/javascript">
-    $('.plan-room')
-        .click(function () {
-    //if ($(this).hasClass('-available')) { when roles are applied. Now for admin only
-
-        window.location.href = '/Classroom/RoomPage/' + $(this).attr('id');
-    //}
-});
-</script>

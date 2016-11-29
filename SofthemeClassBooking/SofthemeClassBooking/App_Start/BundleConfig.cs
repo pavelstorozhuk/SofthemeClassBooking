@@ -32,8 +32,8 @@ namespace SofthemeClassBooking
 
             #region Style
             bundles.Add(new StyleBundle("~/Styles/css").Include(
-                      "~/Content/css/bootstrap.css",
-                      "~/Content/css/global.css"));
+                      "~/Content/css/global.css",
+                      "~/Content/css/font-awesome.css"));
 
             bundles.Add(new StyleBundle("~/Styles/registration").Include(
                 "~/Content/css/registration.css"
@@ -48,7 +48,8 @@ namespace SofthemeClassBooking
 
             bundles.Add(new StyleBundle("~/Styles/plan").Include(
                     "~/Content/css/plan.css",
-                    "~/Content/css/additionalInfoRoom.css"));
+                    "~/Content/css/additionalInfoRoom.css",
+                    "~/Content/css/modal.css"));
             #endregion
         }
     }
