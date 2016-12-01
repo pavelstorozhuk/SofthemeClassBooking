@@ -1,9 +1,0 @@
-﻿CREATE TABLE [Feedbacks]
-(
- [Id]  INT PRIMARY KEY  IDENTITY NOT NULL,
- [Name] NVARCHAR(50) NOT NULL,
- [Surname] NVARCHAR(50) NOT NULL,
- [Email] varchar(256) NOT NULL,
- [Text] NVARCHAR(3000) NOT NULL
-)
-GO
