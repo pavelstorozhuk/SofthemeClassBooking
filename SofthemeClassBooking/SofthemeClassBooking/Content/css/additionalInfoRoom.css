@@ -1,0 +1,153 @@
+﻿.plan-room-popup-info {
+    display: inline-block;
+    width: auto;
+    background-color: #F5F7FB;
+    opacity: 0.6;
+    border-radius: 35px;
+    border: 1px solid #9A9FA7;
+    color: #697183;
+    font-family: 'Arial';
+    font-size: 12px;
+}
+
+.plan-room-popup-info-count {
+    display: inline-block;
+    float: left;
+    width: 20px;
+    height: 44px;
+    line-height: 40px;
+    text-align: center;
+}
+
+.plan-room-popup-info-count span {
+    vertical-align: middle;
+}
+
+.plan-room-popup-info-section {
+    float: left;
+    padding-left: 20px;
+    line-height: 40px;
+    padding-bottom: 2px;
+    line-height: 40px;
+}
+
+
+.plan-room-popup-info img {
+    position: relative;
+    vertical-align: middle;
+}
+
+.plan-room-popup-info-edit-section img {
+    position: relative;
+    vertical-align: middle;
+}
+
+/*edit*/
+
+
+.plan-room-popup-info-section {
+    float: left;
+    padding-left: 20px;
+    line-height: 40px;
+    padding-bottom: 2px;
+    line-height: 40px;
+}
+
+.plan-room-popup-edit-name {
+    padding-left: 20px;
+    display: inline-block;
+}
+
+.plan-room-popup-edit-bottom {
+    padding-top: 3px;
+}
+
+.plan-room-popup-edit-up {
+    height: 26px;
+    padding-top: 10px;
+}
+
+
+.plan-room-popup-edit-info {
+    display: inline-block;
+    width: auto;
+    background-color: #F5F7FB;
+    opacity: 0.8;
+    border-radius: 20px;
+    border: 1px solid #9A9FA7;
+    color: #697183;
+    font-family: 'Arial';
+    font-size: 11px;
+}
+
+.plan-room-popup-buttons {
+    display: inline-block;
+    float: right;
+    padding-right: 20px;
+}
+
+.plan-room-popup-buttons button{
+    border: none;
+    border-radius: 13px;
+    font-size: 10px;
+    outline: none;
+    cursor: pointer;
+    padding: 1px 7px;
+}
+
+.plan-room-popup-buttons-cancel {
+    background-color: #C8CEDA;
+    color: #4A5158;
+}
+
+.plan-room-popup-buttons-ok {
+    color: #FFFFFF;
+    background-color: #F65857;
+    margin-left: 10px;
+}
+
+.plan-room-popup-edit-info-section {
+    position: relative;
+    float: left;
+    line-height: 30px;
+
+    padding-left: 17px;
+    padding-right: 17px;
+    font-size: 12px;
+}
+
+.plan-room-popup-edit-roomname {
+    color: #697183;
+    outline: none;
+    border: none;
+    max-width: 145px;
+    text-overflow: ellipsis; 
+    border-bottom: 1px solid #9FA4A9;
+    background: transparent;
+    font-size: 12px;
+    margin-left: 2px;
+    padding-left: 7px;
+}
+
+.plan-room-popup-edit-info-count {
+    display: inline-block;
+    float: left;
+    height: 44px;
+    line-height: 28px;
+    padding-left: 4px;
+    padding-right: 16px;
+    text-align: center;
+}
+
+.plan-room-popup-edit-count {
+    margin-left: 4px;
+    text-align: center;
+    color: #697183;
+    outline: none;
+    border: none;
+    max-width: 25px;
+    text-overflow: ellipsis; 
+    border-bottom: 1px solid #9FA4A9;
+    background: transparent;
+    font-size: 12px;
+}

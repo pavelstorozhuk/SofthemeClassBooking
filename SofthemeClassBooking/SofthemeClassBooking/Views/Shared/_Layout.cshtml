@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Styles/css")
+    @Styles.Render("~/Styles/layout")
+    
+    @RenderSection("stylesUp", required: false)
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+</head>
+<body>
+
+    <nav>
+        <div class="containerLogo">
+            <a href="@Url.Action("Index", "Home")">
+                <img src="~/Content/images/logo.png" alt="Softheme" />
+            </a>
+
+        </div>
+        
+      
+        <div class="containerNav">
+            <div>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </nav>
+    <div>
+        @RenderBody()
+    </div>
+
+<footer>
+    <div class="container">
+        <div class="image">
+            <img src="~/Content/images/logo-gray.png" alt="Softheme" />
+        </div>
+        <div class="line">
+            <hr />
+        </div>
+        <div class="text">
+            Все права защищены &copy;
+        </div>
+    </div>
+</footer>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,118 @@
+﻿@model SofthemeClassBooking.Models.ClassRoomAdditionalViewModel
+
+@if (!@Model.IsChange)
+{
+    <div class="plan-room-popup-info">
+
+        <div class="plan-room-popup-info-section">
+            <img src="~/Content/images/addinfo/icon-table.png" />
+        </div>
+        <div class="plan-room-popup-info-count">
+            <span>
+                    @Model.ClassRoom.Capacity
+            </span>
+        </div>
+        <div class="plan-room-popup-info-section">
+            <img src="~/Content/images/addinfo/icon-board.png" />
+        </div>
+        <div class="plan-room-popup-info-count">
+            <span>
+                @if (Model.ClassRoom.QuantityOfBoards != 0)
+                {
+                   @Model.ClassRoom.QuantityOfBoards
+                }
+            </span>
+        </div>
+        <div class="plan-room-popup-info-section">
+            <img src="~/Content/images/addinfo/icon-laptop.png" />
+        </div>
+        <div class="plan-room-popup-info-count">
+            <span>
+                @if (Model.ClassRoom.QuantityOfLaptops != 0)
+                {
+                    @Model.ClassRoom.QuantityOfLaptops
+                }
+            </span>
+        </div>
+        <div class="plan-room-popup-info-section">
+            <img src="~/Content/images/addinfo/icon-print.png" />
+        </div>
+        <div class="plan-room-popup-info-count">
+            <span>
+                @if (Model.ClassRoom.QuantityOfPrinters != 0)
+                {
+                    @Model.ClassRoom.QuantityOfPrinters
+                }
+            </span>
+        </div>
+        <div class="plan-room-popup-info-section">
+            <img src="~/Content/images/addinfo/icon-proect.png" />
+        </div>
+        <div class="plan-room-popup-info-count">
+            <span>
+                @if (Model.ClassRoom.QuantityOfTables != 0)
+                {
+                    @Model.ClassRoom.QuantityOfTables
+                }
+            </span>
+        </div>
+
+    </div>
+}
+else
+{
+    using (Html.BeginForm("ChangeInfo", "Classroom", FormMethod.Post, new { role = "form", id = "roomChange", autocomplete = "off" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(m => m.ClassRoom.Id)
+
+        <div class="plan-room-popup-edit-info">
+
+            <div class="plan-room-popup-edit-up">
+                <div class="plan-room-popup-edit-name">
+                    <label for="plan-edit-roomname">Название:</label>
+                    @Html.TextBoxFor(m => m.ClassRoom.Name, new { id = "roomName", @class = "plan-room-popup-edit-roomname" })
+                </div>
+                <div class="plan-room-popup-buttons">
+                    <button id="plan-room-edit-cancel" type="button" class="plan-room-popup-buttons-cancel">Отменить</button>
+                    <button id="plan-room-edit-submit" type="submit" class="plan-room-popup-buttons-ok">Сохранить</button>
+                </div>
+            </div>
+
+            <div class="plan-room-popup-edit-bottom">
+                <div class="plan-room-popup-info-section">
+                    <img src="/Content/images/addInfo/icon-table.png" />
+                </div>
+                <div class="plan-room-popup-edit-info-count">
+                    @Html.TextBoxFor(m => m.ClassRoom.Capacity, new { id = "roomCapacity", @class = "plan-room-popup-edit-count" })
+                </div>
+                <div class="plan-room-popup-info-section">
+                    <img src="/Content/images/addInfo/icon-board.png" />
+                </div>
+                <div class="plan-room-popup-edit-info-count">
+                    @Html.TextBoxFor(m => m.ClassRoom.QuantityOfBoards, new { id = "roomBoards", @class = "plan-room-popup-edit-count" })
+                </div>
+                <div class="plan-room-popup-info-section">
+                    <img src="/Content/images/addInfo/icon-laptop.png" />
+                </div>
+                <div class="plan-room-popup-edit-info-count">
+                    @Html.TextBoxFor(m => m.ClassRoom.QuantityOfLaptops, new { id = "roomLaptop", @class = "plan-room-popup-edit-count" })
+                </div>
+                <div class="plan-room-popup-info-section">
+                    <img src="/Content/images/addInfo/icon-print.png" />
+                </div>
+                <div class="plan-room-popup-edit-info-count">
+                    @Html.TextBoxFor(m => m.ClassRoom.QuantityOfPrinters, new { id = "roomPrinter", @class = "plan-room-popup-edit-count" })
+                </div>
+                <div class="plan-room-popup-info-section">
+                    <img src="/Content/images/addInfo/icon-proect.png" />
+                </div>
+                <div class="plan-room-popup-edit-info-count">
+                    @Html.TextBoxFor(m => m.ClassRoom.QuantityOfTables, new { id = "roomTables", @class = "plan-room-popup-edit-count" })
+                </div>
+            </div>
+
+        </div>
+    }
+}
