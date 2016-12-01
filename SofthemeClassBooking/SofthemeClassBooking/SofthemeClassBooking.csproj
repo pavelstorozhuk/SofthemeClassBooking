@@ -188,6 +188,7 @@
     </Compile>
     <Compile Include="Helpers\ActiveMenuOptionHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AppDbInitializer.cs" />
     <Compile Include="Models\ClassRoomAdditionalViewModel.cs" />
     <Compile Include="Models\ClassRoomChangeStatusModel.cs" />
     <Compile Include="Models\ClassRoomViewModel.cs" />
@@ -308,17 +309,20 @@
     <Content Include="Views\Home\MapPartial.cshtml" />
     <Content Include="Views\Classroom\Index.cshtml" />
     <Content Include="Views\Home\CalenderPartial.cshtml" />
-    <Content Include="Views\Login\ChangePasswordPartialView.cshtml" />
-    <Content Include="Views\Login\Enter.cshtml" />
-    <Content Include="Views\Login\RegistrationPartialView.cshtml" />
-    <Content Include="Views\Login\RegistrationResult.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Login\SofthemeRegistration.cshtml" />
     <Content Include="Views\Shared\_LayoutAuthorization.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Classroom\AdditionalInfo.cshtml" />
     <Content Include="Views\Classroom\RoomPage.cshtml" />
     <Content Include="Views\Classroom\PlanPartial.cshtml" />
+    <Content Include="Views\Login\ChangePasswordPartialView.cshtml" />
+    <Content Include="Views\Login\Enter.cshtml" />
+    <Content Include="Views\Login\ForgotPassword.cshtml" />
+    <Content Include="Views\Login\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\RegistrationPartialView.cshtml" />
+    <Content Include="Views\Login\RegistrationResult.cshtml" />
+    <Content Include="Views\Login\ResetPassword.cshtml" />
+    <Content Include="Views\Login\SofthemeRegistration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

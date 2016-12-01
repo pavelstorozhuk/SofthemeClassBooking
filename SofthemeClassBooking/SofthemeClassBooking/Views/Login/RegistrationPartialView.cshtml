@@ -2,24 +2,74 @@
 @using SofthemeClassBooking.Models
 @model RegisterViewModel
 
-
 @using (Html.BeginForm("SofthemeRegistration", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-
-    @Html.AntiForgeryToken()
+{   @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    @Html.ValidationMessageFor(m => m.UserName, "", new { @id = "UserName", @class = "registration-form-incorrect-block" })
     @Html.TextBoxFor(m => m.UserName, new { placeholder = "Имя Фамилия" })
-    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-    @Html.TextBoxFor(m => m.Email, new { placeholder = "Адрес электронной почты" })
-    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-    @Html.TextBoxFor(m => m.Password, new { placeholder = "Пароль", type = "password" })
-    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" });
-    @Html.TextBoxFor(m => m.Password, new { placeholder = "Пароль", type = "password" })
-
-    <input  style="width:auto" type="submit" value="Зарегистрироваться" id="mysubmit" />
-
-
+    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "registration-form-incorrect-block" })
+    @Html.TextBoxFor(m => m.Email, new { @id="emailBox", placeholder = "Адрес электронной почты" })
+    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "registration-form-incorrect-block" });
+    @Html.TextBoxFor(m => m.Password, new {@id="Password", placeholder = "Пароль", type = "password" })
+    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "registration-form-incorrect-block" });
+    @Html.TextBoxFor(m => m.ConfirmPassword, new { placeholder = "Пароль", type = "password" })
+    <input style="width:140px" class="button-refuse" type="submit" value="Зарегистрироваться" id="mysubmit" />
+ 
 }
 <script>
-    
-  
+
+    $(document)
+        .ready(function () {
+            $('#emailBox').change(function () {
+                var value = $.trim($(this).val());
+                var value2 = $.trim($("#Password").val());
+                var value3 = $.trim($("#UserName").val());
+                $("#Login").validate();
+                if (value.length > 0 && value2.length>0 && value3.length>0) {
+
+                    $('#mysubmit').removeClass("button-refuse");
+                    $('#mysubmit').addClass('button-OK');
+                }
+                else {
+                    $('#mysubmit').removeClass("button-OK");
+                    $('#mysubmit').addClass('button-refuse');
+
+                }
+            });
+            $('#Password').change(function () {
+                var value = $.trim($("#emailBox").val());
+                var value2 = $.trim($(this).val());
+                var value3 = $.trim($("#UserName").val());
+
+                if (value.length > 0 && value2.length > 0 && value3.length > 0)
+                {
+
+                    $('#mysubmit').removeClass("button-refuse");
+                    $('#mysubmit').addClass('button-OK');
+                }
+                else
+                {
+                    $('#mysubmit').removeClass("button-OK");
+                    $('#mysubmit').addClass('button-refuse');
+
+                }
+            });
+            $('#UserName').change(function () {
+                var value = $.trim($("#emailBox").val());
+                var value2 = $.trim($("#Password").val());
+                var value3 = $.trim($(this).val());
+
+                if (value.length > 0 && value2.length > 0 && value3.length > 0) {
+
+                    $('#mysubmit').removeClass("button-refuse");
+                    $('#mysubmit').addClass('button-OK');
+                }
+                else {
+                    $('#mysubmit').removeClass("button-OK");
+                    $('#mysubmit').addClass('button-refuse');
+
+                }
+            });
+        });
+
 </script>

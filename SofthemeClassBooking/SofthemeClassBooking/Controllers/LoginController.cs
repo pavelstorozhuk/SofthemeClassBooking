@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -24,7 +27,7 @@ namespace SofthemeClassBooking.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-      
+
         public ActionResult Enter()
         {
             return PartialView("Enter");
@@ -37,7 +40,21 @@ namespace SofthemeClassBooking.Controllers
         {
             return PartialView("ChangePasswordPartialView");
         }
-      
+        [HttpPost]
+        public ActionResult ValidateLogin(LoginViewModel model)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                return Json(new { message = "Спасибо. Ваше сообщение отправлено администратору." });
+            }
+
+            return Json(new { message = "Данные введены неверно. Попробуйте еще раз." });
+
+
+        }
+
 
         public LoginController()
         {
@@ -51,6 +68,7 @@ namespace SofthemeClassBooking.Controllers
 
         public ApplicationSignInManager SignInManager
         {
+
             get
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
@@ -59,7 +77,9 @@ namespace SofthemeClassBooking.Controllers
             {
                 _signInManager = value;
             }
+
         }
+
 
         public ApplicationUserManager UserManager
         {
@@ -71,8 +91,16 @@ namespace SofthemeClassBooking.Controllers
             {
                 _userManager = value;
             }
+
         }
-    
+
+        [HttpPost]
+
+        public ActionResult RegistrationEmail()
+        {
+            return View("RegistrationResult");
+        }
+
 
         //
         // POST: /Account/Login
@@ -83,38 +111,37 @@ namespace SofthemeClassBooking.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("Index", model);
             }
-            string user_name = ""; // in case 'user' is null (user not found)
+            string userName = ""; // in case 'user' is null (user not found)
             var user = await UserManager.FindByEmailAsync(model.Email);
 
             if (user != null)
             {
-                user_name = user.UserName;
+                userName = user.UserName;
 
-                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+                if (user.EmailConfirmed)
                 {
-                    // (...) Require the user to have a confirmed email before they can log on, etc
+                    await SignInAsync(user, model.RememberMe);
+                    return RedirectToLocal(returnUrl);
                 }
+                else
+                {
+                    ModelState.AddModelError("", "<img src='../Content/images/danger.png'/>Confirm Email Address.");
+
+                }
+
             }
+            ModelState.AddModelError("", "<img src='../Content/images/danger.png'/> Неверные данные");
+            return View("Index", model);
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(user_name, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
-            }
-        }
 
+        }
+        public ActionResult SofthemeLogin()
+        {
+            return View("Index", new LoginViewModel());
+        }
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
@@ -166,6 +193,19 @@ namespace SofthemeClassBooking.Controllers
         {
             return View("SofthemeRegistration");
         }
+        //--------------------------------------------------------------------
+        [Authorize]
+        public ActionResult Roles()
+        {
+            IList<string> roles = new List<string> { "Роль не определена" };
+            ApplicationUserManager userManager = HttpContext.GetOwinContext()
+                                                    .GetUserManager<ApplicationUserManager>();
+            ApplicationUser user = userManager.FindByEmail(User.Identity.Name);
+            if (user != null)
+                roles = userManager.GetRoles(user.Id);
+            return View(roles);
+        }
+        //--------------------------------------------------------------------------------
         //
         // POST: /Account/Register
         [HttpPost]
@@ -179,15 +219,19 @@ namespace SofthemeClassBooking.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await UserManager.AddToRoleAsync(user.Id, "user");
 
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
+                    MailMessage m = new MailMessage(new MailAddress("softhemeclassbooking@gmail.com", "Web Registration"), new MailAddress(user.Email));
+                    m.Subject = "Email confirmation";
+                    m.Body = string.Format("Dear {0}<BR/>Thank you for your registration, please click on the below link to complete your registration: <a href=\"{1}\" title=\"User Email Confirm\">{1}</a>", user.UserName, Url.Action("ConfirmEmail", "Login", new { Token = user.Id, Email = user.Email }, Request.Url.Scheme));
+                    m.IsBodyHtml = true;
+                    SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.Credentials = new System.Net.NetworkCredential("softhemeclassbooking@gmail.com", "softhemeclass");
+                    smtp.EnableSsl = true;
+                    smtp.Send(m);
+                    return RedirectToAction("Confirm", "Login", new { Email = user.Email });
                 }
                 AddErrors(result);
             }
@@ -196,19 +240,60 @@ namespace SofthemeClassBooking.Controllers
             return View(model);
         }
 
+        public ActionResult RegistrationResult()
+        {
+            return View("RegistrationResult");
+        }
         //
         // GET: /Account/ConfirmEmail
+        //  [AllowAnonymous]
+        /* public async Task<ActionResult> ConfirmEmail(string userId, string code)
+         {
+             if (userId == null || code == null)
+             {
+                 return View("Error");
+             }
+             var result = await UserManager.ConfirmEmailAsync(userId, code);
+             return View(result.Succeeded ? "ConfirmEmail" : "Error");
+         }*/
+        [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        public ActionResult Confirm(string email)
         {
-            if (userId == null || code == null)
-            {
-                return View("Error");
-            }
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            ViewBag.Email = email;
+            return View("RegistrationResult");
+        }
+        private async Task SignInAsync(ApplicationUser user, bool isPersistent)
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }
 
+        [AllowAnonymous]
+        public async Task<ActionResult> ConfirmEmail(string token, string email)
+        {
+            ApplicationUser user = this.UserManager.FindById(token);
+            if (user != null)
+            {
+                if (user.Email == email)
+                {
+                    user.EmailConfirmed = true;
+                    await UserManager.UpdateAsync(user);
+                    await SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index", "Home", new { ConfirmedEmail = user.Email });
+                }
+                else
+                {
+                    return RedirectToAction("Confirm", "Login", new { Email = user.Email });
+                }
+            }
+            else
+            {
+                return RedirectToAction("Confirm", "Login", new { Email = "" });
+            }
+
+        }
         //
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
@@ -226,23 +311,20 @@ namespace SofthemeClassBooking.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
+                var user = await UserManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
                 }
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Login",
+                    new { Id = user.Id, code, Email = user.Email }, protocol: Request.Url.Scheme);
 
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                await UserManager.SendEmailAsync(user.Id, "Сброс пароля",
+                    "Для сброса пароля, перейдите по ссылке <a href=\"" + callbackUrl + "\">сбросить</a>");
+                return RedirectToAction("ForgotPasswordConfirmation", "Login");
             }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            return View("ForgotPassword", model);
         }
 
         //
@@ -255,12 +337,25 @@ namespace SofthemeClassBooking.Controllers
 
         //
         // GET: /Account/ResetPassword
+        /* [AllowAnonymous]
+         public ActionResult ResetPassword(string code)
+         {
+             return code == null ? View("Error") : View();
+         }*/
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public ActionResult ResetPassword(string Email, string code)
         {
-            return code == null ? View("Error") : View();
+            if (code == null)
+            {
+                return View("Error");
+            }
+            else
+            {
+                ResetPasswordViewModel model = new ResetPasswordViewModel();
+                model.Email = Email;
+                return View(model);
+            }
         }
-
         //
         // POST: /Account/ResetPassword
         [HttpPost]
@@ -272,16 +367,17 @@ namespace SofthemeClassBooking.Controllers
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+
+            var user = await UserManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                return RedirectToAction("ResetPassword", "Login");
             }
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                return RedirectToAction("ResetPassword", "Login");
             }
             AddErrors(result);
             return View();
@@ -505,6 +601,6 @@ namespace SofthemeClassBooking.Controllers
             }
         }
         #endregion
-       
+
     }
 }

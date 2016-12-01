@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.Identity;
@@ -16,12 +21,30 @@ namespace SofthemeClassBooking
 {
     public class EmailService : IIdentityMessageService
     {
+
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+
+
+            var client = new SmtpClient("smtp.gmail.com", 587)
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                Credentials = new NetworkCredential("softhemeclassbooking@gmail.com", "softhemeclass"),
+                EnableSsl = true
+            };
+            var mail = new MailMessage("softhemeclassbooking@gmail.com", message.Destination)
+            {
+                Subject = message.Subject,
+                Body = message.Body,
+                IsBodyHtml = true
+            };
+
+
+            return client.SendMailAsync(mail);
         }
     }
+
 
     public class SmsService : IIdentityMessageService
     {
@@ -86,6 +109,7 @@ namespace SofthemeClassBooking
             }
             return manager;
         }
+
     }
 
     // Configure the application sign-in manager which is used in this application.
@@ -105,5 +129,11 @@ namespace SofthemeClassBooking
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
+
     }
 }
+
+
+
+
+

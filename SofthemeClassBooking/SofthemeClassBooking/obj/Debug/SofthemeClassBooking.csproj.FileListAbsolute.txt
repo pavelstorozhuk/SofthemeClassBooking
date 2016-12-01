@@ -125,3 +125,12 @@ D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\Ninje
 D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\Ninject.Web.Mvc.xml
 D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\SofthemeClassBooking-BOL.dll
 D:\Work\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\SofthemeClassBooking-BOL.pdb
+C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\Ninject.dll
+C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\Ninject.Web.Common.dll
+C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\Ninject.Web.Mvc.dll
+C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\SofthemeClassBooking-BOL.dll
+C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\WebActivatorEx.dll
+C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\SofthemeClassBooking-BOL.pdb
+C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\Ninject.xml
+C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\Ninject.Web.Common.xml
+C:\SofthemeClassBooking\SofthemeClassBooking\SofthemeClassBooking\bin\Ninject.Web.Mvc.xml
