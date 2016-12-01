@@ -1,0 +1,261 @@
+﻿@model SofthemeClassBooking_BOL.Contract.IClassRoom
+
+@{
+    ViewBag.Title = "RoomPage";
+}
+
+@section stylesUp {
+    @Styles.Render("~/Styles/plan")
+}
+
+<div style="position: relative;">
+    
+    <!--<div id="lock" class="modal-background"></div>-->
+
+    <div id="plan-section">
+        <div id="plan-loading">
+            <div class="plan-loading-section">
+                <div>Загрузка плана этажа...</div>
+                <div>
+                    <img src="~/Content/images/gif/ajax-loader.gif" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="plan-room-edit-buttons-position ">
+        <div class="plan-room-edit-buttons">
+            @if (@Model.IsLocked)
+            {
+                <button id="plan-room-edit-open" class="plan-room-edit-buttons-up">Открыть</button>
+            }
+            else
+            {
+                <button id="plan-room-edit-close" class="plan-room-edit-buttons-up">Закрыть</button>
+            }
+            <button id="plan-room-edit-change" class="plan-room-edit-buttons-down">Изменить</button>
+        </div>
+    </div>
+    
+    
+    <div class="modal-close-room-position">
+        <div id="modal-room-close" class="modal-close-room">
+
+            <div class="modal-header">
+                <div class="modal-header-icon">
+                    <i class="fa fa-ban fa-cog fa-2x" aria-hidden="true"></i>
+                </div>
+                <div class="modal-header-text">
+                    <span>Вы уверенны, что хотите закрыть аудиторию?</span>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <div class="modal-message">
+                    Все события, запланированные в данной аудитории, будут отмненены.
+                </div>
+            </div>
+
+            <div class="modal-buttons">
+                <button id="modal-answer-no" class="modal-button-no">Нет</button>
+                <button id="modal-answer-yes" class="modal-button-yes">Да</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="lock" class="modal-background"></div>
+</div>
+
+
+<div style="height: 335px">
+    calendar goes here
+</div>
+
+<script type="text/javascript">
+    $(document)
+        .ready(function () {
+
+            $('.plan-room-edit-buttons-position').hide(),
+            $.ajax({
+                url: '@Url.Action("Index", "Classroom")',
+                method: 'GET',
+                cache: false,
+                dataType: 'html',
+                success: function (result) {
+                    $('#plan-section').html(result);
+
+                    $('.plan-room-edit-buttons-position').show();
+                    $('#plan-room-path').addClass('plan-room-path-@Model.Id');
+                    $('#@Model.Id').addClass('plan-room-@Model.Id-busy');
+                    $('#@Model.Id').removeClass('plan-room-@Model.Id-available');
+                },
+
+                error: function (result) {
+                    alert('error!');
+                },
+
+                function() {
+                    $('#plan-loading').hide();
+                }
+            });
+        });
+
+    $(document)
+        .ready(function() {
+            var isLocked = '@Model.IsLocked';
+            if (isLocked !== 'True') {
+                loadAdditionalInfo(false);
+            }
+        });
+
+    function loadAdditionalInfo(change) {
+        var urlTarget;
+        var showClass;
+        if (change === true) {
+            $('#plan-room-showname-@Model.Id').hide();
+            urlTarget = '@Url.Action("AdditionalInfo", "Classroom", new {id = Model.Id, isChange = true})';
+            showClass = 'plan-show-additional-info-detail';
+        } else {
+            urlTarget = '@Url.Action("AdditionalInfo", "Classroom", new {id = Model.Id})';
+            showClass = 'plan-show-additional-info-short';
+            $('#plan-room-showname-@Model.Id').show();
+        }
+
+        $.ajax({
+            url: urlTarget,
+            method: 'GET',
+            data: 'html',
+            cache: false,
+
+            success: function (result) {
+                $('#show').attr('class', showClass);
+                
+                $('#show').empty().append(result);
+
+                $('#plan-room-line').attr('class', 'plan-room-line-detail-' + @Model.Id);
+                $('#plan-room-line').show();
+                console.log('receiver response');  
+            },
+            error: function (response) {
+                alert("Щось пішло не так");
+            }
+        });
+    }
+
+    $('#plan-room-edit-open')
+        .click(function () {
+            $.ajax({
+                url: '@Url.Action("ChangeStatus","Classroom")',
+                method: 'POST',
+                data: { 'Id' : '@Model.Id', 'ClassRoomStatus' : 0 },
+                dataType: 'json',
+
+                error: function (response) {
+                    alert("Щось пішло не так");
+                },
+                success: function (response) {
+                    location.reload();
+                }
+            });
+        });
+
+    $('#plan-room-edit-close')
+    .click(function () {
+
+        showModal(true);
+
+    });
+
+    $('#modal-answer-no')
+        .click(function() {
+            showModal(false);
+        });
+
+    $('#modal-answer-yes')
+        .click(function() {
+
+            $.ajax({
+                url: '@Url.Action("ChangeStatus","Classroom")',
+                method: 'POST',
+                data: { 'Id': '@Model.Id', 'ClassRoomStatus': 1 },
+                dataType: 'json',
+
+                error: function (response) {
+                    alert("Щось пішло не так");
+                },
+                success: function (response) {
+                    location.reload();
+                }
+            });
+
+            showModal(false);
+        });
+
+    function showModal(isShown) {
+        if (isShown == true) {
+            $("#modal-room-close").css('display', 'block');
+            $('#lock').css('display', 'block');
+        } else {
+            $("#modal-room-close").css('display', 'none');
+            $('#lock').css('display', 'none');
+        }
+    };
+
+    $('#plan-room-edit-change')
+        .click(function() {
+            loadAdditionalInfo(true);
+        });
+
+    $(document).on('click','#plan-room-edit-cancel', function() {
+        $('#show').empty();
+        $('#plan-room-line').attr('class','');
+        var isLocked = '@Model.IsLocked';
+        if (isLocked !== 'True') {
+            loadAdditionalInfo(false);
+        }
+    })
+
+    $(document).on('click','#plan-room-edit-cancel', function() {
+        $('#show').empty();
+        $('#plan-room-line').attr('class','');
+        var isLocked = '@Model.IsLocked';
+        if (isLocked !== 'True') {
+            loadAdditionalInfo(false);
+        }
+    })
+
+    $(document).on('click','#plan-room-edit-submit', function(e) {
+             e.preventDefault();
+                 $.ajax({
+                     url: '@Url.Action("ChangeInfo")',
+                     method: 'POST',
+                     data: $('#roomChange').serialize(),
+                     dataType: 'json',
+                     success: function (result) {
+                         var isLocked = '@Model.IsLocked';
+                         if (isLocked !== 'True') {
+                             loadAdditionalInfo(false);
+                         }
+                     }
+                 });
+         });
+
+
+    $('#no')
+        .click(function() {
+            $('#modal-room-close').css('display', 'none');
+            $('#shit').css('display', 'none');
+        });
+
+
+    $(document)
+        .ready(function () {
+            $(document).on('click', '.plan-room', function () {
+                //if ($(this).hasClass('-available')) { when roles are applied. Now for admin only
+
+                window.location.href = '/Classroom/RoomPage/' + $(this).attr('id');
+                //}
+            });
+        });
+
+</script>
