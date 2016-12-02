@@ -2,7 +2,6 @@
     @Styles.Render("~/Styles/plan")
 }
 
-
 <div id="plan-section">
     <div id="plan-loading">
         <div class="plan-loading-section">
@@ -16,8 +15,15 @@
 
 
 
-<div style="height: 335px">
-    calendar goes here
+<div id="roomevent-section" style="margin-left: 126px; padding-top: 25px;">
+    <div id="roomevent-loading">
+        <div class="roomevent-loading-section">
+            <div>Загрузка рассписания...</div>
+            <div>
+                <img src="~/Content/images/gif/ajax-loader.gif" />
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="map-section">
@@ -76,6 +82,30 @@
                 }
 
             });
+
+            $.ajax({
+                url: '@Url.Action("Index","Event")',
+                method: 'GET',
+                cache: false,
+                dataType: 'html',
+
+                success: function (result) {
+                    $('#roomevent-section').html(result);
+                    renderTime(5);
+                    renderRooms(5);
+                    renderCalendar(currentMonth);
+                },
+
+                error: function (result) {
+                    $('#roomevent-section').html(result);
+                },
+
+                function() {
+                    $('#roomevent-loading').hide();
+                }
+
+            });
+
 
         });
 

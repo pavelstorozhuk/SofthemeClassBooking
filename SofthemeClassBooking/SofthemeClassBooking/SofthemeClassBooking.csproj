@@ -207,6 +207,7 @@
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\css\modal.css" />
     <Content Include="Content\css\registration.css" />
+    <Content Include="Content\css\roomevent.css" />
     <Content Include="Content\images\addEvent.png" />
     <Content Include="Content\images\addinfo\icon-board.png" />
     <Content Include="Content\images\addinfo\icon-laptop.png" />
@@ -261,6 +262,8 @@
     <Content Include="Scripts\jquery\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery\jquery-1.10.2.min.js" />
     <None Include="Scripts\validation\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\roomevent\calendar.js" />
+    <Content Include="Scripts\roomevent\render.js" />
     <Content Include="Scripts\validation\feedback-validation.js" />
     <Content Include="Scripts\validation\jquery.validate.js" />
     <Content Include="Scripts\validation\jquery.validate.min.js" />
@@ -313,7 +316,6 @@
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Classroom\AdditionalInfo.cshtml" />
     <Content Include="Views\Classroom\RoomPage.cshtml" />
-    <Content Include="Views\Classroom\PlanPartial.cshtml" />
     <Content Include="Views\Login\ChangePasswordPartialView.cshtml" />
     <Content Include="Views\Login\Enter.cshtml" />
     <Content Include="Views\Login\ForgotPassword.cshtml" />

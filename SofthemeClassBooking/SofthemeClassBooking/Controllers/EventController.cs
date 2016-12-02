@@ -11,7 +11,7 @@ namespace SofthemeClassBooking.Controllers
         // GET: Event
         public ActionResult Index()
         {
-            return View();
+            return PartialView();
         }
     }
 }

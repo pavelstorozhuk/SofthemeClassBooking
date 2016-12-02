@@ -1,2 +1,119 @@
 ﻿
-Working....
+@Styles.Render("~/Styles/roomevent")
+@Scripts.Render("~/bundles/roomevent")
+
+<!--
+    
+Controls for event booking
+    
+<div class="event-exist">
+    <div class="event-time">
+        13:30 - 14:30
+    </div>
+    <div class="event-description">
+        <div>English class - </div>
+        <div>Speaking for juniours</div>
+    </div>
+</div>
+
+<div class="event-lock">
+    <div class="event-time">
+        13:30 - 14:30
+    </div>
+    <i class="fa fa-lock fa-3x"></i>
+</div>
+
+<div class="event-add">
+    <i class="fa fa-plus fa-2x"></i>
+</div>
+    -->
+
+<div class="roomevent-section">
+
+    <!--Left side-->
+    <div class="roomevent-left-block">
+
+        <!--main part-->
+        <!--header-->
+        <div class="roomevent-header">
+
+            <!--switch-->
+            <div class="roomevent-header-switch-section">
+                <div class="roomevent-header-switch">
+                    <div class="button">
+                        <i id="large" class="fa fa-align-justify fa-lg" aria-hidden="true"></i>
+                        <i id="short" class="fa fa-list fa-lg fa-selected" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!--Date navigation-->
+            <div class="roomevent-header-date-section">
+                <i class="fa fa-caret fa-caret-left fa-2x" aria-hidden="true" style="float: left;"></i>
+                <span id="event-date"></span>
+                <i class="fa fa-caret fa-caret-right fa-2x" aria-hidden="true" style="float: right;"></i>
+            </div>
+
+        </div>
+
+        <!--Rows-->
+        <!--Time row-->
+        <div id="header-time">
+            <div class="roomevent-time-cell roomevent-time-cell-first"></div>
+        </div>
+
+        <div id="room-section"></div>
+        <div class="roomevent-calendar-today"><span id="event-time"></span></div>
+    </div>
+
+
+    <!--right block-->
+
+    <div class="roomevent-right-block">
+
+        <div class="roomevent-calener-date-section">
+            <i id="calendar-month-left" class="fa fa-caret fa-caret-left fa-2x" aria-hidden="true" style="float: left;"></i>
+            <span id="current-month"></span>
+            <i id="calendar-month-right" class="fa fa-caret fa-caret-right fa-2x" aria-hidden="true" style="float: right;"></i>
+        </div>
+
+        <div id="calendar-body" class="roomevent-calendar-body"> </div>
+        <div class="roomevent-calendar-today"><span id="calendar-month-today">Cегодня</span></div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    var roomNames = ['Einstein Classroom', 'Tesla Classroom', 'Newton Classroom'];
+
+    largeView.click(function () {
+        if (!largeView.hasClass('fa-selected')) {
+            largeView.addClass('fa-selected');
+            shortView.removeClass('fa-selected');
+
+            roomEventLeftBlock.addClass('roomevent-left-block-large');
+            roomEventHeader.addClass('roomevent-header-date-section-large');
+            renderTime(8);
+            renderRooms(8);
+
+            calendar.hide();
+        }
+    });
+
+    shortView.click(function () {
+        if (!shortView.hasClass('fa-selected')) {
+            shortView.addClass('fa-selected');
+            largeView.removeClass('fa-selected');
+
+            roomEventLeftBlock.removeClass('roomevent-left-block-large');
+            roomEventHeader.removeClass('roomevent-header-date-section-large');
+            renderTime(5);
+            renderRooms(5);
+
+            calendar.show();
+        }
+    });
+
+</script>
