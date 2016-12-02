@@ -28,6 +28,11 @@ namespace SofthemeClassBooking
             bundles.Add(new ScriptBundle("~/bundles/map").Include(
                         "~/Scripts/map/jquery.min.js",
                       "~/Scripts/map/jquery.mapit.min.js"));
+
+
+            bundles.Add(new ScriptBundle("~/bundles/roomevent").Include(
+                        "~/Scripts/roomevent/calendar.js",
+                      "~/Scripts/roomevent/render.js"));
             #endregion
 
             #region Style
@@ -50,6 +55,10 @@ namespace SofthemeClassBooking
                     "~/Content/css/plan.css",
                     "~/Content/css/additionalInfoRoom.css",
                     "~/Content/css/modal.css"));
+
+
+            bundles.Add(new StyleBundle("~/Styles/roomevent").Include(
+                    "~/Content/css/roomevent.css"));
             #endregion
         }
     }
