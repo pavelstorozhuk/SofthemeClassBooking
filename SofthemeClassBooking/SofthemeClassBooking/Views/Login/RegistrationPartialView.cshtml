@@ -20,7 +20,7 @@
 
     $(document)
         .ready(function () {
-            $('#emailBox').change(function () {
+            $('#emailBox').blur(function () {
                 var value = $.trim($(this).val());
                 var value2 = $.trim($("#Password").val());
                 var value3 = $.trim($("#UserName").val());
@@ -36,7 +36,7 @@
 
                 }
             });
-            $('#Password').change(function () {
+            $('#Password').blur(function () {
                 var value = $.trim($("#emailBox").val());
                 var value2 = $.trim($(this).val());
                 var value3 = $.trim($("#UserName").val());
@@ -54,7 +54,7 @@
 
                 }
             });
-            $('#UserName').change(function () {
+            $('#UserName').blur(function () {
                 var value = $.trim($("#emailBox").val());
                 var value2 = $.trim($("#Password").val());
                 var value3 = $.trim($(this).val());

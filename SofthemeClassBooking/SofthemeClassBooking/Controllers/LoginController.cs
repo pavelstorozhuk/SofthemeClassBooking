@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SofthemeClassBooking.Models;
 
 namespace SofthemeClassBooking.Controllers
 {
+     
     public class LoginController : Controller
     {
 
@@ -28,32 +30,19 @@ namespace SofthemeClassBooking.Controllers
             return View();
         }
 
-        public ActionResult Enter()
-        {
-            return PartialView("Enter");
-        }
         public ActionResult Registration()
         {
-            return PartialView("RegistrationPartialView");
+            return View();
         }
-        public ActionResult ChangePassword()
+
+        [AllowAnonymous]
+        public ActionResult ForgotPassword()
         {
-            return PartialView("ChangePasswordPartialView");
+            return View();
         }
-        [HttpPost]
-        public ActionResult ValidateLogin(LoginViewModel model)
-        {
-
-            if (ModelState.IsValid)
-            {
-
-                return Json(new { message = "Спасибо. Ваше сообщение отправлено администратору." });
-            }
-
-            return Json(new { message = "Данные введены неверно. Попробуйте еще раз." });
-
-
-        }
+        
+       
+        
 
 
         public LoginController()
@@ -101,7 +90,11 @@ namespace SofthemeClassBooking.Controllers
             return View("RegistrationResult");
         }
 
-
+        public ActionResult SofthemeLogin(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View("index");
+        }
         //
         // POST: /Account/Login
         [HttpPost]
@@ -109,39 +102,56 @@ namespace SofthemeClassBooking.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SofthemeLogin(LoginViewModel model, string returnUrl)
         {
+          
+
+       
             if (!ModelState.IsValid)
             {
-                return View("Index", model);
+                return Json(new { message = "Данные введены неверно. Попробуйте еще раз." });
             }
-            string userName = ""; // in case 'user' is null (user not found)
+           
             var user = await UserManager.FindByEmailAsync(model.Email);
+            
+            
 
             if (user != null)
             {
-                userName = user.UserName;
-
-                if (user.EmailConfirmed)
+               
+                if (!user.EmailConfirmed)
                 {
-                    await SignInAsync(user, model.RememberMe);
-                    return RedirectToLocal(returnUrl);
-                }
-                else
-                {
-                    ModelState.AddModelError("", "<img src='../Content/images/danger.png'/>Confirm Email Address.");
 
+                    ModelState.AddModelError("", "Confirm Email Address.");
+                    return View("Index",model);
                 }
+              
+                var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
+              
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        await SignInAsync(user, model.RememberMe);
+                        return RedirectToLocal(returnUrl);
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", "Неверные данные");
+                        return View("Index", model);
+                }
+              
 
             }
-            ModelState.AddModelError("", "<img src='../Content/images/danger.png'/> Неверные данные");
+            ModelState.AddModelError("", "Неверные данные");
             return View("Index", model);
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
 
         }
-        public ActionResult SofthemeLogin()
-        {
-            return View("Index", new LoginViewModel());
-        }
+         [HttpPost]
+      
+
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
@@ -189,10 +199,7 @@ namespace SofthemeClassBooking.Controllers
         // GET: /Account/Register
 
 
-        public ActionResult SofthemeRegistration()
-        {
-            return View("SofthemeRegistration");
-        }
+      
         //--------------------------------------------------------------------
         [Authorize]
         public ActionResult Roles()
@@ -231,13 +238,14 @@ namespace SofthemeClassBooking.Controllers
                     smtp.Credentials = new System.Net.NetworkCredential("softhemeclassbooking@gmail.com", "softhemeclass");
                     smtp.EnableSsl = true;
                     smtp.Send(m);
+                    smtp.Dispose();
                     return RedirectToAction("Confirm", "Login", new { Email = user.Email });
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return View("Registration",model);
         }
 
         public ActionResult RegistrationResult()
@@ -258,9 +266,9 @@ namespace SofthemeClassBooking.Controllers
          }*/
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult Confirm(string email)
+        public ActionResult Confirm()
         {
-            ViewBag.Email = email;
+            
             return View("RegistrationResult");
         }
         private async Task SignInAsync(ApplicationUser user, bool isPersistent)
@@ -296,11 +304,7 @@ namespace SofthemeClassBooking.Controllers
         }
         //
         // GET: /Account/ForgotPassword
-        [AllowAnonymous]
-        public ActionResult ForgotPassword()
-        {
-            return View();
-        }
+        
 
         //
         // POST: /Account/ForgotPassword
@@ -352,6 +356,7 @@ namespace SofthemeClassBooking.Controllers
             else
             {
                 ResetPasswordViewModel model = new ResetPasswordViewModel();
+                model.Code = code;
                 model.Email = Email;
                 return View(model);
             }
@@ -377,7 +382,7 @@ namespace SofthemeClassBooking.Controllers
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
-                return RedirectToAction("ResetPassword", "Login");
+                return RedirectToAction("ResetPasswordResult", "Login");
             }
             AddErrors(result);
             return View();
@@ -387,6 +392,11 @@ namespace SofthemeClassBooking.Controllers
         // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
+
+        public ActionResult ResetPasswordResult()
         {
             return View();
         }
