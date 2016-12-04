@@ -1,5 +1,6 @@
-using SofthemeClassBooking_BLL.Contracts;
 using SofthemeClassBooking_BLL.Implementation;
+using SofthemeClassBooking_BOL.Contract.Models;
+using SofthemeClassBooking_BOL.Models;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SofthemeClassBooking.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(SofthemeClassBooking.App_Start.NinjectWebCommon), "Stop")]
@@ -13,6 +14,7 @@ namespace SofthemeClassBooking.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
+    using SofthemeClassBooking_BOL.Contract.Services;
 
     public static class NinjectWebCommon 
     {
@@ -64,8 +66,8 @@ namespace SofthemeClassBooking.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IFeedbackService>().To<FeedbackService>();
-            kernel.Bind<IClassRoomService>().To<ClassRoomService>();
+            kernel.Bind<IFeedbackService<FeedbackModel>>().To<FeedbackService>();
+            kernel.Bind<IClassRoomService<ClassRoomModel>>().To<ClassRoomService>();
         }        
     }
 }

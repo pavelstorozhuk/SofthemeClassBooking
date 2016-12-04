@@ -189,10 +189,6 @@
     <Compile Include="Helpers\ActiveMenuOptionHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppDbInitializer.cs" />
-    <Compile Include="Models\ClassRoomAdditionalViewModel.cs" />
-    <Compile Include="Models\ClassRoomChangeStatusModel.cs" />
-    <Compile Include="Models\ClassRoomViewModel.cs" />
-    <Compile Include="Models\FeedbackModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -202,6 +198,7 @@
     <Content Include="Content\css\additionalInfoRoom.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\event.css" />
     <Content Include="Content\css\feedback.css" />
     <Content Include="Content\css\font-awesome.css" />
     <Content Include="Content\css\font-awesome.min.css" />
@@ -313,7 +310,6 @@
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Classroom\AdditionalInfo.cshtml" />
     <Content Include="Views\Classroom\RoomPage.cshtml" />
-    <Content Include="Views\Classroom\PlanPartial.cshtml" />
     <Content Include="Views\Login\ChangePasswordPartialView.cshtml" />
     <Content Include="Views\Login\Enter.cshtml" />
     <Content Include="Views\Login\ForgotPassword.cshtml" />
@@ -323,6 +319,10 @@
     <Content Include="Views\Login\RegistrationResult.cshtml" />
     <Content Include="Views\Login\ResetPassword.cshtml" />
     <Content Include="Views\Login\SofthemeRegistration.cshtml" />
+    <Content Include="Views\Classroom\EditClassRoomInfo.cshtml" />
+    <Content Include="Views\Event\Large.cshtml" />
+    <Content Include="Views\Event\Short.cshtml" />
+    <Content Include="Views\Event\EditEventInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

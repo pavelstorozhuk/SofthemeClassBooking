@@ -1,79 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using SofthemeClassBooking_BLL.Contracts;
-using SofthemeClassBooking_BLL.Enum;
-using SofthemeClassBooking_BOL;
-using SofthemeClassBooking_BOL.Contract;
+using SofthemeClassBooking_BOL.Contract.Models;
+using SofthemeClassBooking_BOL.Contract.Services;
+using SofthemeClassBooking_BOL.Enum;
+using SofthemeClassBooking_BOL.Models;
 using SofthemeClassBooking_DAL;
 
 
 namespace SofthemeClassBooking_BLL.Implementation
 {
-    public class ClassRoomService : IClassRoomService
+    public class ClassRoomService : IClassRoomService<ClassRoomModel>
     {
 
-        public void Add(IClassRoom classRoom)
+        public void Add(ClassRoomModel classRoom)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IClassRoom> GetAll()
+        public IEnumerable<ClassRoomModel> Get()
         {
-            var classRoomModel = new List<IClassRoom>();
+            var classRoomModel = new List<ClassRoomModel>();
 
             using (var context = new ClassBookingContext())
             {
-                var classRoomDTO = context.ClassRooms.ToList();
-                foreach (var classRoom in classRoomDTO)
+                var classRooms = context.ClassRooms.ToList();
+                foreach (var classRoom in classRooms)
                 {
-                    classRoomModel.Add(Map(classRoom));
+                    classRoomModel.Add(MapService.Map(classRoom));
                 }
             }
             return classRoomModel;
         }
 
-        private ClassRoomModel Map(ClassRooms classRoomDTO)
-        {
-            return new ClassRoomModel
-            {
-                Id = classRoomDTO.Id,
-                Capacity = classRoomDTO.Capacity,
-                IsLocked = classRoomDTO.IsLocked,
-                Name = classRoomDTO.Name,
-                QuantityOfBoards = classRoomDTO.QuantityOfBoards,
-                QuantityOfLaptops = classRoomDTO.QuantityOfLaptops,
-                QuantityOfPrinters = classRoomDTO.QuantityOfPrinters,
-                QuantityOfTables = classRoomDTO.QuantityOfTables
-            };
-        }
-
-        private ClassRooms Map(IClassRoom classRoom)
-        {
-            return new ClassRooms
-            {
-                Id = classRoom.Id,
-                Capacity = classRoom.Capacity,
-                IsLocked = classRoom.IsLocked,
-                Name = classRoom.Name,
-                QuantityOfBoards = classRoom.QuantityOfBoards,
-                QuantityOfLaptops = classRoom.QuantityOfLaptops,
-                QuantityOfPrinters = classRoom.QuantityOfPrinters,
-                QuantityOfTables = classRoom.QuantityOfTables
-            };
-        }
-
-        public IEnumerable<IClassRoom> GetMany(Expression<Func<IClassRoom, bool>> where)
+        public IEnumerable<ClassRoomModel> Get(Expression<Func<ClassRoomModel, bool>> where)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(IClassRoom classRoom)
+        public ClassRoomModel Get(int id)
+        {
+            using (var context = new ClassBookingContext())
+            {
+                return MapService.Map(context.ClassRooms.Find(id));
+            }
+        }
+
+        public void Remove(ClassRoomModel classRoom)
         {
             throw new NotImplementedException();
         }
@@ -84,9 +59,9 @@ entry.Property(e => e.Email).IsModified = true;
 // other changed properties
 db.SaveChanges();
 */
-        public void Update(IClassRoom classRoom)
+        public void Update(ClassRoomModel classRoom)
         {
-            var updatedClassRoom = Map(classRoom);
+            var updatedClassRoom = MapService.Map(classRoom);
 
             using (var context = new ClassBookingContext())
             {
@@ -100,14 +75,6 @@ db.SaveChanges();
                 {
                     throw new ObjectNotFoundException();
                 }
-            }
-        }
-
-        public IClassRoom GetById(int id)
-        {
-            using (var context = new ClassBookingContext())
-            {
-                return Map(context.ClassRooms.Find(id));
             }
         }
 

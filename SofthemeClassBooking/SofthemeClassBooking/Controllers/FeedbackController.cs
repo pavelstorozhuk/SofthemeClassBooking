@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using SofthemeClassBooking.Models;
-using SofthemeClassBooking_BLL.Contracts;
-using SofthemeClassBooking_BLL.Implementation;
+﻿using System.Web.Mvc;
+using SofthemeClassBooking_BOL.Contract.Models;
+using SofthemeClassBooking_BOL.Contract.Services;
+using SofthemeClassBooking_BOL.Models;
 
 namespace SofthemeClassBooking.Controllers
 {
     public class FeedbackController : Controller
     {
-        private IFeedbackService _feedbackService;
+        private IFeedbackService<IFeedback> _feedbackService;
 
-        public FeedbackController(IFeedbackService feedbackService)
+        public FeedbackController(IFeedbackService<IFeedback> feedbackService)
         {
             _feedbackService = feedbackService;
         }

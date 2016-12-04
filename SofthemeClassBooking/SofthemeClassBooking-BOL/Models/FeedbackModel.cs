@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using SofthemeClassBooking_BOL.Contract;
+using SofthemeClassBooking_BOL.Contract.Models;
 
-namespace SofthemeClassBooking.Models
+namespace SofthemeClassBooking_BOL.Models
 {
     public class FeedbackModel : IFeedback
     {

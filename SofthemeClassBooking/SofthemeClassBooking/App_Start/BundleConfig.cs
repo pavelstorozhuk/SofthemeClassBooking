@@ -58,7 +58,8 @@ namespace SofthemeClassBooking
 
 
             bundles.Add(new StyleBundle("~/Styles/roomevent").Include(
-                    "~/Content/css/roomevent.css"));
+                    "~/Content/css/roomevent.css",
+                    "~/Content/css/event.css"));
             #endregion
         }
     }

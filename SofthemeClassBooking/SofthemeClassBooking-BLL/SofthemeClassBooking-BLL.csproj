@@ -49,15 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\IClassRoomService.cs" />
-    <Compile Include="Contracts\IEventService.cs" />
-    <Compile Include="Contracts\IFeedbackService.cs" />
-    <Compile Include="Contracts\IParticipantService.cs" />
-    <Compile Include="Contracts\IService.cs" />
-    <Compile Include="Enum\ClassRoomStatus.cs" />
     <Compile Include="Implementation\ClassRoomService.cs" />
     <Compile Include="Implementation\EventService.cs" />
     <Compile Include="Implementation\FeedbackService.cs" />
+    <Compile Include="Implementation\MapService.cs" />
     <Compile Include="Implementation\ParticipantService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
