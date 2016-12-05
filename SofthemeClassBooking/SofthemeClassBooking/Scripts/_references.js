@@ -2,6 +2,7 @@
 /// <reference path="bootstrap/bootstrap.min.js" />
 /// <reference path="bootstrap/respond.js" />
 /// <reference path="jquery/jquery-1.10.2.min.js" />
+/// <reference path="jquery/jquery-ui.js" />
 /// <reference path="map/initializers.js" />
 /// <reference path="map/jquery.mapit.min.js" />
 /// <reference path="map/jquery.min.js" />

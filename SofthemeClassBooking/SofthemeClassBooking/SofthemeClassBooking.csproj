@@ -202,8 +202,11 @@
     <Content Include="Content\css\feedback.css" />
     <Content Include="Content\css\font-awesome.css" />
     <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\jquery-ui.css" />
+    <Content Include="Content\css\jquery-ui.min.css" />
     <Content Include="Content\css\modal.css" />
     <Content Include="Content\css\registration.css" />
+    <Content Include="Content\css\roomevent.css" />
     <Content Include="Content\images\addEvent.png" />
     <Content Include="Content\images\addinfo\icon-board.png" />
     <Content Include="Content\images\addinfo\icon-laptop.png" />
@@ -238,10 +241,16 @@
     <Content Include="Content\images\path\path-7.png" />
     <Content Include="Content\images\planet.png" />
     <Content Include="Content\images\profile.png" />
+    <Content Include="Content\images\today-active-bottom.png" />
+    <Content Include="Content\images\today-active-top.png" />
+    <Content Include="Content\images\today-bottom.png" />
+    <Content Include="Content\images\today-top.png" />
     <Content Include="Content\images\walls.png" />
     <Content Include="Content\css\layout.css" />
     <Content Include="Content\css\plan.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="Scripts\jquery\jquery-ui.js" />
+    <Content Include="Scripts\jquery\jquery-ui.min.js" />
     <Content Include="Scripts\map\initializers.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -258,6 +267,8 @@
     <Content Include="Scripts\jquery\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery\jquery-1.10.2.min.js" />
     <None Include="Scripts\validation\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\roomevent\calendar.js" />
+    <Content Include="Scripts\roomevent\render.js" />
     <Content Include="Scripts\validation\feedback-validation.js" />
     <Content Include="Scripts\validation\jquery.validate.js" />
     <Content Include="Scripts\validation\jquery.validate.min.js" />

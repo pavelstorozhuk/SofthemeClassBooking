@@ -31,6 +31,7 @@ namespace SofthemeClassBooking
 
 
             bundles.Add(new ScriptBundle("~/bundles/roomevent").Include(
+                        "~/Scripts/jquery/jquery-ui.js",
                         "~/Scripts/roomevent/calendar.js",
                       "~/Scripts/roomevent/render.js"));
             #endregion

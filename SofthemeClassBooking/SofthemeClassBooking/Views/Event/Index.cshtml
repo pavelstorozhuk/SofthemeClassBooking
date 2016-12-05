@@ -49,9 +49,9 @@ Controls for event booking
 
             <!--Date navigation-->
             <div class="roomevent-header-date-section">
-                <i class="fa fa-caret fa-caret-left fa-2x" aria-hidden="true" style="float: left;"></i>
+                <i id="roomevent-time-before-part" class="fa fa-caret fa-caret-left fa-2x" aria-hidden="true" style="float: left;"></i>
                 <span id="event-date"></span>
-                <i class="fa fa-caret fa-caret-right fa-2x" aria-hidden="true" style="float: right;"></i>
+                <i id="roomevent-time-next-part" class="fa fa-caret fa-caret-right fa-2x" aria-hidden="true" style="float: right;"></i>
             </div>
 
         </div>
@@ -63,7 +63,7 @@ Controls for event booking
         </div>
 
         <div id="room-section"></div>
-        <div class="roomevent-calendar-today"><span id="event-time"></span></div>
+        <div class="roomevent-calendar-today"><span>Сейчас</span></div>
     </div>
 
 
@@ -109,9 +109,9 @@ Controls for event booking
 
             roomEventLeftBlock.removeClass('roomevent-left-block-large');
             roomEventHeader.removeClass('roomevent-header-date-section-large');
+
             renderTime(5);
             renderRooms(5);
-
             calendar.show();
         }
     });

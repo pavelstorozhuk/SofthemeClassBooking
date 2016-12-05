@@ -91,9 +91,12 @@
 
                 success: function (result) {
                     $('#roomevent-section').html(result);
+
+                    resetCurrentCalendarCell();
+                    renderCalendar(currentCalendarMonth);
+                    setDateHeader(setDateTimeParameters());
                     renderTime(5);
                     renderRooms(5);
-                    renderCalendar(currentMonth);
                 },
 
                 error: function (result) {
