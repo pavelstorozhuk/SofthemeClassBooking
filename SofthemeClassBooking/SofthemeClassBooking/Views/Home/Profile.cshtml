@@ -1,0 +1,103 @@
+﻿@using Microsoft.AspNet.Identity
+@using SofthemeClassBooking.Models
+
+@model ChangePasswordViewModel 
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section stylesUp
+{
+    @Styles.Render("~/Styles/profile")
+}
+        <div class="content">
+            <div class="info">
+                <h1>@User.Identity.Name @if (@User.IsInRole("Admin")) { <sup>admin</sup>}</h1>
+                <p><b>Email:</b>&nbsp;@Html.Action("GetUserEmail", "Login", new{id= @User.Identity.GetUserId()})</p>
+                <p><b>Количество активных событий:</b>&nbsp; 12</p>
+                <button id="change">Изменить</button>
+            </div>
+            <div class="pass">
+                <h2>Изменить пароль</h2>
+               
+            @using (Html.BeginForm("ChangePasswordFromUserProfile", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "Login", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.TextBoxFor(m => m.OldPassword, new { placeholder = "Старый пароль", @id = "oldPassword", type = "password" })
+                @Html.TextBoxFor(m => m.NewPassword, new { @id = "newPassword", placeholder = "Новый пароль", type = "password" })
+                @Html.TextBoxFor(m => m.ConfirmPassword, new { @id = "confirmNewPassword", placeholder = "Повторить новый пароль", type = "password" })
+
+                <input type="submit" class="button-refuse" value="Войти" id="mysubmit">
+
+            }
+            </div>
+        </div>
+<div class="clear"></div>
+<div style="height: 200px">
+    Calandar 
+</div>
+@Scripts.Render("~/bundles/jqueryval")
+
+<script>
+    $(document)
+        .ready(function () {
+   
+            var oldPassword = $("#oldPassword");
+            var newPassword = $("#newPassword");
+            var confirmNewPassword = $("#confirmNewPassword");
+
+           var isOldPasswordValid = oldPassword.valid();
+           var isNewPasswordValid = newPassword.valid();
+            var isNewPasswordConfirmValid;
+            oldPassword.blur(function () {
+                isOldPasswordValid = oldPassword.valid();
+            });
+            oldPassword.keyup(function () {
+                isOldPasswordValid = oldPassword.valid();
+            });
+
+            newPassword.blur(function () {
+                isNewPasswordValid = newPassword.valid();
+            });
+            newPassword.keyup(function () {
+                isNewPasswordValid = newPassword.valid();
+            });
+
+            confirmNewPassword.blur(function () {
+                isNewPasswordConfirmValid = confirmNewPassword.valid();
+            });
+            confirmNewPassword.keyup(function () {
+                isNewPasswordConfirmValid = confirmNewPassword.valid();
+            });
+
+
+            $("#oldPassword, #newPassword,#confirmNewPassword").keyup(function () {
+                if (isOldPasswordValid && isNewPasswordValid &&
+                     isNewPasswordConfirmValid ) {
+
+                    $("#mysubmit").addClass("button-OK");
+                    $("#mysubmit").removeClass("button-refuse");
+
+                } else {
+                    $("#mysubmit").addClass("button-refuse");
+                    $("#mysubmit").removeClass("button-OK");
+                }
+            });
+            $("#oldPassword, #newPassword,#confirmNewPassword").blur(function () {
+                if (isOldPasswordValid && isNewPasswordValid &&
+                     isNewPasswordConfirmValid) {
+
+                    $("#mysubmit").addClass("button-OK");
+                    $("#mysubmit").removeClass("button-refuse");
+
+                } else {
+                    $("#mysubmit").addClass("button-refuse");
+                    $("#mysubmit").removeClass("button-OK");
+                }
+            });
+        });
+
+</script>
+
+   

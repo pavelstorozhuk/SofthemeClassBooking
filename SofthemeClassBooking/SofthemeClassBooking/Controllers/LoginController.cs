@@ -84,7 +84,6 @@ namespace SofthemeClassBooking.Controllers
         }
 
         [HttpPost]
-
         public ActionResult RegistrationEmail()
         {
             return View("RegistrationResult");
@@ -107,13 +106,11 @@ namespace SofthemeClassBooking.Controllers
        
             if (!ModelState.IsValid)
             {
-                return Json(new { message = "Данные введены неверно. Попробуйте еще раз." });
+                return View("index", model);
             }
            
             var user = await UserManager.FindByEmailAsync(model.Email);
-            
-            
-
+  
             if (user != null)
             {
                
@@ -197,8 +194,12 @@ namespace SofthemeClassBooking.Controllers
 
         //
         // GET: /Account/Register
+          [Authorize]
+        public string GetUserEmail(string id)
+        {
 
-
+            return UserManager.FindById(id).Email;
+        }
       
         //--------------------------------------------------------------------
         [Authorize]
@@ -220,7 +221,11 @@ namespace SofthemeClassBooking.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SofthemeRegistration(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+            {
+                return View("Registration", model);
+            }
+            else 
             {
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -241,10 +246,10 @@ namespace SofthemeClassBooking.Controllers
                     smtp.Dispose();
                     return RedirectToAction("Confirm", "Login", new { Email = user.Email });
                 }
-                AddErrors(result);
+                ModelState.AddModelError("","Пользователь с такими данными уже существует");
             }
 
-            // If we got this far, something failed, redisplay form
+          
             return View("Registration",model);
         }
 
@@ -477,6 +482,7 @@ namespace SofthemeClassBooking.Controllers
             }
         }
 
+          
         //
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
@@ -611,6 +617,6 @@ namespace SofthemeClassBooking.Controllers
             }
         }
         #endregion
-
+        
     }
 }

@@ -62,7 +62,7 @@ namespace SofthemeClassBooking.Models
         [Required(ErrorMessage = ErrorEmptyMessage)]
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$", ErrorMessage = ErrorEmailMessage)]
         [Display(Name = "Email")]
-        [EmailAddress]
+       
         public string Email { get; set; }
 
         [Required(ErrorMessage = ErrorEmptyMessage)]

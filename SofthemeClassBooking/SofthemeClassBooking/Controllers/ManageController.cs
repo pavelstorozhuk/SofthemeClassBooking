@@ -222,7 +222,29 @@ namespace SofthemeClassBooking.Controllers
         // POST: /Manage/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
+        [Authorize]
+        public async Task<ActionResult> ChangePasswordFromUserProfile(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("~/Views/Home/Profile.cshtml", model);
+            }
+            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            if (result.Succeeded)
+            {
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                if (user != null)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                }
+                return View("~/Views/Home/Profile.cshtml", model);
+            }
+            AddErrors(result);
+            return View("~/Views/Home/Profile.cshtml", model);
+
+
+        }
+       /* public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -241,7 +263,7 @@ namespace SofthemeClassBooking.Controllers
             AddErrors(result);
             return View(model);
         }
-
+        */
         //
         // GET: /Manage/SetPassword
         public ActionResult SetPassword()

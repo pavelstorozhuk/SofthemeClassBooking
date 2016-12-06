@@ -18,41 +18,81 @@
 
                   @using (Html.BeginForm("SofthemeLogin", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "Login", role = "form" }))
                   {
-                      
-                      <div id="result-message" class="registration-inner-error">
-                          <img style="background:green" id="ErrorImage" src="~/Content/images/bigdanger.png" />
-                            <span style="float: none;font-size:12px"> @Html.ValidationSummary()</span>
-                        
-                          
-                          
+                                          
+                      <div id="result-message"  class="registration-inner-error">
+                          <img id="ErrorImage"  src="~/Content/images/bigdanger.png" />
+
+                            <span style="float: none;font-size:12px"> @Html.ValidationSummary(true)</span>
                       </div>
                       <br/>
                     @Html.AntiForgeryToken()
-                    @Html.TextBoxFor(m => m.Email, new { placeholder = "Адрес электронной почты", @id = "emailBox" })
+                    @Html.TextBoxFor(m => m.Email, new { placeholder = "Адрес электронной почты", @id = "emailBox", type= "email" })
+                      <div style="height:8px"></div>
                     @Html.TextBoxFor(m => m.Password, new { @id = "Password", placeholder = "Пароль", type = "password" })
+                 <div style="height:8px"></div>
                     <input type="submit" class="button-refuse" value="Войти" id="mysubmit">
                   }
           
         
 
 @Scripts.Render("~/bundles/jqueryval")
-<script type="text/javascript">
-    $("#emailBox").blur
-    (function ()
-    {
-        if ($('#Login').valid())
-        {
-            $("#mysubmit").toggleClass("button-refuse button-OK");
-            alert("message");
-        }
-        else
 
-        {
-            $("#mysubmit").toggleClass("button-OK button-refuse");
-            alert("message2");
-        }
+<script>
+    $(document)
+        .ready(function () {
+           var value = $("#emailBox").val();
+            var value2 = $("#Password").val();
+            if (value.length < 1 && value2.length < 1) {
+                $("#ErrorImage").hide();
+            } else {
+                $("#ErrorImage").show();
+            }
+          
+           
+            var form = $("#Login");
+            var isEmailValid, isPasswordVaild;
+            var email = $("#emailBox");
+            var password = $("#Password");
+            isEmailValid = email.valid();
+            isPasswordVaild = password.valid();
+            email.blur(function() {
+                isEmailValid = email.valid();
+            });
+            email.keyup(function () {
+                isEmailValid = email.valid();
+            });
 
-    });
+            password.blur(function () {
+                isPasswordVaild = password.valid();
+            });
+            password.keyup(function () {
+                isPasswordVaild = password.valid();
+            });
+
+       
+            $("#emailBox, #Password").keyup(function () {
+                if (isEmailValid &&
+                    isPasswordVaild) {
+
+                    $("#mysubmit").addClass("button-OK");
+                    $("#mysubmit").removeClass("button-refuse");
+
+                } else {
+                    $("#mysubmit").addClass("button-refuse");
+                    $("#mysubmit").removeClass("button-OK");
+                }
+            });
+            $("#emailBox, #Password").blur(function () {
+                if (isEmailValid &&
+                    isPasswordVaild) {
+                    $("#mysubmit").addClass("button-OK");
+                    $("#mysubmit").removeClass("button-refuse");
+
+                } else {
+                    $("#mysubmit").addClass("button-refuse");
+                    $("#mysubmit").removeClass("button-OK");
+                }
+            });
+        });
 
 </script>
-
