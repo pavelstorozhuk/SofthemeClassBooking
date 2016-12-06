@@ -179,6 +179,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClassroomController.cs" />
     <Compile Include="Controllers\EventController.cs" />
+    <Compile Include="Controllers\RoomEventController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -199,6 +200,7 @@
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\event.css" />
+    <Content Include="Content\css\eventpage.css" />
     <Content Include="Content\css\feedback.css" />
     <Content Include="Content\css\font-awesome.css" />
     <Content Include="Content\css\font-awesome.min.css" />
@@ -318,7 +320,7 @@
     <Content Include="Views\Classroom\Index.cshtml" />
     <Content Include="Views\Home\CalenderPartial.cshtml" />
     <Content Include="Views\Shared\_LayoutAuthorization.cshtml" />
-    <Content Include="Views\Event\Index.cshtml" />
+    <Content Include="Views\RoomEvent\Index.cshtml" />
     <Content Include="Views\Classroom\AdditionalInfo.cshtml" />
     <Content Include="Views\Classroom\RoomPage.cshtml" />
     <Content Include="Views\Login\ChangePasswordPartialView.cshtml" />
@@ -331,9 +333,10 @@
     <Content Include="Views\Login\ResetPassword.cshtml" />
     <Content Include="Views\Login\SofthemeRegistration.cshtml" />
     <Content Include="Views\Classroom\EditClassRoomInfo.cshtml" />
-    <Content Include="Views\Event\Large.cshtml" />
-    <Content Include="Views\Event\Short.cshtml" />
-    <Content Include="Views\Event\EditEventInfo.cshtml" />
+    <Content Include="Views\RoomEvent\Large.cshtml" />
+    <Content Include="Views\RoomEvent\Short.cshtml" />
+    <Content Include="Views\RoomEvent\EditEventInfo.cshtml" />
+    <Content Include="Views\Event\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

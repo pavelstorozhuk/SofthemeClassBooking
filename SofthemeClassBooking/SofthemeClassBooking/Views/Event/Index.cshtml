@@ -1,119 +1,305 @@
 ﻿
-@Styles.Render("~/Styles/roomevent")
-@Scripts.Render("~/bundles/roomevent")
+@{
+    ViewBag.Title = "Index";
+}
+@section stylesUp {
+    @Styles.Render("~/Styles/plan")
+    @Styles.Render("~/Styles/event")
+}
 
-<!--
 
-Controls for event booking
+<div class="eventpage">
 
-<div class="event-exist">
-    <div class="event-time">
-        13:30 - 14:30
+    <div class="eventpage-info">
+
+        <div class="title">English class for Juniors & Seniors</div>
+
+        <div class="author">
+            <i class="fa fa-user"></i>
+            <div class="event-creator-name">Daniel</div>
+        </div>
+
+        <div class="description">
+            30 min listening (Native speakers). Guys who have to speak with clients and have problems
+            with understanding, this lesson is for you, we'll help you with that in 30 min 3 times a week :) Find some time.
+        </div>
+
+        <div class="participants">
+            <span>Планируют принять участие <span>9</span> человек</span>
+
+            <div class="participant-add">
+                <span>Присоединиться</span>
+                <input type="text" placeholder="Укажите e-mail чтобы присоединиться" />
+                <i class="fa fa-plus fa-lg"></i>
+            </div>
+        </div>
+
     </div>
-    <div class="event-description">
-        <div>English class - </div>
-        <div>Speaking for juniours</div>
-    </div>
-</div>
 
-<div class="event-lock">
-    <div class="event-time">
-        13:30 - 14:30
-    </div>
-    <i class="fa fa-lock fa-3x"></i>
-</div>
+    <div class="eventpage-calendar-section">
 
-<div class="event-add">
-    <i class="fa fa-plus fa-2x"></i>
-</div>
-    -->
+        <div class="eventpage-calendar">
+            <div class="eventpage-calendar-header">
 
-<div class="roomevent-section">
-
-    <!--Left side-->
-    <div class="roomevent-left-block">
-
-        <!--main part-->
-        <!--header-->
-        <div class="roomevent-header">
-
-            <!--switch-->
-            <div class="roomevent-header-switch-section">
-                <div class="roomevent-header-switch">
-                    <div class="button">
-                        <i id="large" class="fa fa-align-justify fa-lg" aria-hidden="true"></i>
-                        <i id="short" class="fa fa-list fa-lg fa-selected" aria-hidden="true"></i>
+                <div class="datetime">
+                    <div class="cell-icon">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </div><!----><div class="cell">
+                        <div class="up"><i class="fa fa-sort-up"></i></div>
+                        <div class="value">18</div>
+                        <div class="down"><i class="fa fa-sort-desc" aria-hidden="true"></i></div>
+                    </div><!----><div class="delimeter">
+                        <span>.</span>
+                    </div><!----><div class="cell">
+                        <div class="up"><i class="fa fa-sort-up"></i></div>
+                        <div class="value">05</div>
+                        <div class="down"><i class="fa fa-sort-desc" aria-hidden="true"></i></div>
+                    </div><!----><div class="delimeter">
+                        <span>.</span>
+                    </div><!----><div class="cell">
+                        <div class="up"><i class="fa fa-sort-up"></i></div>
+                        <div class="value">16</div>
+                        <div class="down"><i class="fa fa-sort-desc" aria-hidden="true"></i></div>
                     </div>
+
                 </div>
-            </div>
 
-            <!--Date navigation-->
-            <div class="roomevent-header-date-section">
-                <i id="roomevent-time-before-part" class="fa fa-caret fa-caret-left fa-2x" aria-hidden="true" style="float: left;"></i>
-                <span id="event-date"></span>
-                <i id="roomevent-time-next-part" class="fa fa-caret fa-caret-right fa-2x" aria-hidden="true" style="float: right;"></i>
-            </div>
 
+                <div class="datetime">
+                    <div class="cell-icon-time">
+                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    </div><!----><div class="cell">
+                        <div class="up"><i class="fa fa-sort-up"></i></div>
+                        <div class="value">18</div>
+                        <div class="down"><i class="fa fa-sort-desc" aria-hidden="true"></i></div>
+                    </div><!----><div class="delimeter">
+                        <span>:</span>
+                    </div><!----><div class="cell">
+                        <div class="up"><i class="fa fa-sort-up"></i></div>
+                        <div class="value">05</div>
+                        <div class="down"><i class="fa fa-sort-desc" aria-hidden="true"></i></div>
+                    </div><!----><div class="time-delimeter">
+                        <span>-</span>
+                    </div><!----><div class="cell">
+                        <div class="up"><i class="fa fa-sort-up"></i></div>
+                        <div class="value">16</div>
+                        <div class="down"><i class="fa fa-sort-desc" aria-hidden="true"></i></div>
+                    </div><!----><div class="delimeter">
+                        <span>:</span>
+                    </div><!----><div class="cell">
+                        <div class="up"><i class="fa fa-sort-up"></i></div>
+                        <div class="value">05</div>
+                        <div class="down"><i class="fa fa-sort-desc" aria-hidden="true"></i></div>
+                    </div>
+
+                </div>
+
+            </div>
         </div>
 
-        <!--Rows-->
-        <!--Time row-->
-        <div id="header-time">
-            <div class="roomevent-time-cell roomevent-time-cell-first"></div>
-        </div>
 
-        <div id="room-section"></div>
-        <div class="roomevent-calendar-today"><span>Сейчас</span></div>
     </div>
 
 
-    <!--right block-->
+    <div class="participant-list">
+        <div class="header">Зарегистрирование участники:</div>
 
-    <div class="roomevent-right-block">
+        <div class="participant-section">
 
-        <div class="roomevent-calener-date-section">
-            <i id="calendar-month-left" class="fa fa-caret fa-caret-left fa-2x" aria-hidden="true" style="float: left;"></i>
-            <span id="current-month"></span>
-            <i id="calendar-month-right" class="fa fa-caret fa-caret-right fa-2x" aria-hidden="true" style="float: right;"></i>
+            <div class="participant">
+                <div class="circle"></div>
+                <div class="email">user1@softheme.com.ua</div>
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </div>
+
+            <div class="participant">
+                <div class="circle"></div>
+                <div class="email">user1@softheme.com.ua</div>
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </div>
+
+            <div class="participant">
+                <div class="circle"></div>
+                <div class="email">user1@softheme.com.ua</div>
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </div>
+
+            <div class="participant">
+                <div class="circle"></div>
+                <div class="email">user1@softheme.com.ua</div>
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<div id="plan-section">
+    <div id="plan-loading">
+        <div class="plan-loading-section">
+            <div>Загрузка плана этажа...</div>
+            <div>
+                <img src="~/Content/images/gif/ajax-loader.gif" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="eventpage-navigation">
+    <div class="eventpage-schedule-box">
+
+        <div class="block">
+
+            <div>
+                <div class="block-element dark"></div>
+                <div class="block-element dark"></div>
+            </div>
+            <div>
+                <div class="block-element dark"></div>
+                <div class="block-element light"></div>
+            </div>
+
         </div>
 
-        <div id="calendar-body" class="roomevent-calendar-body"> </div>
-        <div class="roomevent-calendar-today"><span id="calendar-month-today">Cегодня</span></div>
+        <div class="text">
+            <div>Расписание аудитории</div>
+            <div>Tesla classroom</div>
+        </div>
 
     </div>
 
+    <div class="eventpage-schedule-box">
+
+        <div class="block">
+
+            <div>
+                <div class="block-element light"></div>
+                <div class="block-element light"></div>
+            </div>
+            <div>
+                <div class="block-element light"></div>
+                <div class="block-element light"></div>
+            </div>
+
+        </div>
+
+        <div class="text">
+            <div>Расписание</div>
+            <div>всех аудиторий</div>
+        </div>
+
+    </div>
+
+</div>
+
+<div id="map-section">
+    <div id="map-loading">
+        <div class="plan-loading-section">
+            <div>Загрузка карты...</div>
+            <div>
+                <img src="~/Content/images/gif/ajax-loader.gif" />
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
 
-    var roomNames = ['Einstein Classroom', 'Tesla Classroom', 'Newton Classroom'];
+    $(document)
+        .ready(function () {
+            $.ajax({
+                url: '@Url.Action("Index", "Classroom")',
+                method: 'GET',
+                cache: false,
+                dataType: 'html',
 
-    largeView.click(function () {
-        if (!largeView.hasClass('fa-selected')) {
-            largeView.addClass('fa-selected');
-            shortView.removeClass('fa-selected');
+                success: function (result) {
+                    $('#plan-section').html(result);
+                },
 
-            roomEventLeftBlock.addClass('roomevent-left-block-large');
-            roomEventHeader.addClass('roomevent-header-date-section-large');
-            renderTime(8);
-            renderRooms(8);
+                error: function (result) {
+                    $('#plan-section').html(result);
+                },
 
-            calendar.hide();
-        }
-    });
+                function() {
+                    $('#plan-loading').hide();
+                }
 
-    shortView.click(function () {
-        if (!shortView.hasClass('fa-selected')) {
-            shortView.addClass('fa-selected');
-            largeView.removeClass('fa-selected');
+            });
 
-            roomEventLeftBlock.removeClass('roomevent-left-block-large');
-            roomEventHeader.removeClass('roomevent-header-date-section-large');
 
-            renderTime(5);
-            renderRooms(5);
-            calendar.show();
-        }
-    });
+            $.ajax({
+                url: '@Url.Action("MapPartial","Home")',
+                method: 'GET',
+                cache: false,
+                dataType: 'html',
+
+                success: function (result) {
+                    $('#map-section').html(result);
+                },
+
+                error: function (result) {
+                    $('#map-section').html(result);
+                },
+
+                function() {
+                    $('#map-loading').hide();
+                }
+
+            });
+
+        });
+
+    $(document)
+        .ready(function () {
+
+            $(document).on('mouseover', '.plan-room', function () {
+
+                if ($(this).hasClass('-available')) {
+
+                    var roomId = $(this).attr('id');
+                    $('#show').show();
+                    $.ajax({
+                        url: '@Url.Action("AdditionalInfo", "Classroom")' + '/' + roomId,
+                        method: 'GET',
+                        cache: false,
+                        dataType: 'html',
+
+                        success: function (result) {
+                            $('#show').html(result);
+                            $('#plan-room-line').attr('class', 'plan-room-line-detail-' + roomId);
+                            $('#plan-room-line').show();
+                        }
+
+                    });
+                }
+
+            }).on('mouseleave', '.plan-room', function () {
+                $('#plan-room-line').hide();
+                $('#show').hide();
+            });
+
+        });
+
+
+    $(document)
+        .ready(function () {
+            console.log(3);
+            $(document).on('click', '.plan-room', function () {
+                //if ($(this).hasClass('-available')) { when roles are applied. Now for admin only
+
+                window.location.href = '/Classroom/RoomPage/' + $(this).attr('id');
+                //}
+            });
+        });
 
 </script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/map")
+}

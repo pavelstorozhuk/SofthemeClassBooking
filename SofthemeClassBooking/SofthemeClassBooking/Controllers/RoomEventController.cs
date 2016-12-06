@@ -6,12 +6,12 @@ using System.Web.Mvc;
 
 namespace SofthemeClassBooking.Controllers
 {
-    public class EventController : Controller
+    public class RoomEventController : Controller
     {
         // GET: Event
         public ActionResult Index()
         {
-            return View();
+            return PartialView();
         }
     }
 }
