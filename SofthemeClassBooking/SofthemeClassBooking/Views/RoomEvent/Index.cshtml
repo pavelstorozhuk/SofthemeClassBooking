@@ -63,7 +63,7 @@ Controls for event booking
         </div>
 
         <div id="room-section"></div>
-        <div class="roomevent-calendar-today"><span>Сейчас</span></div>
+        <div id="roomevent-navigation" class="roomevent-now"><span id="roomevent-now"></span></div>
     </div>
 
 
@@ -78,7 +78,7 @@ Controls for event booking
         </div>
 
         <div id="calendar-body" class="roomevent-calendar-body"> </div>
-        <div class="roomevent-calendar-today"><span id="calendar-month-today">Cегодня</span></div>
+        <div class="roomevent-calendar-today"><span id="roomevent-calendar-today"></span></div>
 
     </div>
 
@@ -86,34 +86,6 @@ Controls for event booking
 
 <script type="text/javascript">
 
-    var roomNames = ['Einstein Classroom', 'Tesla Classroom', 'Newton Classroom'];
 
-    largeView.click(function () {
-        if (!largeView.hasClass('fa-selected')) {
-            largeView.addClass('fa-selected');
-            shortView.removeClass('fa-selected');
-
-            roomEventLeftBlock.addClass('roomevent-left-block-large');
-            roomEventHeader.addClass('roomevent-header-date-section-large');
-            renderTime(8);
-            renderRooms(8);
-
-            calendar.hide();
-        }
-    });
-
-    shortView.click(function () {
-        if (!shortView.hasClass('fa-selected')) {
-            shortView.addClass('fa-selected');
-            largeView.removeClass('fa-selected');
-
-            roomEventLeftBlock.removeClass('roomevent-left-block-large');
-            roomEventHeader.removeClass('roomevent-header-date-section-large');
-
-            renderTime(5);
-            renderRooms(5);
-            calendar.show();
-        }
-    });
 
 </script>

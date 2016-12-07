@@ -199,6 +199,7 @@
     <Content Include="Content\css\additionalInfoRoom.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\custom-input.css" />
     <Content Include="Content\css\event.css" />
     <Content Include="Content\css\eventpage.css" />
     <Content Include="Content\css\feedback.css" />
@@ -337,6 +338,8 @@
     <Content Include="Views\RoomEvent\Short.cshtml" />
     <Content Include="Views\RoomEvent\EditEventInfo.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
+    <Content Include="Views\Event\Edit.cshtml" />
+    <Content Include="Views\Event\Info.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

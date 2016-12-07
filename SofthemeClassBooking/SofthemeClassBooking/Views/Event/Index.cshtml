@@ -12,25 +12,44 @@
 
     <div class="eventpage-info">
 
-        <div class="title">English class for Juniors & Seniors</div>
+        <div class="title-edit">
+            <input type="text" id="title-edit" placeholder="Заголовок" maxlength="100" />
+        </div>
 
         <div class="author">
-            <i class="fa fa-user"></i>
-            <div class="event-creator-name">Daniel</div>
+
+            <div class="position">
+
+                <div class="checkbox">
+                    <input id="show-author" type="checkbox" class="checkbox" />
+                    <label for="show-author"></label>
+                </div>
+
+                <div class="label">Показать автора</div>
+                <div class="or">или</div>
+
+                <input type="text" id="organizer" placeholder="Указать организатора" />
+
+            </div>
+
+
+        </div>
+        <div class="description-edit">
+            <textarea id="description" placeholder="Дополнительная информация"></textarea>
+
         </div>
 
-        <div class="description">
-            30 min listening (Native speakers). Guys who have to speak with clients and have problems
-            with understanding, this lesson is for you, we'll help you with that in 30 min 3 times a week :) Find some time.
-        </div>
+        <div class="participants-edit">
+            <div class="position">
+                <div class="checkbox">
+                    <input id="register-participants" type="checkbox" class="checkbox" />
+                    <label for="register-participants"></label>
+                </div>
 
-        <div class="participants">
-            <span>Планируют принять участие <span>9</span> человек</span>
+                <div class="label">Регистрация желающих</div>
 
-            <div class="participant-add">
-                <span>Присоединиться</span>
-                <input type="text" placeholder="Укажите e-mail чтобы присоединиться" />
-                <i class="fa fa-plus fa-lg"></i>
+                <div class="or">Планируют принять участие <span>9</span> человек</div>
+
             </div>
         </div>
 
@@ -95,6 +114,31 @@
                 </div>
 
             </div>
+
+            <div class="icon-section">
+                <div class="icon-position">
+                    <i class="fa fa-calendar-plus-o"></i>
+                    <i class="fa fa-envelope-o"></i>
+                    <i class="fa fa-print"></i>
+                </div>
+            </div>
+
+            <div class="button-section">
+                <button class="cancel">Отмена</button>
+                <button class="save">Сохранить</button>
+            </div>
+
+            <div class="error-section">
+                <div class="icon">
+                    <i class="fa fa-frown-o"></i>
+                </div>
+
+                <div class="message">
+                    <span>Эта аудитория занята на выбранное время. Выберите, пожалуйста, другое.</span>
+                </div>
+
+            </div>
+
         </div>
 
 
@@ -262,7 +306,7 @@
                 if ($(this).hasClass('-available')) {
 
                     var roomId = $(this).attr('id');
-                    $('#show').show();
+                    $('.show').show();
                     $.ajax({
                         url: '@Url.Action("AdditionalInfo", "Classroom")' + '/' + roomId,
                         method: 'GET',
@@ -271,16 +315,14 @@
 
                         success: function (result) {
                             $('#show').html(result);
-                            $('#plan-room-line').attr('class', 'plan-room-line-detail-' + roomId);
-                            $('#plan-room-line').show();
+                            $('#plan-room-line').attr('class', 'show plan-room-line-detail-' + roomId);
                         }
 
                     });
                 }
 
             }).on('mouseleave', '.plan-room', function () {
-                $('#plan-room-line').hide();
-                $('#show').hide();
+                $('.show').hide();
             });
 
         });

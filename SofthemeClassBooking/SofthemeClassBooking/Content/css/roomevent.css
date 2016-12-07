@@ -165,14 +165,38 @@
             margin: 0 auto;
         }
 
-        .roomevent-calendar-today {
-            width: 100%;
+        .roomevent-calendar-today, .roomevent-now,  .roomevent-now-large {
+            margin: 0 auto;
+            width: 196px;
             padding-top: 10px;
             text-align: center;
             color: #9FA6B6;
             font-size: 11px;
         }
         
+         .roomevent-now {
+            width:621px !important;
+            padding-top: 20px;
+            float:right;
+        }
+
+        .roomevent-now-large {
+            padding-top: 20px;
+            width: 995px !important;
+            float:right;
+        }
+
+
+        #roomevent-calendar-today, 
+        #roomevent-calendar-today .fa,
+        #roomevent-now,
+        #roomevent-now .fa,
+        #roomevent-now-large,
+        #roomevent-now-large .fa {
+            color: #9FA6B5;
+            cursor: pointer;
+        }
+
         .roomevent-calendar-today span {
             cursor: pointer;
         }
@@ -247,7 +271,7 @@
 
         #header-time-slider-zone{
             position: absolute;
-            left:122px;
+            left:124px;
             top:0;
         }
 
@@ -260,7 +284,14 @@
             background-color: #4A5158;
         }
 
-        .slider-up {
+       #slider-static{
+            position:absolute !important;
+            cursor: pointer;
+            width: 2.03px;
+            background-color: #9FA6B6;
+        }
+
+        .slider-up, .slider-up-static  {
             position: absolute;
             top:-7px;
             left: -6px;
@@ -269,7 +300,11 @@
             background-image: url("/Content/images/today-active-top.png");
         }
 
-        .slider-down{
+        .slider-up-static {
+            background-image: url("/Content/images/today-top.png") !important;
+        }
+
+        .slider-down, .slider-down-static{
             position: absolute;
             top:100%;
             left: -6px;
@@ -279,7 +314,11 @@
             background-image: url("/Content/images/today-active-bottom.png");
         }
 
-        .slider-time{
+        .slider-down-static {
+            background-image: url("/Content/images/today-bottom.png");
+        }
+
+        .slider-time, .slider-time-static{
             position: absolute;
             top: 105%;
             left: -14px;
@@ -287,4 +326,10 @@
             width: auto;
             font-size: 11px;
             color: #4A5158;
+        }
+
+        .slider-time-static {
+            top: 111% !important;
+            left: -20px;
+            color: #9FA6B6 !important;
         }

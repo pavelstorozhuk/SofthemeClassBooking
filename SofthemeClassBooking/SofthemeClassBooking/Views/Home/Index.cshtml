@@ -40,8 +40,7 @@
 
 <script type="text/javascript">
 
-    $(document)
-        .ready(function () {
+    $(function () {
             $.ajax({
                 url: '@Url.Action("Index", "Classroom")',
                 method: 'GET',
@@ -95,8 +94,9 @@
                     resetCurrentCalendarCell();
                     renderCalendar(currentCalendarMonth);
                     setDateHeader(setDateTimeParameters());
-                    renderTime(5);
-                    renderRooms(5);
+                    renderTime(shortRoomEventTable);
+                    renderRooms(shortRoomEventTable);
+                    activateStaticSlider();
                 },
 
                 error: function (result) {
@@ -112,15 +112,14 @@
 
         });
 
-    $(document)
-        .ready(function() {
+    $(function() {
 
             $(document).on('mouseover', '.plan-room', function () {
 
                 if ($(this).hasClass('-available')) {
 
                     var roomId = $(this).attr('id');
-                    $('#show').show();
+                    $('.show').show();
                     $.ajax({
                         url: '@Url.Action("AdditionalInfo", "Classroom")' + '/' + roomId,
                         method: 'GET',
@@ -129,24 +128,20 @@
 
                         success: function (result) {
                             $('#show').html(result);
-                            $('#plan-room-line').attr('class', 'plan-room-line-detail-' + roomId);
-                            $('#plan-room-line').show();
+                            $('#plan-room-line').attr('class','show plan-room-line-detail-' + roomId);
                         }
 
                     });
                 }
 
             }).on('mouseleave', '.plan-room', function () {
-                $('#plan-room-line').hide();
-                $('#show').hide();
+                $('.show').hide();
             });
 
         });
 
 
-    $(document)
-        .ready(function () {
-            console.log(3);
+    $(function () {
             $(document).on('click', '.plan-room', function () {
                 //if ($(this).hasClass('-available')) { when roles are applied. Now for admin only
 

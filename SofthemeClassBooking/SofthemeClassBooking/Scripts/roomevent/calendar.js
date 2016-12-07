@@ -1,17 +1,23 @@
 ﻿var calendar = $('.roomevent-right-block');
+var calendarTodayNavigaion = $('.roomevent-calendar-today');
+var calendarTodayNavigationValue = $('#roomevent-calendar-today');
 
 var dayNames = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 var monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
 
 var date = new Date();
+
 var yearNow = date.getFullYear();
 var monthNow = date.getMonth() + 1;
-var dateNow = date.getDate();
+var dayNow = date.getDate();
 
-var currentCalendarMonth = monthNow;
-var currentCalendarYear = yearNow;
+var dateNow = { year: date.getFullYear(), month: (date.getMonth() + 1), day: date.getDate() };
+
+var currentCalendarMonth = dateNow.month;
+var currentCalendarYear = dateNow.year;
 
 var currentCalendarCell;
+var currentMonthRender = $('#current-month');
 
 function renderCalendar(month) {
 
@@ -19,19 +25,19 @@ function renderCalendar(month) {
     var dayOutOfSelectedCalendarMonth = false;
     var dayNumberToFillIntoCalendar = 1;
 
-    var selectedCalendarMonth = month || monthNow;
+    var selectedCalendarMonth = month || dateNow.month;
 
     var maxRowCalendarSize = 6;
     var maxCellCalendarSize = 7;
 
-    var firstDayOfWeekInMonth = getDayOfWeek(new Date(yearNow + '-' + selectedCalendarMonth + '-01').getDay());
-    var maxDayCount = getDaysInMonth(selectedCalendarMonth, yearNow);
+    var firstDayOfWeekInMonth = getDayOfWeek(new Date(currentCalendarYear + '-' + selectedCalendarMonth + '-01').getDay());
+    var maxDayCount = getDaysInMonth(selectedCalendarMonth, currentCalendarYear);
     var maxDayCountLastMonth = getDaysInMonth(selectedCalendarMonth-1, currentCalendarYear) - firstDayOfWeekInMonth + 1;
 
     var currentMonth = selectedCalendarMonth;
     var currentYear = currentCalendarYear;
     
-    $('#current-month').html(monthNames[selectedCalendarMonth - 1] + ', ' + currentCalendarYear);
+    $('#current-month').html(monthNames[selectedCalendarMonth - 1] + ', ' + currentCalendarYear).trigger('changeCalendarNavigation');
     calendarBody.empty();
 
     
@@ -59,12 +65,7 @@ function renderCalendar(month) {
 
             if (!dayOutOfSelectedCalendarMonth) {
 
-                if ((selectedCalendarMonth == currentCalendarCell.month) && (dayNumberToFillIntoCalendar == currentCalendarCell.day)) {
-                   
-                    currentRow.append('<div id="' + calendarCellId + '" class="roomevent-calendar-cell roomevent-calendar-cell-today">' + dayNumberToFillIntoCalendar + '</div>');
-                } else {
-                    currentRow.append('<div id="' + calendarCellId + '" class="roomevent-calendar-cell ">' + dayNumberToFillIntoCalendar + '</div>');
-                }
+                currentRow.append('<div id="' + calendarCellId + '" class="roomevent-calendar-cell ">' + dayNumberToFillIntoCalendar + '</div>');
 
             } else {
                 currentRow.append('<div id="' + calendarCellId + '" class="roomevent-calendar-cell roomevent-cell-outdate">' + dayNumberToFillIntoCalendar + '</div>');
@@ -81,23 +82,22 @@ function renderCalendar(month) {
                 dayOutOfSelectedCalendarMonth = true;
             }
         }
+
+        $('#' + dateNow.month + '-' + dateNow.day + '-' + dateNow.year).css('font-weight', 'bold').css('color', '#000000');
+        $('#' + currentCalendarCell.month + '-' + currentCalendarCell.day + '-' + currentCalendarCell.year).attr('class', 'roomevent-calendar-cell roomevent-calendar-cell-today');
+
         firstDayOfWeekInMonth = 0;
     }
 }
 
 function resetCurrentCalendarCell() {
-    currentCalendarCell = {
-        month: monthNow,
-        day: dateNow,
-        year: yearNow
-    }
-
+    currentCalendarCell = dateNow;
     setDateHeader(setDateTimeParameters());
 }
 
 function setDateTimeParameters(dateIn) {
 
-    var renderDate = dateIn || new Date(yearNow + '-' + monthNow + '-' + dateNow);
+    var renderDate = dateIn || new Date(yearNow + '-' + monthNow + '-' + dayNow);
 
     var dateTimeParameters = {
         day: renderDate.getDate(),
@@ -131,13 +131,35 @@ function getDayOfWeek(day) {
     return trueDay;
 }
 
+function compareDates(date, dateTo, ignoreDays) {
+
+    var ignore = ignoreDays || false;
+
+    if (date.year > dateTo.year) {
+        return 1;
+    } else if (date.year < dateTo.year) {
+        return -1;
+    } else if (date.month > dateTo.month) {
+        return 1;
+    } else if (date.month < dateTo.month) {
+        return -1;
+    } else if ((date.day > dateTo.day) && !ignore) {
+        return 1;
+    } else if ((date.day < dateTo.day) && !ignore) {
+        return -1;
+    } else {
+        return 0;
+    }
+
+}
+
 function getDaysInMonth(month, year) {
     return new Date(year, month, 0).getDate();
 }
 
 //Click events
 
-$(document).on('click', '#calendar-month-today', function () {
+$(document).on('click', '#roomevent-calendar-today', function () {
     currentCalendarMonth = date.getMonth() + 1;
     currentCalendarYear = date.getFullYear();
     resetCurrentCalendarCell();
@@ -162,7 +184,25 @@ $(document).on('click', '#calendar-month-right', function () {
     renderCalendar(currentCalendarMonth);
 });
 
+currentMonthRender.bind('changeCalendarNavigation', function () {
+   
+    var dateComparisonResult = compareDates({ year: currentCalendarYear, month: currentCalendarMonth }, dateNow, true);
+
+    if (dateComparisonResult == 0)
+    {
+        calendarTodayNavigaion.css('text-align', 'center');
+        calendarTodayNavigationValue.html('Сегодня');
+    } else if (dateComparisonResult < 0) {
+        calendarTodayNavigaion.css('text-align', 'right');
+        calendarTodayNavigationValue.html('Сегодня <i class="fa fa-long-arrow-right" aria-hidden="true"></i>')
+    } else {
+        calendarTodayNavigaion.css('text-align', 'left');
+        calendarTodayNavigationValue.html('<i class="fa fa-long-arrow-left" aria-hidden="true"></i> Сегодня')
+    }
+});
+
 $(document).on('click', '.roomevent-calendar-cell', function () {
+    
     var selectedCalendarCell = $(this);
     var currentLongId = '#' + currentCalendarCell.month + '-' + currentCalendarCell.day + '-' + currentCalendarCell.year;
     $(currentLongId).removeClass('roomevent-calendar-cell-today');
@@ -178,7 +218,18 @@ $(document).on('click', '.roomevent-calendar-cell', function () {
 
 
     if (currentCalendarMonth != currentCalendarCell.month) {
+
         currentCalendarMonth = currentCalendarCell.month;
+        currentCalendarYear = currentCalendarCell.year;
         renderCalendar(currentCalendarMonth);
     }
+
+    if (currentCalendarCell.day != dateNow.day) {
+        renderTime(currentMode, { hour: 0, minutes: 0 });
+        renderRooms(currentMode, { hour: 0, minutes: 0 });
+    } else {
+        renderTime(currentMode);
+        renderRooms(currentMode);
+    }
+    renterStaticSliderTime();
 });

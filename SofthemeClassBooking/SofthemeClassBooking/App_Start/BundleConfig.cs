@@ -39,7 +39,8 @@ namespace SofthemeClassBooking
             #region Style
             bundles.Add(new StyleBundle("~/Styles/css").Include(
                       "~/Content/css/global.css",
-                      "~/Content/css/font-awesome.css"));
+                      "~/Content/css/font-awesome.css",
+                      "~/Content/css/custom-input.css"));
 
             bundles.Add(new StyleBundle("~/Styles/registration").Include(
                 "~/Content/css/registration.css"
