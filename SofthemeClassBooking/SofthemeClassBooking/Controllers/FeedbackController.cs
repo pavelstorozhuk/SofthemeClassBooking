@@ -7,9 +7,9 @@ namespace SofthemeClassBooking.Controllers
 {
     public class FeedbackController : Controller
     {
-        private IFeedbackService<IFeedback> _feedbackService;
+        private IFeedbackService<FeedbackModel> _feedbackService;
 
-        public FeedbackController(IFeedbackService<IFeedback> feedbackService)
+        public FeedbackController(IFeedbackService<FeedbackModel> feedbackService)
         {
             _feedbackService = feedbackService;
         }

@@ -185,7 +185,7 @@ function createEventArray() {
     events.push({
         id: 2,
         classRoomId: 2,
-        dateBegining: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + 20 + ':' + 00),
+        dateBegining: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + 20 + ':' + '00'),
         dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + 22 + ':' + 30)
     });
 }

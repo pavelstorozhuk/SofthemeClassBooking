@@ -1,9 +1,7 @@
-using SofthemeClassBooking_BLL.Implementation;
-using SofthemeClassBooking_BOL.Contract.Models;
-using SofthemeClassBooking_BOL.Models;
-
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SofthemeClassBooking.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(SofthemeClassBooking.App_Start.NinjectWebCommon), "Stop")]
+
+
 
 namespace SofthemeClassBooking.App_Start
 {
@@ -14,7 +12,10 @@ namespace SofthemeClassBooking.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
+
+    using SofthemeClassBooking_BLL.Implementation;
     using SofthemeClassBooking_BOL.Contract.Services;
+    using SofthemeClassBooking_BOL.Models;
 
     public static class NinjectWebCommon 
     {

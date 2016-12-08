@@ -10,6 +10,15 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
+DELETE FROM dbo.AspNetRoles;
+GO
+
+INSERT INTO dbo.AspNetRoles VALUES ('8c8e87db-d982-4aaf-a84e-9ea54105f220', 'admin');
+GO
+
+INSERT INTO dbo.AspNetRoles VALUES ('2dd3c8f2-1620-4510-818a-a3dc37e5b7c0','user');
+GO
+
 INSERT INTO ClassRooms(Name) VALUES ('');
 GO
 INSERT INTO ClassRooms(Name) VALUES ('HR office');
