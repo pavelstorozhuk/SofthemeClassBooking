@@ -245,14 +245,11 @@
     <Content Include="Content\images\path\path-7.png" />
     <Content Include="Content\images\planet.png" />
     <Content Include="Content\images\profile.png" />
-<<<<<<< HEAD
     <Content Include="Content\images\today-active-bottom.png" />
     <Content Include="Content\images\today-active-top.png" />
     <Content Include="Content\images\today-bottom.png" />
     <Content Include="Content\images\today-top.png" />
-=======
     <Content Include="Content\images\success.png" />
->>>>>>> master
     <Content Include="Content\images\walls.png" />
     <Content Include="Content\css\layout.css" />
     <Content Include="Content\css\plan.css" />
