@@ -11,28 +11,41 @@
 {
     @Styles.Render("~/Styles/profile")
 }
-        <div class="content">
-            <div class="info">
-                <h1>@User.Identity.Name @if (@User.IsInRole("Admin")) { <sup>admin</sup>}</h1>
-                <p><b>Email:</b>&nbsp;@Html.Action("GetUserEmail", "Login", new{id= @User.Identity.GetUserId()})</p>
-                <p><b>Количество активных событий:</b>&nbsp; 12</p>
-                <button id="change">Изменить</button>
+<div class="content">
+    
+
+    <div class="info">
+        <div id="info">
+        <h1>@User.Identity.Name @if (@User.IsInRole("Admin"))
+                                {
+                                    <sup>admin</sup>}</h1>
+        <p><b>Email:</b>&nbsp;@Html.Action("GetUserEmail", "Login", new {id = @User.Identity.GetUserId()})</p>
+        <p><b>Количество активных событий:</b>&nbsp; 12
+        </p>
+            <button id="change">Изменить</button>
             </div>
-            <div class="pass">
-                <h2>Изменить пароль</h2>
-               
-            @using (Html.BeginForm("ChangePasswordFromUserProfile", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "Login", role = "form" }))
+    </div>
+    <button id="exit">Выйти</button>
+    
+    <div class="pass">
+        <h2>Изменить пароль</h2>
+
+        @using (Html.BeginForm("ChangePasswordFromUserProfile", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@id = "Login", role = "form"}))
+        {
+            @Html.AntiForgeryToken()
+            @Html.TextBoxFor(m => m.OldPassword, new {placeholder = "Старый пароль", @id = "oldPassword", type = "password"})
+            @Html.TextBoxFor(m => m.NewPassword, new {@id = "newPassword", placeholder = "Новый пароль", type = "password"})
+            @Html.TextBoxFor(m => m.ConfirmPassword, new {@id = "confirmNewPassword", placeholder = "Повторить новый пароль", type = "password"})
+
+            <input type="submit" class="button-refuse" value="Сохранить" id="mysubmit">
+            if (ViewData["ChangePasswordSuccess"] != null)
             {
-                @Html.AntiForgeryToken()
-                @Html.TextBoxFor(m => m.OldPassword, new { placeholder = "Старый пароль", @id = "oldPassword", type = "password" })
-                @Html.TextBoxFor(m => m.NewPassword, new { @id = "newPassword", placeholder = "Новый пароль", type = "password" })
-                @Html.TextBoxFor(m => m.ConfirmPassword, new { @id = "confirmNewPassword", placeholder = "Повторить новый пароль", type = "password" })
-
-                <input type="submit" class="button-refuse" value="Войти" id="mysubmit">
-
+                <p class="changepassword-success"> <img src="~/Content/images/success.png"/>Пароль успешно изменен
+                </p>
             }
-            </div>
-        </div>
+        }
+    </div>
+</div>
 <div class="clear"></div>
 <div style="height: 200px">
     Calandar 
@@ -96,8 +109,25 @@
                     $("#mysubmit").removeClass("button-OK");
                 }
             });
-        });
+            $('#change')
+            .click(function (e) {
+                e.preventDefault();
+                   
+                $.ajax({
+                    url: '@Url.Action("ChangeUserNameEmail","Manage")',
+                    method: 'POST',
+                    success: function (result) {
+                        
+                        $('#info').html(result);
+                        
+                    }
+                });
 
+            });
+        });
+  
+  
+    
 </script>
 
    

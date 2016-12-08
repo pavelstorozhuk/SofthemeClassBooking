@@ -135,11 +135,13 @@ namespace SofthemeClassBooking.Controllers
                     case SignInStatus.Failure:
                     default:
                         ModelState.AddModelError("", "Неверные данные");
+                        ViewData["Login"] = "Error";
                         return View("Index", model);
                 }
               
 
             }
+            ViewData["Login"] = "Error";
             ModelState.AddModelError("", "Неверные данные");
             return View("Index", model);
             // This doesn't count login failures towards account lockout
@@ -246,6 +248,7 @@ namespace SofthemeClassBooking.Controllers
                     smtp.Dispose();
                     return RedirectToAction("Confirm", "Login", new { Email = user.Email });
                 }
+                ViewData["Registration"] = "error";
                 ModelState.AddModelError("","Пользователь с такими данными уже существует");
             }
 
