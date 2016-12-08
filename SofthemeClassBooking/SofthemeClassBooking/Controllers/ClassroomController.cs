@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using SofthemeClassBooking.Models;
-using SofthemeClassBooking_BLL.Contracts;
-using SofthemeClassBooking_BLL.Enum;
-using SofthemeClassBooking_BOL.Contract;
-using SofthemeClassBooking_BOL;
+﻿using System.Web.Mvc;
+using SofthemeClassBooking_BOL.Contract.Models;
+using SofthemeClassBooking_BOL.Contract.Services;
+using SofthemeClassBooking_BOL.Enum;
+using SofthemeClassBooking_BOL.Models;
 
 
 namespace SofthemeClassBooking.Controllers
 {
     public class ClassroomController : Controller
     {
-        private IClassRoomService _classRoomService;
+        private IClassRoomService<ClassRoomModel> _classRoomService;
         // GET: Classroom
-        public ClassroomController(IClassRoomService classRoomService)
+        public ClassroomController(IClassRoomService<ClassRoomModel> classRoomService)
         {
             _classRoomService = classRoomService;
         }
@@ -25,39 +20,37 @@ namespace SofthemeClassBooking.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return PartialView(_classRoomService.GetAll());
+            return PartialView(_classRoomService.Get());
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult AdditionalInfo(int id, bool isChange = false)
+        public ActionResult AdditionalInfo(int id, bool edit = false)
         {
-            var classRoomInfo = new ClassRoomAdditionalViewModel()
+            if (edit)
             {
-                ClassRoom = _classRoomService.GetById(id),
-                IsChange = isChange
-            };
-            return PartialView(classRoomInfo);
+                return PartialView("EditClassRoomInfo", _classRoomService.Get(id));
+            }
+            return PartialView(_classRoomService.Get(id));
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult AdditionalInfo(ClassRoomAdditionalViewModel classRoomAdditional)
+        public ActionResult AdditionalInfo(ClassRoomModel classRoomModel)
         {
-            return PartialView("AdditionalInfo", classRoomAdditional);
+            return PartialView("AdditionalInfo", classRoomModel);
         }
 
         [HttpGet]
         [AllowAnonymous]
         public ActionResult RoomPage(int id)
         {
-
-            return View(_classRoomService.GetById(id));
+            return View(_classRoomService.Get(id));
         }
 
         [HttpPost]
         //[Authorize(Roles = "Administrator")]
-        public ActionResult ChangeInfo(ClassRoomModel classRoom)
+        public ActionResult Edit(ClassRoomModel classRoom)
         {
             if (ModelState.IsValid)
             {
@@ -69,11 +62,11 @@ namespace SofthemeClassBooking.Controllers
 
         [HttpPost]
         //[Authorize(Roles = "Administrator")]
-        public ActionResult ChangeStatus(ClassRoomChangeStatusModel classRoomChangeStatusModel)
+        public ActionResult ChangeStatus(int id, int classRoomStatus)
         {
             if (ModelState.IsValid)
             {
-                _classRoomService.ChangeRoomStatus(classRoomChangeStatusModel.Id, (ClassRoomStatus)classRoomChangeStatusModel.ClassRoomStatus);
+                _classRoomService.ChangeRoomStatus(id, (ClassRoomStatus)classRoomStatus);
                 return Json(new { success = true });
             }
             return Json(new { success = false });

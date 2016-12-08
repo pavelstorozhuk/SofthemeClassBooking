@@ -1,0 +1,347 @@
+﻿      .fa {
+            cursor: pointer;
+            color: #EBEEF7;
+            margin: 0 3px;
+        }
+
+        .fa-selected {
+            color: #9FA6B6;
+        }
+
+        .fa-caret {
+            color: #9FA6B6;
+        }
+
+        .fa-align-justify:hover, .fa-list:hover, .fa-caret-left:hover, .fa-caret-left:hover {
+            color: #4A5158;
+        }
+
+        .roomevent-section {
+            display: block;
+            width: 1050px;
+            min-height: 334px;
+            font-family: 'Arial';
+        }
+
+        /*285 px for calendar*/
+        .roomevent-left-block {
+            display: inline-block;
+            min-width: 745px;
+            vertical-align: top;
+        }
+
+
+        .roomevent-right-block {
+            display: inline-block; 
+            vertical-align: top; 
+            width: 278px;
+            margin-left: 20px;
+        }
+
+        .roomevent-header {
+            height: 36px;
+            margin-bottom: 20px;
+        }
+
+        .roomevent-header-switch-section {
+            width: 122px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .roomevent-header-date-section {
+            display: inline-block;
+            padding-top: 4px;
+            height: inherit;
+            line-height: 36px;
+            width: 620px;
+            text-align: center;
+            color: #9A9EAA;
+        }
+
+        .roomevent-calener-date-section {
+            display: inline-block;
+            padding-top: 4px;
+            height: inherit;
+            line-height: 36px;
+            width: 278px;
+            text-align: center;
+            color: #9A9EAA;
+        }
+
+        .roomevent-header-date-section-large {
+            width: 990px;
+        }
+
+        .roomevent-header-switch {
+            display: inline-block;
+            vertical-align: top;
+            height: 36px;
+            width: 86px;
+            border: 1px solid #EBEEF7;
+            border-radius: 17px;
+            margin-left: 17px;
+            text-align: center;
+        }
+
+            .roomevent-header-switch .button {
+                padding-top: 11%;
+            }
+
+
+        .roomevent-time-cell {
+            width: 122px;
+            height: 36px;
+            display: table-cell;
+            color: #C0C4CF;
+            border: 2px solid #EBEEF7;
+            line-height: 36px;
+            text-indent: 10px;
+        }
+
+        .roomevent-room-cell {
+            width: 122px;
+            height: 48px;
+                        position: relative;
+            display: table-cell;
+            color: #697184;
+            border: 2px solid #EBEEF7;
+            border-top: 0px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .roomevent-room-cell-middle {
+            border-left: 1px;
+        }
+
+         .roomevent-room-cell div {
+                width: 112px;
+                margin-left: 10px;
+                overflow: hidden;
+            }
+
+        .roomevent-time-cell-first {
+            border-right: 0px;
+        }
+
+        .roomevent-time-cell-middle {
+            border-left: 1px;
+        }
+
+        .roomevent-calendar-cell {
+            display: inline-block;
+            width: 28px;
+            line-height: 28px;
+            height: 28px; 
+            font-size: 12px; 
+            text-align: center;
+            border-radius: 15px;
+            color: #838998;
+        }
+
+        .roomevent-cell-outdate {
+            color: #BDC0C7;
+        }
+
+        .roomevent-calendar-cell:hover {
+            background-color: #EBEEF7;
+            cursor: pointer;
+        }
+
+        .roomevent-calendar-cell-today {
+            background-color: #F95752;
+            color: #FFFFFF;
+        }
+
+        .roomevent-calendar-cell-today:hover {
+            background-color: #F95752;
+        }
+
+        .roomevent-calendar-body {
+            padding-top: 7px;
+            width: 196px;
+            margin: 0 auto;
+        }
+
+        .roomevent-calendar-today, .roomevent-now,  .roomevent-now-large {
+            margin: 0 auto;
+            width: 196px;
+            padding-top: 10px;
+            text-align: center;
+            color: #9FA6B6;
+            font-size: 11px;
+        }
+        
+         .roomevent-now {
+            width:621px !important;
+            padding-top: 20px;
+            float:right;
+        }
+
+        .roomevent-now-large {
+            padding-top: 20px;
+            width: 995px !important;
+            float:right;
+        }
+
+
+        #roomevent-calendar-today, 
+        #roomevent-calendar-today .fa,
+        #roomevent-now,
+        #roomevent-now .fa,
+        #roomevent-now-large,
+        #roomevent-now-large .fa {
+            color: #9FA6B5;
+            cursor: pointer;
+        }
+
+        .roomevent-calendar-today span {
+            cursor: pointer;
+        }
+
+        #day-names {
+            padding-bottom: 10px;
+        }
+
+        .eventblock-add {
+            position: absolute;
+            background-color: #FDBCBA;
+            /*width: 122px;*/
+            margin: 0 !important;
+            top: 0;
+            height: 48px;
+        }
+
+        .eventblock-lock {
+            position: relative;
+            background-color: #EBEEF7;
+            color: #B0B4BC;
+            width: 122px;
+            height: 48px;
+        }
+
+        .eventblock-exist {
+            cursor: pointer !important;
+            position: absolute;
+            top: 0;
+            background-color: #F95752;
+            margin: 0 !important;
+            height: 48px;
+            font-size: 11px;
+        }
+        
+        .eventblock-exist .eventblock-time {
+            position: relative;
+            width: 100%;
+            margin: 0 !important;
+            color: #FDC7C6;
+            text-align: right;
+            font-size: 12px;
+            opacity: 0.9;
+            z-index: 1;
+            padding-top: 1px;
+        }
+
+        .eventblock-exist .eventblock-time span {
+            padding-right: 9px;
+        }
+        
+        .eventblock-exist .eventblock-description {
+            width: 100%;
+            padding-top: 5px;
+            margin: 0 !important;
+            color: #FFFFFF;
+            text-align: left;
+        }
+
+         .fa-lock, .fa-plus  {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0 auto;
+            display: table-cell;
+            width: 100%;
+            text-align: center;
+            vertical-align: middle;
+            color: #FFFFFF;
+        }
+
+        .fa-plus {
+            line-height: 48px;
+        }
+
+        .fa-add {
+            color: #FFFFFF;
+        }
+
+        #header-time{
+            position: relative;
+        }
+
+        #header-time-slider-zone{
+            position: absolute;
+            left:124px;
+            top:0;
+        }
+
+        /*Slider section*/
+
+        #slider{
+            position:absolute !important;
+            cursor: pointer;
+            width: 2.03px;
+            background-color: #4A5158;
+            z-index: 10;
+        }
+
+       #slider-static{
+            position:absolute !important;
+            cursor: pointer;
+            width: 2.03px;
+            background-color: #9FA6B6;
+            z-index: 10;
+        }
+
+        .slider-up, .slider-up-static  {
+            position: absolute;
+            top:-7px;
+            left: -6px;
+            width:14px;
+            height: 7px;
+            background-image: url("/Content/images/today-active-top.png");
+        }
+
+        .slider-up-static {
+            background-image: url("/Content/images/today-top.png") !important;
+        }
+
+        .slider-down, .slider-down-static{
+            position: absolute;
+            top:100%;
+            left: -6px;
+            width:14px;
+            height: 8px;
+            vertical-align: bottom;
+            background-image: url("/Content/images/today-active-bottom.png");
+        }
+
+        .slider-down-static {
+            background-image: url("/Content/images/today-bottom.png");
+        }
+
+        .slider-time, .slider-time-static{
+            position: absolute;
+            top: 105%;
+            left: -14px;
+            text-align: center;
+            width: auto;
+            font-size: 11px;
+            color: #4A5158;
+        }
+
+        .slider-time-static {
+            top: 111% !important;
+            left: -20px;
+            color: #9FA6B6 !important;
+        }

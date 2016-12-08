@@ -1,4 +1,4 @@
-﻿@model SofthemeClassBooking_BOL.Contract.IClassRoom
+﻿@model SofthemeClassBooking_BOL.Models.ClassRoomModel
 
 @{
     ViewBag.Title = "RoomPage";
@@ -113,7 +113,7 @@
         var showClass;
         if (change === true) {
             $('#plan-room-showname-@Model.Id').hide();
-            urlTarget = '@Url.Action("AdditionalInfo", "Classroom", new {id = Model.Id, isChange = true})';
+            urlTarget = '@Url.Action("AdditionalInfo", "Classroom", new {id = Model.Id, edit = true})';
             showClass = 'plan-show-additional-info-detail';
         } else {
             urlTarget = '@Url.Action("AdditionalInfo", "Classroom", new {id = Model.Id})';
@@ -227,7 +227,7 @@
     $(document).on('click','#plan-room-edit-submit', function(e) {
              e.preventDefault();
                  $.ajax({
-                     url: '@Url.Action("ChangeInfo")',
+                     url: '@Url.Action("Edit")',
                      method: 'POST',
                      data: $('#roomChange').serialize(),
                      dataType: 'json',
