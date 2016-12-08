@@ -242,6 +242,7 @@
     <Content Include="Content\images\path\path-7.png" />
     <Content Include="Content\images\planet.png" />
     <Content Include="Content\images\profile.png" />
+    <Content Include="Content\images\success.png" />
     <Content Include="Content\images\walls.png" />
     <Content Include="Content\css\layout.css" />
     <Content Include="Content\css\plan.css" />
@@ -258,6 +259,7 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\NWV.TTF" />
     <None Include="Scripts\jquery\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery\jquery-1.10.2.min.js" />
@@ -323,6 +325,7 @@
     <Content Include="Views\Login\Registration.cshtml" />
     <Content Include="Views\Login\ResetPasswordResult.cshtml" />
     <Content Include="Views\Home\Profile.cshtml" />
+    <Content Include="Views\Home\ChangeUserNameEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

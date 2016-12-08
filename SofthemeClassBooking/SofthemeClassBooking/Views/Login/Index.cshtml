@@ -20,7 +20,10 @@
                   {
                                           
                       <div id="result-message"  class="registration-inner-error">
-                          <img id="ErrorImage"  src="~/Content/images/bigdanger.png" />
+                         @if (ViewData["Login"] != null)
+                         {
+                             <img id="ErrorImage" src="~/Content/images/bigdanger.png"/>
+                         }
 
                             <span style="float: none;font-size:12px"> @Html.ValidationSummary(true)</span>
                       </div>
@@ -40,13 +43,7 @@
 <script>
     $(document)
         .ready(function () {
-           var value = $("#emailBox").val();
-            var value2 = $("#Password").val();
-            if (value.length < 1 && value2.length < 1) {
-                $("#ErrorImage").hide();
-            } else {
-                $("#ErrorImage").show();
-            }
+           
           
            
             var form = $("#Login");

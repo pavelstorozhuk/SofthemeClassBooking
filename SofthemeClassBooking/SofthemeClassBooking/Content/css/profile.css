@@ -120,7 +120,7 @@
             margin-top: 30px;
         }
         
-        .pass form input {
+        .pass form input{
             display: block;
             margin: auto;
             border: 0;
@@ -130,14 +130,39 @@
             border-radius: 20px;
             padding-left: 20px;
             outline: none;
+
         }
-        
-        .pass form input[type=submit] {
+        .changeuser form input {
+            display: block;
+            margin: auto;
+            border-width: 2px;
+            margin-bottom: 20px;
+            height: 35px;
+            width: 260px;
+            border-radius: 20px;
+            padding-left: 20px;
+            outline: none;
+           
+            border: 2px solid  #F2F4FA;
+        }
+        .changeuser {
+            margin-top: 100px;
+        }
+        .pass form input[type=submit], .changeuser form input[type=submit]{
             margin-bottom: 0;
             width: 140px;
             padding: 0;
             background: #c8ceda;
         }
+        #exit {
+            
+            margin-bottom: 0;
+            width: 140px;
+            padding: 0;
+            background: #c8ceda;
+        
+        }
+        
 .button-OK{
     background-Color : #F95752 !important; 
      border: none;
@@ -145,4 +170,11 @@
 .button-refuse {
     background-Color: #C8CDD9!important;
     border: none;
+}
+.changepassword-success 
+{
+        margin: 2px;
+    height: 12px;
+    font-size: 10px;
+ 
 }

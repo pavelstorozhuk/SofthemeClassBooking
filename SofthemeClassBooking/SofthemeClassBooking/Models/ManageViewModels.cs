@@ -39,6 +39,22 @@ namespace SofthemeClassBooking.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class ChangeUserNameEmail
+    {
+        private const string DangerMessagePath = "<img src='../Content/images/danger.png'/> ";
+        private const string ErrorEmptyMessage = DangerMessagePath + "Это поле обязательно для заполения";
+        private const string ErrorMessageMaxLengthReached = DangerMessagePath + "Поле слишком длинное";
+        private const string ErrorEmailMessage = DangerMessagePath + "Неверный адрес электронной почты";
+        [Required(ErrorMessage = ErrorEmptyMessage)]
+        [StringLength(70, ErrorMessage = ErrorMessageMaxLengthReached)]
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
+       
+        [Required(ErrorMessage = ErrorEmptyMessage)]
+        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$", ErrorMessage = ErrorEmailMessage)]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+    }
     public class ChangePasswordViewModel
     {
         [Required]

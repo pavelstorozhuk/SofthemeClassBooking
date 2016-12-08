@@ -13,16 +13,16 @@
  }
  @using (Html.BeginForm("SofthemeRegistration", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "registration", @class = "form-horizontal", role = "form" }))
  {
-    <div id="result-message" class="registration-inner-error">
-        <img id="ErrorImage" src="~/Content/images/bigdanger.png" />
-        <span style="float: none;font-size:12px"> @Html.ValidationSummary(true)</span>
-    </div>
-    <br />
+     <div id="result-message" class="registration-inner-error">
+         @if (ViewData["Registration"] != null)
+         {
+             <img id="ErrorImage" src="~/Content/images/bigdanger.png"/>
+         }
+         <span style="float: none; font-size: 12px"> @Html.ValidationSummary(true)</span>
+     </div>
+    
   @Html.AntiForgeryToken()
 
-        <div class="registration-form-incorrect-block">
-            @Html.ValidationMessageFor(m => m.UserName, "", new { @id = "UserName", @class = "registration-form-incorrect-block" })
-        </div>
         @Html.TextBoxFor(m => m.UserName, new { placeholder = "Имя Фамилия" })
         <div class="registration-form-incorrect-block">
             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "registration-form-incorrect-block" })
@@ -48,25 +48,17 @@
             <p>@Html.ActionLink("Смена пароля", "ForgotPassword", "Login", null, new {style = "cursor: pointer; text-decoration: none;", @class = "notselect"})</p>
         }
 
-
+@Scripts.Render("~/bundles/jqueryval")
     <script>
         $(document)
             .ready(function () {
-                var value = $("#emailBox").val();
-                var value2 = $("#Password").val();
-                if (value.length < 1 && value2.length < 1) {
-                    $("#ErrorImage").hide();
-                } else {
-                    $("#ErrorImage").show();
-                }
+               
 
                 var email = $("#emailBox");
                 var password = $("#Password");
                 var confirmPassword = $("#ConfirmPassword");
                 var isEmailValid, isPasswordVaild, isPasswordConfirmValid;
-                isEmailValid = email.valid();
-                isPasswordVaild = password.valid();
-                isPasswordConfirmValid = confirmPassword.valid();
+            
               
            
                 email.blur(function() {
@@ -118,7 +110,7 @@
     </script>
  
 
-        @Scripts.Render("~/bundles/jqueryval")
+    
 
 
 
