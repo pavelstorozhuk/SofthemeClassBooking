@@ -1,43 +1,58 @@
-﻿body {
+﻿@font-face {
+    font-family: NewWordVibes; 
+    src: url(../../fonts/NWV.TTF); 
+   }
+body {
     background-color: #f4f6fb;
     overflow-x: hidden;
+   
 }
 
 #hr-style {
-    color: #A4ABC0;
-    size: 1px;
+    background-color: #AEB4C7;
+    height: 1.2px;
+    border: 0;
+    margin-top: 18px;
+    margin-bottom: 26px;
 }
 
 .registration-logo {
     position: relative;
-    top: 247px;
-    left: 200px;
+    top: 250px;
+    left: 220px;
     width: 162px;
+    font-family: NewWordVibes;
+}
+
+.registration-logo p {
+    font-size: 14px;
+    margin-top: 26px;
 }
 
  .select {
     cursor: pointer !important;
     color: #A4ABC0;
-    font-weight:bold!important;
+   
 }
  
 
 .notselect  {
-    color: #BBC0D1;
-    cursor: pointer !important;
+    color: #ABB1C5;
+   
 }
 
 .registration-parallelogram {
     width: 2000px;
-    height: 555px;
-    -webkit-transform: skew(40deg);
-    -moz-transform: skew(40deg);
-    -o-transform: skew(40deg);
+    height: 595px;
+    -webkit-transform: skew(43deg);
+    -moz-transform: skew(43deg);
+    -o-transform: skew(43deg);
     background: #FFFFFF;
     position: absolute;
-    top: 50px;
-    left: 525px;
+    top: 40px;
+   left: 543px;
     border: 2px solid #A4ABC0;
+    font-family: "NewWordVibes";
 }
 
 .registration-wrapper {
@@ -46,33 +61,47 @@
     width: 100%;
     left: calc(50% - 750px);
     top: 0px;
-}
 
+}
+.registration-wrapper p {
+    font-size: 15px;
+    margin-bottom: 24px;
+}
 .registration-inner-parallelogram {
     background-color: #F95752;
-    height: 80px;
+    height: 75px;
     width: 2200px;
     position: absolute;
-    top: 180px;
+           top: 188px;
     overflow: hidden;
 }
+.registration-inner-error {
+    height: 25px;
+    list-style-type: none;
+   
+}
 
+
+.registration-inner-error  ul {
+     list-style-type: none;
+}
 .registration-inner-parallelogram p {
-    transform: skew(-40deg) !important;
-    margin: 0 0 0 500px;
+    transform: skew(-43deg) !important;
+   margin: 0 0 0 386px;
     line-height: 80px;
     font-size: 30px;
     color: white;
+    letter-spacing: 2px;
 }
 
 .registration-inner-inner-parallelogram {
     background-color: transparent;
-    height: 358px;
+        height: 402px;
     width: 2400px;
     position: absolute;
     top: 188px;
     border: 2px solid #FCABA8;
-    left: 10px;
+    left: 5px;
 }
 
 .registration-inner-inner-parallelogram2 {
@@ -87,48 +116,145 @@
 
 .registration-form {
     position: absolute;
-    top: 325px;
-    left: 239px;
-    width: 400px;
-    transform: skew(-40deg);
+    top: 285px;
+     left: 150px;
+    width: 300px;
+    transform: skew(-43deg);
     text-align: center;
    
    
 }
 
+
+
 .registration-form input {
-    height: 30px;
-    width: 300px;
+    height: 33px ;
+    width: 282px;
     line-height: 30px;
     border-radius: 20px;
-    margin-bottom: 10px;
-    padding-left: 40px;
+        margin-bottom: 3px;
+    padding-left: 15px;
     color: #6B7384;
     outline: none;
+    border: none;
 }
-
+.registration-form input[type="text"],.registration-form input[type="password"],.registration-form input[type="email"] {
+    background-color: #F5F6FB;
+}
+.registration-form p {
+    color: #828895;
+}
 .registration-form input[type="submit"] {
     width: 100px;
     background-color:#CACCD9;
     color: white;
     padding: 0;
     z-index: 10;
+    height: 38px !important;
+            margin-top: 10px;
+    width: 178px;
+    position: relative;
+  
 }
 
 .registration-form input::-webkit-input-placeholder {
-    color: #C8CDD9 !important;
+    color: #C8CDD9 ;
+    text-align: left;
+   
 }
+
+
+
 .button-OK{
     background-Color : #F95752 !important; 
      border: none;
 }
 .button-refuse {
-    background-Color: #6B7384!important;
+    background-Color: #C8CDD9!important;
     border: none;
 }
 .registration-form-incorrect-block {
     margin: 2px;
+    height: 10px;
+    font-size: 10px;
+    color: #626D81;
+    list-style-type: none !important;
+    text-align: left!important;
+        position: relative;
+    top: -3px;
+    left: -2px;
+}
+.registration-form-incorrect-block img{
+    position: relative;
+    top: 2px;
+}
+
+.registration-form-incorrect-big-block {
+    margin: 2px;
+    color: #626D81;
+    list-style-type: none !important;
+}
+.field-validation-error {
+    margin: 2px;
     height: 12px;
     font-size: 10px;
     color: #626D81;
+     list-style-type: none !important;
+}
+ 
+.field-validation-valid {
+    display: none;
+    list-style-type: none !important;
+}
+ 
+.validation-error {
+    margin: 2px;
+    height: 12px;
+    font-size: 10px;
+    color: #626D81;
+     list-style-type: none !important;
+}
+ 
+.validation-summary-errors {
+    margin: auto;
+   
+     list-style-type: none;
+
+    display: inline-block;
+}
+
+#result-message {
+    position: relative;
+    top: -9px;
+    left: -61px;
+    width: 377px;
+}
+
+
+#result-message span img, #result-message span div {
+    display: inline-block;
+    color: #767D8D;
+    font-size: 14px;
+}
+
+#ErrorImage {
+     vertical-align: middle;
+         margin-right: 5px;
+}
+
+
+#result-message span div ul {
+    margin: 0;
+    padding: 0;
+}
+#result-message span {
+    vertical-align: middle;
+    display: inline-block;
+    font-size: 12px;
+}
+
+ 
+.validation-summary-valid {
+    display: none;
+    list-style-type: none !important;
 }

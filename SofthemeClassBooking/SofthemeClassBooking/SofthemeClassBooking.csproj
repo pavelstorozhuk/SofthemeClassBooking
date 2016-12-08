@@ -208,6 +208,7 @@
     <Content Include="Content\css\jquery-ui.css" />
     <Content Include="Content\css\jquery-ui.min.css" />
     <Content Include="Content\css\modal.css" />
+    <Content Include="Content\css\profile.css" />
     <Content Include="Content\css\registration.css" />
     <Content Include="Content\css\roomevent.css" />
     <Content Include="Content\images\addEvent.png" />
@@ -244,10 +245,14 @@
     <Content Include="Content\images\path\path-7.png" />
     <Content Include="Content\images\planet.png" />
     <Content Include="Content\images\profile.png" />
+<<<<<<< HEAD
     <Content Include="Content\images\today-active-bottom.png" />
     <Content Include="Content\images\today-active-top.png" />
     <Content Include="Content\images\today-bottom.png" />
     <Content Include="Content\images\today-top.png" />
+=======
+    <Content Include="Content\images\success.png" />
+>>>>>>> master
     <Content Include="Content\images\walls.png" />
     <Content Include="Content\css\layout.css" />
     <Content Include="Content\css\plan.css" />
@@ -266,6 +271,7 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\NWV.TTF" />
     <None Include="Scripts\jquery\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery\jquery-1.10.2.min.js" />
@@ -326,13 +332,15 @@
     <Content Include="Views\Classroom\RoomPage.cshtml" />
     <Content Include="Views\Login\ChangePasswordPartialView.cshtml" />
     <Content Include="Views\Login\Enter.cshtml" />
+    <Content Include="Views\Classroom\PlanPartial.cshtml" />
     <Content Include="Views\Login\ForgotPassword.cshtml" />
     <Content Include="Views\Login\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Login\RegistrationPartialView.cshtml" />
     <Content Include="Views\Login\RegistrationResult.cshtml" />
     <Content Include="Views\Login\ResetPassword.cshtml" />
     <Content Include="Views\Login\SofthemeRegistration.cshtml" />
+    <Content Include="Views\Login\Registration.cshtml" />
+    <Content Include="Views\Login\ResetPasswordResult.cshtml" />
     <Content Include="Views\Classroom\EditClassRoomInfo.cshtml" />
     <Content Include="Views\RoomEvent\Large.cshtml" />
     <Content Include="Views\RoomEvent\Short.cshtml" />
@@ -340,6 +348,8 @@
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
     <Content Include="Views\Event\Info.cshtml" />
+    <Content Include="Views\Home\Profile.cshtml" />
+    <Content Include="Views\Home\ChangeUserNameEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -7,15 +7,43 @@
     <title>SofthemeLogin</title>
     @Styles.Render("~/Styles/css")
     @Styles.Render("~/Styles/registration")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
 </head>
 <body>
-    @Scripts.Render("~/bundles/jquery")
-    @RenderBody()
+   
+   
+    <div class="container">
+        <div class="registration-wrapper">
+            <div class="registration-parallelogram">
+                <div class="registration-inner-inner-parallelogram">
+                </div>
 
-    @Scripts.Render("~/bundles/jqueryval")
-    @RenderSection("scripts", required: false)
-    <script>
+                <div class="registration-inner-parallelogram">
+                    @RenderSection("Title")
+                    <div class="registration-inner-inner-parallelogram2">
+                    </div>
 
-    </script>
+                </div>
+
+                <div class="registration-form">
+                    @RenderBody()
+                </div>
+            </div>
+            <div class="registration-logo">
+                <a href="@Url.Action("Index", "Home")">
+                    <img width="162px" src="~/Content/images/logo-gray.png" />
+                </a>
+
+                
+                <!-- 552 596 -->
+                <hr id="hr-style">
+              
+                @RenderSection("Menu")
+
+
+            </div>
+        </div>
+    </div>
 </body>
 </html>

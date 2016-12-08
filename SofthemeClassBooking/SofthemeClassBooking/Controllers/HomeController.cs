@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using SofthemeClassBooking.Models;
+
 
 namespace SofthemeClassBooking.Controllers
 {
@@ -13,7 +16,12 @@ namespace SofthemeClassBooking.Controllers
         {
             return View();
         }
-
+          [Authorize]
+        public ActionResult UserProfile()
+        {
+            return View("Profile");
+        }
+        
 
         public ActionResult Schedule()
         {
@@ -42,6 +50,6 @@ namespace SofthemeClassBooking.Controllers
             //Thread.Sleep(2000);
             return PartialView();
         }
-
+       
     }
 }
