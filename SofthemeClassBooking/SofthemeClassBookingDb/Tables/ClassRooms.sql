@@ -7,6 +7,6 @@
  [QuantityOfPrinters] TINYINT DEFAULT 0 NOT NULL,
  [QuantityOfTables] TINYINT DEFAULT 0 NOT NULL,
  [QuantityOfLaptops] TINYINT DEFAULT 0 NOT NULL,
- [IsLocked]   BIT DEFAULT 0 NOT NULL
+ [IsLocked]   BIT DEFAULT 1 NOT NULL
 
 )
