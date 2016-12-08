@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SofthemeClassBooking_BOL.Contract
+namespace SofthemeClassBooking_BOL.Contract.Models
 {
     public interface IEvent
     {
@@ -27,11 +24,5 @@ namespace SofthemeClassBooking_BOL.Contract
          bool? IsPublic { get; set; }
 
          bool? IsAuthorShown { get; set; }
-
-         IAspNetUser AspNetUsers { get; set; }
-
-         IClassRoom ClassRooms { get; set; }
-
-         ICollection<IParticipant> Participants { get; set; }
     }
 }

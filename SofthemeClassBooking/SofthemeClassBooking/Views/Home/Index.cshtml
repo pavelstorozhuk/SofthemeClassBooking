@@ -2,7 +2,6 @@
     @Styles.Render("~/Styles/plan")
 }
 
-
 <div id="plan-section">
     <div id="plan-loading">
         <div class="plan-loading-section">
@@ -16,8 +15,15 @@
 
 
 
-<div style="height: 335px">
-    calendar goes here
+<div id="roomevent-section" style="margin-left: 126px; padding-top: 25px;">
+    <div id="roomevent-loading">
+        <div class="roomevent-loading-section">
+            <div>Загрузка рассписания...</div>
+            <div>
+                <img src="~/Content/images/gif/ajax-loader.gif" />
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="map-section">
@@ -34,8 +40,7 @@
 
 <script type="text/javascript">
 
-    $(document)
-        .ready(function () {
+    $(function () {
             $.ajax({
                 url: '@Url.Action("Index", "Classroom")',
                 method: 'GET',
@@ -77,17 +82,44 @@
 
             });
 
+            $.ajax({
+                url: '@Url.Action("Index","RoomEvent")',
+                method: 'GET',
+                cache: false,
+                dataType: 'html',
+
+                success: function (result) {
+                    $('#roomevent-section').html(result);
+
+                    resetCurrentCalendarCell();
+                    renderCalendar(currentCalendarMonth);
+                    setDateHeader(currentCalendarCell);
+                    renderTime(shortRoomEventTable);
+                    renderRooms(shortRoomEventTable);
+                    activateStaticSlider();
+                },
+
+                error: function (result) {
+                    $('#roomevent-section').html(result);
+                },
+
+                function() {
+                    $('#roomevent-loading').hide();
+                }
+
+            });
+
+
         });
 
-    $(document)
-        .ready(function() {
+    $(function() {
 
             $(document).on('mouseover', '.plan-room', function () {
 
                 if ($(this).hasClass('-available')) {
 
                     var roomId = $(this).attr('id');
-                    $('#show').show();
+                    $('.show').show();
                     $.ajax({
                         url: '@Url.Action("AdditionalInfo", "Classroom")' + '/' + roomId,
                         method: 'GET',
@@ -96,24 +128,20 @@
 
                         success: function (result) {
                             $('#show').html(result);
-                            $('#plan-room-line').attr('class', 'plan-room-line-detail-' + roomId);
-                            $('#plan-room-line').show();
+                            $('#plan-room-line').attr('class','show plan-room-line-detail-' + roomId);
                         }
 
                     });
                 }
 
             }).on('mouseleave', '.plan-room', function () {
-                $('#plan-room-line').hide();
-                $('#show').hide();
+                $('.show').hide();
             });
 
         });
 
 
-    $(document)
-        .ready(function () {
-            console.log(3);
+    $(function () {
             $(document).on('click', '.plan-room', function () {
                 //if ($(this).hasClass('-available')) { when roles are applied. Now for admin only
 

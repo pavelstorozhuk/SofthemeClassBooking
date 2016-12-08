@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,14 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="ClassRoomModel.cs" />
-    <Compile Include="Contract\IAspNetRole.cs" />
-    <Compile Include="Contract\IClassRoom.cs" />
-    <Compile Include="Contract\IEvent.cs" />
-    <Compile Include="Contract\IFeedback.cs" />
-    <Compile Include="Contract\IParticipant.cs" />
-    <Compile Include="Contract\IAspNetUser.cs" />
+    <Compile Include="Models\ClassRoomModel.cs" />
+    <Compile Include="Contract\Models\IAspNetRole.cs" />
+    <Compile Include="Contract\Models\IClassRoom.cs" />
+    <Compile Include="Contract\Models\IEvent.cs" />
+    <Compile Include="Contract\Models\IFeedback.cs" />
+    <Compile Include="Contract\Models\IParticipant.cs" />
+    <Compile Include="Contract\Models\IAspNetUser.cs" />
+    <Compile Include="Contract\Services\IClassRoomService.cs" />
+    <Compile Include="Contract\Services\IEventService.cs" />
+    <Compile Include="Contract\Services\IFeedbackService.cs" />
+    <Compile Include="Contract\Services\IParticipantService.cs" />
+    <Compile Include="Contract\Services\IService.cs" />
+    <Compile Include="Enum\ClassRoomStatus.cs" />
+    <Compile Include="Models\EventModel.cs" />
+    <Compile Include="Models\FeedbackModel.cs" />
+    <Compile Include="Models\ParicipantModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

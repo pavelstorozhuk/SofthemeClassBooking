@@ -1,34 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using SofthemeClassBooking_BLL.Contracts;
+using SofthemeClassBooking_BOL.Contract.Services;
 using SofthemeClassBooking_DAL;
+using SofthemeClassBooking_BOL.Models;
 
 namespace SofthemeClassBooking_BLL.Implementation
 {
-    public class ParticipantService : IParticipantService
+    public class ParticipantService : IParticipantService<ParicipantModel>
     {
-        public void Add(Participants classRoom)
+        public void Add(ParicipantModel classRoom)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Participants> GetAll()
+        public IEnumerable<ParicipantModel> Get()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Participants> GetMany(Expression<Func<Participants, bool>> where)
+        public IEnumerable<ParicipantModel> Get(Expression<Func<ParicipantModel, bool>> where)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(Participants classRoom)
+        public void Remove(ParicipantModel classRoom)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Participants classRoom)
+        public void Update(ParicipantModel classRoom)
         {
             throw new NotImplementedException();
         }

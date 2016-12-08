@@ -1,2 +1,347 @@
 ﻿
-Working....
+@{
+    ViewBag.Title = "Index";
+}
+@section stylesUp {
+    @Styles.Render("~/Styles/plan")
+    @Styles.Render("~/Styles/event")
+}
+
+
+<div class="eventpage">
+
+    <div class="eventpage-info">
+
+        <div class="title-edit">
+            <input type="text" id="title-edit" placeholder="Заголовок" maxlength="100" />
+        </div>
+
+        <div class="author">
+
+            <div class="position">
+
+                <div class="checkbox">
+                    <input id="show-author" type="checkbox" class="checkbox" />
+                    <label for="show-author"></label>
+                </div>
+
+                <div class="label">Показать автора</div>
+                <div class="or">или</div>
+
+                <input type="text" id="organizer" placeholder="Указать организатора" />
+
+            </div>
+
+
+        </div>
+        <div class="description-edit">
+            <textarea id="description" placeholder="Дополнительная информация"></textarea>
+
+        </div>
+
+        <div class="participants-edit">
+            <div class="position">
+                <div class="checkbox">
+                    <input id="register-participants" type="checkbox" class="checkbox" />
+                    <label for="register-participants"></label>
+                </div>
+
+                <div class="label">Регистрация желающих</div>
+
+                <div class="or">Планируют принять участие <span>9</span> человек</div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="eventpage-calendar-section">
+
+        <div class="eventpage-calendar">
+            <div class="eventpage-calendar-header">
+
+                <div class="datetime">
+                    <div class="cell-icon">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </div><!----><div class="cell">
+                        <div class="up"><i class="fa fa-sort-up"></i></div>
+                        <div class="value">18</div>
+                        <div class="down"><i class="fa fa-sort-desc" aria-hidden="true"></i></div>
+                    </div><!----><div class="delimeter">
+                        <span>.</span>
+                    </div><!----><div class="cell">
+                        <div class="up"><i class="fa fa-sort-up"></i></div>
+                        <div class="value">05</div>
+                        <div class="down"><i class="fa fa-sort-desc" aria-hidden="true"></i></div>
+                    </div><!----><div class="delimeter">
+                        <span>.</span>
+                    </div><!----><div class="cell">
+                        <div class="up"><i class="fa fa-sort-up"></i></div>
+                        <div class="value">16</div>
+                        <div class="down"><i class="fa fa-sort-desc" aria-hidden="true"></i></div>
+                    </div>
+
+                </div>
+
+
+                <div class="datetime">
+                    <div class="cell-icon-time">
+                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    </div><!----><div class="cell">
+                        <div class="up"><i class="fa fa-sort-up"></i></div>
+                        <div class="value">18</div>
+                        <div class="down"><i class="fa fa-sort-desc" aria-hidden="true"></i></div>
+                    </div><!----><div class="delimeter">
+                        <span>:</span>
+                    </div><!----><div class="cell">
+                        <div class="up"><i class="fa fa-sort-up"></i></div>
+                        <div class="value">05</div>
+                        <div class="down"><i class="fa fa-sort-desc" aria-hidden="true"></i></div>
+                    </div><!----><div class="time-delimeter">
+                        <span>-</span>
+                    </div><!----><div class="cell">
+                        <div class="up"><i class="fa fa-sort-up"></i></div>
+                        <div class="value">16</div>
+                        <div class="down"><i class="fa fa-sort-desc" aria-hidden="true"></i></div>
+                    </div><!----><div class="delimeter">
+                        <span>:</span>
+                    </div><!----><div class="cell">
+                        <div class="up"><i class="fa fa-sort-up"></i></div>
+                        <div class="value">05</div>
+                        <div class="down"><i class="fa fa-sort-desc" aria-hidden="true"></i></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="icon-section">
+                <div class="icon-position">
+                    <i class="fa fa-calendar-plus-o"></i>
+                    <i class="fa fa-envelope-o"></i>
+                    <i class="fa fa-print"></i>
+                </div>
+            </div>
+
+            <div class="button-section">
+                <button class="cancel">Отмена</button>
+                <button class="save">Сохранить</button>
+            </div>
+
+            <div class="error-section">
+                <div class="icon">
+                    <i class="fa fa-frown-o"></i>
+                </div>
+
+                <div class="message">
+                    <span>Эта аудитория занята на выбранное время. Выберите, пожалуйста, другое.</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="participant-list">
+        <div class="header">Зарегистрирование участники:</div>
+
+        <div class="participant-section">
+
+            <div class="participant">
+                <div class="circle"></div>
+                <div class="email">user1@softheme.com.ua</div>
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </div>
+
+            <div class="participant">
+                <div class="circle"></div>
+                <div class="email">user1@softheme.com.ua</div>
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </div>
+
+            <div class="participant">
+                <div class="circle"></div>
+                <div class="email">user1@softheme.com.ua</div>
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </div>
+
+            <div class="participant">
+                <div class="circle"></div>
+                <div class="email">user1@softheme.com.ua</div>
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<div id="plan-section">
+    <div id="plan-loading">
+        <div class="plan-loading-section">
+            <div>Загрузка плана этажа...</div>
+            <div>
+                <img src="~/Content/images/gif/ajax-loader.gif" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="eventpage-navigation">
+    <div class="eventpage-schedule-box">
+
+        <div class="block">
+
+            <div>
+                <div class="block-element dark"></div>
+                <div class="block-element dark"></div>
+            </div>
+            <div>
+                <div class="block-element dark"></div>
+                <div class="block-element light"></div>
+            </div>
+
+        </div>
+
+        <div class="text">
+            <div>Расписание аудитории</div>
+            <div>Tesla classroom</div>
+        </div>
+
+    </div>
+
+    <div class="eventpage-schedule-box">
+
+        <div class="block">
+
+            <div>
+                <div class="block-element light"></div>
+                <div class="block-element light"></div>
+            </div>
+            <div>
+                <div class="block-element light"></div>
+                <div class="block-element light"></div>
+            </div>
+
+        </div>
+
+        <div class="text">
+            <div>Расписание</div>
+            <div>всех аудиторий</div>
+        </div>
+
+    </div>
+
+</div>
+
+<div id="map-section">
+    <div id="map-loading">
+        <div class="plan-loading-section">
+            <div>Загрузка карты...</div>
+            <div>
+                <img src="~/Content/images/gif/ajax-loader.gif" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document)
+        .ready(function () {
+            $.ajax({
+                url: '@Url.Action("Index", "Classroom")',
+                method: 'GET',
+                cache: false,
+                dataType: 'html',
+
+                success: function (result) {
+                    $('#plan-section').html(result);
+                },
+
+                error: function (result) {
+                    $('#plan-section').html(result);
+                },
+
+                function() {
+                    $('#plan-loading').hide();
+                }
+
+            });
+
+
+            $.ajax({
+                url: '@Url.Action("MapPartial","Home")',
+                method: 'GET',
+                cache: false,
+                dataType: 'html',
+
+                success: function (result) {
+                    $('#map-section').html(result);
+                },
+
+                error: function (result) {
+                    $('#map-section').html(result);
+                },
+
+                function() {
+                    $('#map-loading').hide();
+                }
+
+            });
+
+        });
+
+    $(document)
+        .ready(function () {
+
+            $(document).on('mouseover', '.plan-room', function () {
+
+                if ($(this).hasClass('-available')) {
+
+                    var roomId = $(this).attr('id');
+                    $('.show').show();
+                    $.ajax({
+                        url: '@Url.Action("AdditionalInfo", "Classroom")' + '/' + roomId,
+                        method: 'GET',
+                        cache: false,
+                        dataType: 'html',
+
+                        success: function (result) {
+                            $('#show').html(result);
+                            $('#plan-room-line').attr('class', 'show plan-room-line-detail-' + roomId);
+                        }
+
+                    });
+                }
+
+            }).on('mouseleave', '.plan-room', function () {
+                $('.show').hide();
+            });
+
+        });
+
+
+    $(document)
+        .ready(function () {
+            console.log(3);
+            $(document).on('click', '.plan-room', function () {
+                //if ($(this).hasClass('-available')) { when roles are applied. Now for admin only
+
+                window.location.href = '/Classroom/RoomPage/' + $(this).attr('id');
+                //}
+            });
+        });
+
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/map")
+}
