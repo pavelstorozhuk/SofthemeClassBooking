@@ -11,7 +11,10 @@ var roomNames = ['Einstein Classroom', 'Tesla Classroom', 'Newton Classroom'];
 var fisrtTimeCellWidth = 126;
 var timeCellWidth = 124;
 var minutePerPixel = (timeCellWidth / 60);
+
 var firstTimeCellHour;
+var firstTimeCellDate;
+
 var sliderTimeInterval = 1000 * 60;
 
 var shortRoomEventTable = 5;
@@ -58,75 +61,236 @@ $(document).on('click', '#short', function () {
 });
 
 $(document).on('click', '#roomevent-now', function () {
-    currentCalendarCell = dateNow;
+    resetCurrentCalendarCell();
     renderCalendar(currentCalendarCell.month);
     timeOffset = 0;
     renderTime(currentMode);
     renderRooms(currentMode);
 
-    setDateHeader(
-        setDateTimeParameters(
-            new Date(currentCalendarCell.year + '-' + currentCalendarCell.month + '-' + currentCalendarCell.day)
-        ));
-
+    setDateHeader(currentCalendarCell);
     renterStaticSliderTime();
 });
 
 $(document).on('click', '#roomevent-time-before-part', function () {
 
-    timeOffset--;
-    renderTime(currentMode);
-    renderRooms(currentMode);
-
-    renterStaticSliderTime();
+    addValueToDate(currentCalendarCell, { hour: 1 }, false);
+    render();
 });
 
 $(document).on('click', '#roomevent-time-next-part', function () {
 
-    timeOffset++;
-    renderTime(currentMode);
-    renderRooms(currentMode);
-
-    renterStaticSliderTime();
+    addValueToDate(currentCalendarCell, { hour: 1 }, true);
+    render();
 });
 
-function setDateHeader(dateTimeParameters) {
-    $('#event-date').html(dateTimeParameters.day + ', ' + dayNames[dateTimeParameters.dayOfWeek]);
+function render() {
+
+    renderCalendar(currentCalendarCell.month);
+
+    setDateHeader(currentCalendarCell);
+
+    renderTime(currentMode);
+    renderRooms(currentMode);
+    renterStaticSliderTime();
+
 }
 
-function getRenderHour() {
-    var renderHour = getCurrentTime(true);
-    renderHour.hour += timeOffset;
+function setDateHeader(dateTimeParameters) {
+    var dayOfWeek = getDayOfWeek(new Date(currentCalendarCell.year + '-' + currentCalendarCell.month + '-' + currentCalendarCell.day).getDay());
 
-    if (renderHour.hour > 24) {
-        renderHour.hour = renderHour.hour - 24;
-    } else if (renderHour.hour < 0) {
-        renderHour.hour = 24 + renderHour.hour;
-    }
-
-    firstTimeCellHour = renderHour.hour;
-
-    return renderHour;
+    $('#event-date').html(currentCalendarCell.day + ', ' + dayNames[dayOfWeek]);
 }
 
 function renderTime(timeCellCount, resetTime) {
 
-    var renderHour = resetTime || getRenderHour();
+    var noReset = resetTime || true;
+
+    var renderDate = {
+        year: noReset ? currentCalendarCell.year : dateNow.year,
+        month: noReset ? currentCalendarCell.month : dateNow.month,
+        day: noReset ? currentCalendarCell.day : dateNow.day,
+        hour: noReset ? currentCalendarCell.hour : dateNow.hour,
+        minutes: noReset ? currentCalendarCell.minutes : dateNow.minutes,
+    };
 
     headerTime.empty();
-    renderSliders(timeCellCount);
     headerTime.append('<div class="roomevent-time-cell"></div>');
 
-    for (var cell = 1; cell <= timeCellCount; cell++) {
-        var hourCellId = 'hour-cell-' + currentCalendarCell.year + '-' + currentCalendarCell.month + '-' + currentCalendarCell.day + '-' + renderHour.hour;
-        headerTime.append('<div id="' + hourCellId + '" class="roomevent-time-cell roomevent-time-cell-middle">' + renderTimeMinutes(renderHour.hour, 0) + '</div>');
+    firstTimeCellDate = 'hour-cell-' + renderDate.year + '-' + renderDate.month + '-' + renderDate.day + '-' + renderDate.hour;
+    firstTimeCellHour = renderDate.hour;
 
-        renderHour.hour++;
-        if (renderHour.hour === 24) {
-            renderHour.hour = 0;
+    for (var cell = 1; cell <= timeCellCount; cell++) {
+        var hourCellId = 'hour-cell-' + renderDate.year + '-' + renderDate.month + '-' + renderDate.day + '-' + renderDate.hour;
+        headerTime.append('<div id="' + hourCellId + '" class="roomevent-time-cell roomevent-time-cell-middle">' + renderTimeMinutes(renderDate.hour, 0) + '</div>');
+
+        addValueToDate(renderDate, { hour: 1 }, true);
+    }
+
+}
+
+function renderRooms(timeCellCount, resetTime) {
+
+    var noReset = resetTime || true;
+
+    roomSection.empty();
+
+    for (var currentRoom = 1; currentRoom <= roomNames.length; currentRoom++) {
+
+        var renderDate = {
+            year: noReset ? currentCalendarCell.year : dateNow.year,
+            month: noReset ? currentCalendarCell.month : dateNow.month,
+            day: noReset ? currentCalendarCell.day : dateNow.day,
+            hour: noReset ? currentCalendarCell.hour : dateNow.hour,
+            minutes: noReset ? currentCalendarCell.minutes : dateNow.minutes,
+        };
+
+
+        roomSection.append('<div id="room-row-' + currentRoom + '"></div>');
+
+        var currentRow = $('#room-row-' + currentRoom);
+        currentRow.append('<div class="roomevent-room-cell">' +
+                                 '<div>' + roomNames[currentRoom - 1] + '</div>' +
+                                 '</div>');
+
+        for (var cell = 0; cell < timeCellCount; cell++) {
+
+            var cellId = currentRoom + '_' + renderDate.year + '-' + renderDate.month
+                + '-' + renderDate.day + 'T' + renderDate.hour
+
+            addValueToDate(renderDate, { hour: 1 }, true);
+            currentRow.append('<div id=' + cellId + ' class="roomevent-room-cell roomevent-room-cell-middle" data-left-occupied="0" data-right-occupied="0" data-inside-event="0"><div></div></div>');
         }
     }
 
+    doEventStuff();
+    renderSliders(timeCellCount);
+}
+
+//events from db:
+//EventBlockViewModel  Id, ClassRoomId, BeginingDate, EndingDate
+function doEventStuff() {
+    createEventArray();
+    calculateEventBlockPosition()
+}
+var events;
+function createEventArray() {
+    events = [];
+    events.push({
+        id: 1,
+        classRoomId: 1,
+        dateBegining: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + 00 + ':' + 15),
+        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + 00 + ':' + 45)
+    });
+
+    events.push({
+        id: 2,
+        classRoomId: 2,
+        dateBegining: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + 20 + ':' + 00),
+        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + 22 + ':' + 30)
+    });
+}
+
+function calculateEventBlockPosition() {
+
+    for (var currentEvent = 0; currentEvent < events.length; currentEvent++) {
+
+        var hourBegin = events[currentEvent].dateBegining.getHours();
+        var hourEnd = events[currentEvent].dateEnding.getHours();
+        var minutesBegin = events[currentEvent].dateBegining.getMinutes();
+        var minutesEnd = events[currentEvent].dateEnding.getMinutes();
+
+        var hourBeginRelative = hourBegin - firstTimeCellHour;
+        var hourEndRelative = hourEnd - firstTimeCellHour;
+
+        if (hourBeginRelative < 0) {
+            hourBeginRelative += 24;
+        }
+        if (hourEndRelative < 0) {
+            hourEndRelative += 24;
+        }
+
+        var year = events[currentEvent].dateBegining.getFullYear();
+        var month = events[currentEvent].dateBegining.getMonth() + 1;
+        var day = events[currentEvent].dateBegining.getDate();
+
+        var classRoomId = events[currentEvent].classRoomId;
+
+        var hoursDuration = hourEnd - hourBegin;
+
+        var duration = (hourEnd * 60 + minutesEnd) - (hourBegin * 60 + minutesBegin)
+        var leftPosition = minutesBegin * minutePerPixel;
+
+        var width = duration * minutePerPixel;
+
+        //var width = 
+        //    ((hourEndRelative * (minutePerPixel * 60)) + (minutesEnd * minutePerPixel))
+        //    - leftPositionRelative;
+
+        var eventBlock = {
+            id: 'eventblock-' + events[currentEvent].id,
+            left: leftPosition,
+            width: width,
+            timeStart: renderTimeMinutes(hourBegin, minutesBegin),
+            timeEnd: renderTimeMinutes(hourEnd, minutesEnd),
+            description: 'blabla'
+        }
+
+        var cellIdFirst = '#' + classRoomId + '_' + year + '-' + month + '-' + day + 'T' + hourBegin;
+
+        if (hoursDuration <= 0 || (hoursDuration == 1 && (minutesBegin == 0 && minutesEnd == 0))) {
+            $(cellIdFirst).attr('data-inside-event', leftPosition + '-' + width);
+
+            renderEventBlock(eventBlock, cellIdFirst);
+
+        } else if (hoursDuration > 0) {
+
+            $(cellIdFirst).attr('data-right-occupied', (timeCellWidth * (hourBeginRelative + 1)) - leftPosition);
+            console.log($(cellIdFirst).attr('data-right-occupied'));
+
+
+            var cellIdLast = '#' + classRoomId + '_' + year + '-' + month + '-' + day + 'T' + hourEnd;
+            $(cellIdLast).attr('data-left-occupied', (timeCellWidth * (hourEndRelative + 1)) - leftPosition);
+            //for (var currentHour = (hourBegin + 1) ; currentHour < hourEnd; currentHour++) {
+            renderEventBlock(eventBlock, cellIdFirst);
+
+            //}
+        }
+
+    }
+
+
+}
+
+function renderEventBlock(eventBlock, roomEventCell) {
+
+    $(roomEventCell).html('<div id="' + eventBlock.id + '" class="eventblock-exist">' +
+                          '<div class="eventblock-time">' +
+                          '<span>' + eventBlock.timeStart + ' - ' + eventBlock.timeEnd + '</span>' +
+                          '</div><div class="eventblock-description">' +
+                          '<div>English class - </div>' +
+                          '<div>Speaking for juniours</div></div></div>');
+    $('#' + eventBlock.id).css('width', eventBlock.width).css('left', eventBlock.left);
+}
+
+
+var eventBlock; //Object contains room # and event block coordinates
+//properties: roomId, blockId { left, width }; 
+//methods: getInterval(roomId, blockIdOne, blockIdTwo)
+
+function setRoomEventCellHoverZone(id) {
+    var targetCell = $('#' + id);
+    var occupiedLeft = targetCell.attr('data-left-occupied');
+    var occupiedRight = targetCell.attr('data-right-occupied');
+
+    var width = timeCellWidth - (occupiedLeft + occupiedRight);
+
+    var minutes = Math.floor((leftPosition - (hours * 60 * minutePerPixel)) / minutePerPixel);
+
+    $(document).on('mouseover', '#' + id, function () {
+
+
+
+    });
 }
 
 function renderSliders(timeCellCount) {
@@ -152,7 +316,7 @@ function renderSliders(timeCellCount) {
     $('#slider').draggable({
         axis: "x",
         cursor: 'pointer',
-        grid: [2.03, 0],
+        grid: [minutePerPixel, 0],
         containment: "#header-time-slider-zone",
         drag: function (event, ui) {
             /*console.log(collision($('#slider'), $('#bla')));*/
@@ -166,36 +330,6 @@ function activateStaticSlider() {
     renterStaticSliderTime();
 }
 
-
-function renderRooms(timeCellCount, resetTime) {
-
-    roomSection.empty();
-
-    var renderHour = resetTime || getRenderHour();
-
-    for (var currentRoom = 1; currentRoom <= roomNames.length; currentRoom++) {
-
-        roomSection.append('<div id="room-row-' + currentRoom + '"></div>');
-
-        var currentRow = $('#room-row-' + currentRoom);
-        currentRow.append('<div class="roomevent-room-cell">' +
-                                 '<div>' + roomNames[currentRoom - 1] + '</div>' +
-                                 '</div>');
-
-        var renderHour = getCurrentTime(true);
-        for (var cell = 0; cell < timeCellCount; cell++) {
-
-            var cellId = currentRoom + '_' + currentCalendarCell.year + '-' + currentCalendarCell.month
-                + '-' + currentCalendarCell.day + 'T' + renderHour.hour++
-            if (renderHour.hour === 24) {
-                renderHour.hour = 0;
-            }
-
-            currentRow.append('<div id=' + cellId + ' class="roomevent-room-cell roomevent-room-cell-middle"><div></div></div>');
-        }
-    }
-}
-
 function getEventObject(longRoomEventId) {
     //Datetime format: 2012-04-23T18:25:43.511Z
     var splittedLongId = longId.split('_');
@@ -207,45 +341,37 @@ function getEventObject(longRoomEventId) {
     return EventObject;
 }
 
-function renderTimeMinutes(hours, minutes) {
-    var renderHours = hours > 9 ? hours : '0' + hours;
-    var renderMinutes = minutes > 9 ? minutes : '0' + minutes;
-    return renderHours + ':' + renderMinutes;
-}
-
-function getCurrentTime(returnObject) {
-    var dateNow = new Date();
-    if (returnObject == true) {
-        return {
-            hour: dateNow.getHours(),
-            minutes: dateNow.getMinutes()
-        };
-    }
-    return renderTimeMinutes(dateNow.getHours(), dateNow.getMinutes());
-}
-
 function renterStaticSliderTime() {
 
-    $('.roomevent-now').hide();
-    var currentTime = getCurrentTime(true);
+    var navigation;
 
-    var targetCellId = $('#hour-cell-' + dateNow.year + '-' + dateNow.month + '-' + dateNow.day + '-' + currentTime.hour);
+    if (currentMode == shortRoomEventTable) {
+        navigation = $('.roomevent-now');
+    } else {
+        navigation = $('.roomevent-now-large');
+    }
+    navigation.hide();
+
+    var targetCellId = $('#hour-cell-' + dateNow.year + '-' + dateNow.month + '-' + dateNow.day + '-' + dateNow.hour);
     var targetCellIdPosition = targetCellId.position();
-
+    console.log(targetCellId);
     if (targetCellIdPosition != undefined) {
-        var sliderOffset = (targetCellIdPosition.left - fisrtTimeCellWidth) + (minutePerPixel * currentTime.minutes);
-        /*console.log(sliderOffset);*/
+
+        var sliderOffset = (targetCellIdPosition.left - fisrtTimeCellWidth) + (minutePerPixel * dateNow.minutes);
+
         $('#slider-static').css('left', sliderOffset);
     } else {
-        $('.roomevent-now').show();
+        navigation.show();
 
-        if (compareDates(currentCalendarCell, dateNow) < 0) {
+        var compareDatesResult = compareDates(currentCalendarCell, dateNow, false, true);
+        console.log(compareDatesResult);
+        if (compareDatesResult < 0) {
             $('#slider-static').hide();
-            $('.roomevent-now').css('text-align', 'right');
+            navigation.css('text-align', 'right');
             $('#roomevent-now').html('Сейчас <i class="fa fa-long-arrow-right" aria-hidden="true"></i>')
         } else {
             $('#slider-static').hide();
-            $('.roomevent-now').css('text-align', 'left');
+            navigation.css('text-align', 'left');
             $('#roomevent-now').html('<i class="fa fa-long-arrow-left" aria-hidden="true"></i> Сейчас')
         }
     }
@@ -253,6 +379,14 @@ function renterStaticSliderTime() {
 
 function renterSliderTime(leftPosition) {
     var hours = Math.floor(leftPosition / (minutePerPixel * 60));
+    var renderHours = firstTimeCellHour + hours;
+
+    console.log(hours);
     minutes = Math.floor((leftPosition - (hours * 60 * minutePerPixel)) / minutePerPixel);
-    $('.slider-time').html(renderTimeMinutes(firstTimeCellHour + hours, minutes));
+
+    while (renderHours >= 24) {
+        renderHours -= 24;
+    }
+
+    $('.slider-time').html(renderTimeMinutes(renderHours, minutes));
 }

@@ -102,6 +102,7 @@
         .roomevent-room-cell {
             width: 122px;
             height: 48px;
+                        position: relative;
             display: table-cell;
             color: #697184;
             border: 2px solid #EBEEF7;
@@ -128,10 +129,8 @@
             border-left: 1px;
         }
 
-
-
         .roomevent-calendar-cell {
-            display: inline-block; 
+            display: inline-block;
             width: 28px;
             line-height: 28px;
             height: 28px; 
@@ -205,14 +204,16 @@
             padding-bottom: 10px;
         }
 
-        .event-add {
-            position: relative;
+        .eventblock-add {
+            position: absolute;
             background-color: #FDBCBA;
-            width: 122px;
+            /*width: 122px;*/
+            margin: 0 !important;
+            top: 0;
             height: 48px;
         }
 
-        .event-lock {
+        .eventblock-lock {
             position: relative;
             background-color: #EBEEF7;
             color: #B0B4BC;
@@ -220,14 +221,41 @@
             height: 48px;
         }
 
-        .event-exist {
+        .eventblock-exist {
+            cursor: pointer !important;
+            position: absolute;
+            top: 0;
             background-color: #F95752;
-            width: 122px;
+            margin: 0 !important;
             height: 48px;
             font-size: 11px;
         }
+        
+        .eventblock-exist .eventblock-time {
+            position: relative;
+            width: 100%;
+            margin: 0 !important;
+            color: #FDC7C6;
+            text-align: right;
+            font-size: 12px;
+            opacity: 0.9;
+            z-index: 1;
+            padding-top: 1px;
+        }
 
-        .fa-lock, .fa-plus  {
+        .eventblock-exist .eventblock-time span {
+            padding-right: 9px;
+        }
+        
+        .eventblock-exist .eventblock-description {
+            width: 100%;
+            padding-top: 5px;
+            margin: 0 !important;
+            color: #FFFFFF;
+            text-align: left;
+        }
+
+         .fa-lock, .fa-plus  {
             position: absolute;
             top: 0;
             left: 0;
@@ -247,24 +275,6 @@
             color: #FFFFFF;
         }
 
-        .event-time {
-            position: relative;
-            color: #FDC7C6;
-            text-align: right;
-            font-size: 12px;
-            opacity: 0.9;
-            z-index: 1;
-            padding-top: 1px;
-            padding-right: 9px;
-        }
-
-        .event-description {
-            padding-top: 5px;
-            padding-left: 6px;
-            color: #FFFFFF;
-            text-overflow: ellipsis;
-        }
-
         #header-time{
             position: relative;
         }
@@ -282,6 +292,7 @@
             cursor: pointer;
             width: 2.03px;
             background-color: #4A5158;
+            z-index: 10;
         }
 
        #slider-static{
@@ -289,6 +300,7 @@
             cursor: pointer;
             width: 2.03px;
             background-color: #9FA6B6;
+            z-index: 10;
         }
 
         .slider-up, .slider-up-static  {

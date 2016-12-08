@@ -7,16 +7,27 @@ var monthNames = ["Январь", "Февраль", "Март", "Апрель", 
 
 var date = new Date();
 
-var yearNow = date.getFullYear();
-var monthNow = date.getMonth() + 1;
-var dayNow = date.getDate();
+var dateNow = {
+    year: date.getFullYear(),
+    month: (date.getMonth() + 1),
+    day: date.getDate(),
+    hour: date.getHours(),
+    minutes: date.getMinutes()
+};
 
-var dateNow = { year: date.getFullYear(), month: (date.getMonth() + 1), day: date.getDate() };
+var dateNowStartClock = setInterval(setDateNow, 1000 * 60);
 
 var currentCalendarMonth = dateNow.month;
 var currentCalendarYear = dateNow.year;
 
-var currentCalendarCell;
+var currentCalendarCell = {
+    year: dateNow.year,
+    month: dateNow.month,
+    day: dateNow.day,
+    hour: dateNow.hour,
+    minutes: dateNow.minutes
+};
+
 var currentMonthRender = $('#current-month');
 
 function renderCalendar(month) {
@@ -32,15 +43,15 @@ function renderCalendar(month) {
 
     var firstDayOfWeekInMonth = getDayOfWeek(new Date(currentCalendarYear + '-' + selectedCalendarMonth + '-01').getDay());
     var maxDayCount = getDaysInMonth(selectedCalendarMonth, currentCalendarYear);
-    var maxDayCountLastMonth = getDaysInMonth(selectedCalendarMonth-1, currentCalendarYear) - firstDayOfWeekInMonth + 1;
+    var maxDayCountLastMonth = getDaysInMonth(selectedCalendarMonth - 1, currentCalendarYear) - firstDayOfWeekInMonth + 1;
 
     var currentMonth = selectedCalendarMonth;
     var currentYear = currentCalendarYear;
-    
+
     $('#current-month').html(monthNames[selectedCalendarMonth - 1] + ', ' + currentCalendarYear).trigger('changeCalendarNavigation');
     calendarBody.empty();
 
-    
+
     calendarBody.append('<div id="day-names"></div>');
 
     for (var dayNumberToFillIntoCalendarName = 0; dayNumberToFillIntoCalendarName < 7; dayNumberToFillIntoCalendarName++) {
@@ -91,24 +102,15 @@ function renderCalendar(month) {
 }
 
 function resetCurrentCalendarCell() {
-    currentCalendarCell = dateNow;
-    setDateHeader(setDateTimeParameters());
-}
+    currentCalendarCell = {
+        year: dateNow.year,
+        month: dateNow.month,
+        day: dateNow.day,
+        hour: dateNow.hour,
+        minutes: dateNow.minutes
+    };
 
-function setDateTimeParameters(dateIn) {
-
-    var renderDate = dateIn || new Date(yearNow + '-' + monthNow + '-' + dayNow);
-
-    var dateTimeParameters = {
-        day: renderDate.getDate(),
-        month: renderDate.getMonth(),
-        year: renderDate.getFullYear(),
-        dayOfWeek: getDayOfWeek(renderDate.getDay()),
-        hours: renderDate.getHours(),
-        minutes: renderDate.getMinutes()
-    }
-
-    return dateTimeParameters;
+    setDateHeader(currentCalendarCell);
 }
 
 function parseIdFromCalendarSell(longId) {
@@ -117,7 +119,9 @@ function parseIdFromCalendarSell(longId) {
     var CalendarCellIdParameters = {
         month: splittedLongId[0],
         day: splittedLongId[1],
-        year: splittedLongId[2]
+        year: splittedLongId[2],
+        hour: 0,
+        minutes: 0
     }
 
     return CalendarCellIdParameters;
@@ -131,9 +135,10 @@ function getDayOfWeek(day) {
     return trueDay;
 }
 
-function compareDates(date, dateTo, ignoreDays) {
+function compareDates(date, dateTo, ignoreDays, incudeTime) {
 
     var ignore = ignoreDays || false;
+    var time = incudeTime || false;
 
     if (date.year > dateTo.year) {
         return 1;
@@ -147,10 +152,17 @@ function compareDates(date, dateTo, ignoreDays) {
         return 1;
     } else if ((date.day < dateTo.day) && !ignore) {
         return -1;
+    } else if ((date.hour < dateTo.hour) && time) {
+        return -1;
+    } else if ((date.hour > dateTo.hour) && time) {
+        return 1;
+    } else if((date.minutes < dateTo.minutes) && time){
+        return -1;
+    } else if ((date.minutes > dateTo.minutes) && time) {
+        return 1;
     } else {
         return 0;
     }
-
 }
 
 function getDaysInMonth(month, year) {
@@ -160,10 +172,14 @@ function getDaysInMonth(month, year) {
 //Click events
 
 $(document).on('click', '#roomevent-calendar-today', function () {
-    currentCalendarMonth = date.getMonth() + 1;
-    currentCalendarYear = date.getFullYear();
+    currentCalendarMonth = dateNow.month;
+    currentCalendarYear = dateNow.year;
+
     resetCurrentCalendarCell();
     renderCalendar(currentCalendarMonth);
+    renderTime(currentMode);
+    renderRooms(currentMode);
+    renterStaticSliderTime();
 });
 
 $(document).on('click', '#calendar-month-left', function () {
@@ -185,11 +201,10 @@ $(document).on('click', '#calendar-month-right', function () {
 });
 
 currentMonthRender.bind('changeCalendarNavigation', function () {
-   
+
     var dateComparisonResult = compareDates({ year: currentCalendarYear, month: currentCalendarMonth }, dateNow, true);
 
-    if (dateComparisonResult == 0)
-    {
+    if (dateComparisonResult == 0) {
         calendarTodayNavigaion.css('text-align', 'center');
         calendarTodayNavigationValue.html('Сегодня');
     } else if (dateComparisonResult < 0) {
@@ -202,7 +217,7 @@ currentMonthRender.bind('changeCalendarNavigation', function () {
 });
 
 $(document).on('click', '.roomevent-calendar-cell', function () {
-    
+
     var selectedCalendarCell = $(this);
     var currentLongId = '#' + currentCalendarCell.month + '-' + currentCalendarCell.day + '-' + currentCalendarCell.year;
     $(currentLongId).removeClass('roomevent-calendar-cell-today');
@@ -211,11 +226,7 @@ $(document).on('click', '.roomevent-calendar-cell', function () {
     var nextLongId = selectedCalendarCell.attr('id');
     currentCalendarCell = parseIdFromCalendarSell(nextLongId);
 
-    setDateHeader(
-            setDateTimeParameters(
-                new Date(currentCalendarCell.year + '-' + currentCalendarCell.month + '-' + currentCalendarCell.day)
-            ));
-
+    setDateHeader(currentCalendarCell);
 
     if (currentCalendarMonth != currentCalendarCell.month) {
 
@@ -227,9 +238,106 @@ $(document).on('click', '.roomevent-calendar-cell', function () {
     if (currentCalendarCell.day != dateNow.day) {
         renderTime(currentMode, { hour: 0, minutes: 0 });
         renderRooms(currentMode, { hour: 0, minutes: 0 });
+        $('.slider-time').html(renderTimeMinutes(0, 0));
     } else {
         renderTime(currentMode);
         renderRooms(currentMode);
     }
     renterStaticSliderTime();
 });
+
+function renderTimeMinutes(hours, minutes) {
+    var renderHours = hours > 9 ? hours : '0' + hours;
+    var renderMinutes = minutes > 9 ? minutes : '0' + minutes;
+    return renderHours + ':' + renderMinutes;
+}
+
+function getCurrentTime(returnObject) {
+    var dateNow = new Date();
+    if (returnObject == true) {
+        return {
+            hour: dateNow.getHours(),
+            minutes: dateNow.getMinutes()
+        };
+    }
+    return renderTimeMinutes(dateNow.getHours(), dateNow.getMinutes());
+}
+
+function addValueToDate(targetDate, dateObject, add) {
+
+    var maxDayCount = getDaysInMonth(targetDate.month, targetDate.year);
+
+    if (add == true) {
+
+        targetDate.year += dateObject.year || 0;
+        targetDate.month += dateObject.month || 0;
+        targetDate.day += dateObject.day || 0;
+        targetDate.hour += dateObject.hour || 0;
+        targetDate.minute += dateObject.minute || 0;
+
+        while (targetDate.minute > 60) {
+            targetDate.minute -= 60;
+            targetDate.hour++;
+        }
+
+        while (targetDate.hour >= 24) {
+            targetDate.hour -= 24;
+            targetDate.day++;
+        }
+
+
+        while (targetDate.day > maxDayCount) {
+            targetDate.day -= maxDayCount;
+            targetDate.month++;
+            while (targetDate.month > 12) {
+                targetDate.month -= 12;
+                targetDate.year++;
+
+            }
+            maxDayCount = getDaysInMonth(targetDate.month, targetDate.year);
+        }
+
+    } else {
+
+        targetDate.year -= dateObject.year || 0;
+        targetDate.month -= dateObject.month || 0;
+        targetDate.day -= dateObject.day || 0;
+        targetDate.hour -= dateObject.hour || 0;
+        targetDate.minute -= dateObject.minute || 0;
+
+        while (targetDate.minute < 0) {
+            targetDate.minute += 60;
+            targetDate.hour--;
+        }
+
+        while (targetDate.hour < 0) {
+            targetDate.hour += 24;
+            targetDate.day--;
+        }
+
+        while (targetDate.day < 0) {
+            targetDate.day += maxDayCount;
+            targetDate.month--;
+
+            while (targetDate.month < 0) {
+                targetDate.month += 12;
+                targetDate.year--;
+            }
+
+            maxDayCount = getDaysInMonth(targetDate.month, targetDate.year);
+        }
+    }
+}
+
+function setDateNow() {
+    var date = new Date();
+
+    dateNow = {
+        year: date.getFullYear(),
+        month: (date.getMonth() + 1),
+        day: date.getDate(),
+        hour: date.getHours(),
+        minutes: date.getMinutes()
+    };
+
+}
