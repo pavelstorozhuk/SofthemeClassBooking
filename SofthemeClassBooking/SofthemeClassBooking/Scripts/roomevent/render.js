@@ -178,8 +178,8 @@ function createEventArray() {
     events.push({
         id: 1,
         classRoomId: 1,
-        dateBegining: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + 00 + ':' + 15),
-        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + 00 + ':' + 45)
+        dateBegining: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + 10 + ':' + 15),
+        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + 10 + ':' + 45)
     });
 
     events.push({
