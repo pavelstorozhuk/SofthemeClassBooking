@@ -81,6 +81,7 @@ namespace SofthemeClassBooking.Models
         private const string ErrorEmptyMessage = DangerMessagePath + "Это поле обязательно для заполения";
         private const string ErrorMessageMaxLengthReached = DangerMessagePath + "Поле слишком длинное";
         private const string ErrorEmailMessage = DangerMessagePath + "Неверный адрес электронной почты";
+        private const string ErrorMessageMinLengthReached = DangerMessagePath + "Поле слишком короткое";
         [Required(ErrorMessage = ErrorEmptyMessage)]
         [StringLength(70, ErrorMessage = ErrorMessageMaxLengthReached)]
         [Display(Name = "UserName")]
@@ -96,14 +97,14 @@ namespace SofthemeClassBooking.Models
 
 
         [Required(ErrorMessage = ErrorEmptyMessage)]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = ErrorMessageMinLengthReached, MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "Поля не совпадают")]
         public string ConfirmPassword { get; set; }
     }
 
