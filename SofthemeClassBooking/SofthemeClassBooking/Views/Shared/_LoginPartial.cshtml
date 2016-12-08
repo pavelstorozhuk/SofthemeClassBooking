@@ -25,7 +25,7 @@
                 <div @(ViewContext.RouteData.Values["controller"].ToString().Equals("Feedback") ? "class=nav-line-display" : "class=nav-line-hide")></div>
             </li>
             <li>
-                <a href="@Url.Action("Index", "Home")">
+                <a href="@Url.Action("UserProfile", "Home")">
                 <div class="nav-text"><img src="~/Content/images/profile.png" alt="profile" /> @User.Identity.Name </div>
                 </a>
             </li>

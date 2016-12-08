@@ -29,11 +29,17 @@ namespace SofthemeClassBooking_BLL.Implementation
 
             using (var context = new ClassBookingContext())
             {
-                var classRoomDTO = context.ClassRooms.ToList();
-                foreach (var classRoom in classRoomDTO)
-                {
-                    classRoomModel.Add(Map(classRoom));
-                }
+
+
+             
+                    var classRoomDTO = context.ClassRooms.ToList();
+
+                    foreach (var classRoom in classRoomDTO)
+                    {
+                        classRoomModel.Add(Map(classRoom));
+                    }
+                
+
             }
             return classRoomModel;
         }
