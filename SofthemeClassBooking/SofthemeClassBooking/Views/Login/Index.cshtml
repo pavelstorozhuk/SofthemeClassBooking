@@ -7,7 +7,7 @@
 
         @section Title
         {
-            <p id="title"> Вход </p>
+            <p  id="title" style="margin-left: 445px">  Вход </p>
         }
         @section Menu
         {
@@ -27,10 +27,10 @@
 
                             <span style="float: none;font-size:12px"> @Html.ValidationSummary(true)</span>
                       </div>
-                      <br/>
+                      
                     @Html.AntiForgeryToken()
                     @Html.TextBoxFor(m => m.Email, new { placeholder = "Адрес электронной почты", @id = "emailBox", type= "email" })
-                      <div style="height:8px"></div>
+                     
                     @Html.TextBoxFor(m => m.Password, new { @id = "Password", placeholder = "Пароль", type = "password" })
                  <div style="height:8px"></div>
                     <input type="submit" class="button-refuse" value="Войти" id="mysubmit">

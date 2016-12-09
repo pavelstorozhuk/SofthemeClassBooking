@@ -44,9 +44,10 @@ namespace SofthemeClassBooking.Models
     {
         private const string DangerMessagePath = "<img src='../Content/images/danger.png'/> ";
         private const string ErrorEmailMessage = DangerMessagePath + "Неверный адрес электронной почты";
-        [Required]
+        private const string ErrorEmptyMessage = DangerMessagePath + "Это поле обязательно для заполения";
+        [Required(ErrorMessage = ErrorEmptyMessage)]
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$", ErrorMessage = ErrorEmailMessage)]
-        [Display(Name = "Email")]
+        
         public string Email { get; set; }
     }
 
@@ -82,6 +83,7 @@ namespace SofthemeClassBooking.Models
         private const string ErrorMessageMaxLengthReached = DangerMessagePath + "Поле слишком длинное";
         private const string ErrorEmailMessage = DangerMessagePath + "Неверный адрес электронной почты";
         private const string ErrorMessageMinLengthReached = DangerMessagePath + "Поле слишком короткое";
+        private const string ErrorMessageConfirmPassword = DangerMessagePath + "Поля не совпадают";
         [Required(ErrorMessage = ErrorEmptyMessage)]
         [StringLength(70, ErrorMessage = ErrorMessageMaxLengthReached)]
         [Display(Name = "UserName")]
@@ -104,20 +106,19 @@ namespace SofthemeClassBooking.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "Поля не совпадают")]
+        [Compare("Password", ErrorMessage = ErrorMessageConfirmPassword)]
         public string ConfirmPassword { get; set; }
     }
 
     public class ResetPasswordViewModel
     {
         private const string DangerMessagePath = "<img src='../Content/images/danger.png'/> ";
-        private const string ErrorEmptyMessage = DangerMessagePath + "Это поле обязательно для заполения";
         private const string ErrorMessageMaxLengthReached = DangerMessagePath + "Поле слишком длинное";
         private const string ErrorEmailMessage = DangerMessagePath + "Неверный адрес электронной почты";
         private const string ErrorConfirmationPassword = "Пароль не совпадает";
 
         
-        [EmailAddress]
+        
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$", ErrorMessage = ErrorEmailMessage)]
         public string Email { get; set; }
 
@@ -137,8 +138,14 @@ namespace SofthemeClassBooking.Models
 
     public class ForgotPasswordViewModel
     {
-        [Required]
-        [EmailAddress]
+        private const string DangerMessagePath = "<img src='../Content/images/danger.png'/> ";
+        private const string ErrorEmailMessage = DangerMessagePath + "Неверный адрес электронной почты";
+        private const string ErrorEmptyMessage = DangerMessagePath + "Это поле обязательно для заполения";
+        private const string ErrorMessageMaxLengthReached = DangerMessagePath + "Поле слишком длинное";
+
+        [StringLength(50, ErrorMessage = ErrorMessageMaxLengthReached)]
+        [Required(ErrorMessage = ErrorEmptyMessage)]
+        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$", ErrorMessage = ErrorEmailMessage)]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }

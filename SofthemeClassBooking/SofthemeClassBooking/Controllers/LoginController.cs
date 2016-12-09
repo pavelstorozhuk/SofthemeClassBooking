@@ -16,12 +16,16 @@ using SofthemeClassBooking.Models;
 
 namespace SofthemeClassBooking.Controllers
 {
-     
+
     public class LoginController : Controller
     {
 
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
+        public LoginController()
+        {
+        }
 
         [AllowAnonymous]
         public ActionResult Index(string returnUrl)
@@ -40,14 +44,7 @@ namespace SofthemeClassBooking.Controllers
         {
             return View();
         }
-        
-       
-        
 
-
-        public LoginController()
-        {
-        }
 
         public LoginController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
@@ -58,28 +55,16 @@ namespace SofthemeClassBooking.Controllers
         public ApplicationSignInManager SignInManager
         {
 
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
-            }
+            get { return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>(); }
+            private set { _signInManager = value; }
 
         }
 
 
         public ApplicationUserManager UserManager
         {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
+            get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
+            private set { _userManager = value; }
 
         }
 
@@ -94,6 +79,7 @@ namespace SofthemeClassBooking.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View("index");
         }
+
         //
         // POST: /Account/Login
         [HttpPost]
@@ -101,28 +87,29 @@ namespace SofthemeClassBooking.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SofthemeLogin(LoginViewModel model, string returnUrl)
         {
-          
 
-       
             if (!ModelState.IsValid)
             {
                 return View("index", model);
             }
-           
+
             var user = await UserManager.FindByEmailAsync(model.Email);
-  
+
+
             if (user != null)
             {
-               
-                if (!user.EmailConfirmed)
+                if (!user.EmailConfirmed || _userManager.IsInRole(user.Id, "admin"))
                 {
 
                     ModelState.AddModelError("", "Confirm Email Address.");
-                    return View("Index",model);
+                    return View("Index", model);
                 }
-              
-                var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
-              
+
+                var result =
+                    await
+                        SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe,
+                            shouldLockout: false);
+
                 switch (result)
                 {
                     case SignInStatus.Success:
@@ -131,14 +118,14 @@ namespace SofthemeClassBooking.Controllers
                     case SignInStatus.LockedOut:
                         return View("Lockout");
                     case SignInStatus.RequiresVerification:
-                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                        return RedirectToAction("SendCode", new {ReturnUrl = returnUrl, RememberMe = model.RememberMe});
                     case SignInStatus.Failure:
                     default:
                         ModelState.AddModelError("", "Неверные данные");
                         ViewData["Login"] = "Error";
                         return View("Index", model);
                 }
-              
+
 
             }
             ViewData["Login"] = "Error";
@@ -148,8 +135,9 @@ namespace SofthemeClassBooking.Controllers
             // To enable password failures to trigger account lockout, change to shouldLockout: true
 
         }
-         [HttpPost]
-      
+
+        [HttpPost]
+
 
         //
         // GET: /Account/VerifyCode
@@ -161,7 +149,7 @@ namespace SofthemeClassBooking.Controllers
             {
                 return View("Error");
             }
-            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
+            return View(new VerifyCodeViewModel {Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe});
         }
 
         //
@@ -180,7 +168,10 @@ namespace SofthemeClassBooking.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result =
+                await
+                    SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe,
+                        rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -196,25 +187,26 @@ namespace SofthemeClassBooking.Controllers
 
         //
         // GET: /Account/Register
-          [Authorize]
+        [Authorize]
         public string GetUserEmail(string id)
         {
 
             return UserManager.FindById(id).Email;
         }
-      
+
         //--------------------------------------------------------------------
         [Authorize]
         public ActionResult Roles()
         {
-            IList<string> roles = new List<string> { "Роль не определена" };
+            IList<string> roles = new List<string> {"Роль не определена"};
             ApplicationUserManager userManager = HttpContext.GetOwinContext()
-                                                    .GetUserManager<ApplicationUserManager>();
+                .GetUserManager<ApplicationUserManager>();
             ApplicationUser user = userManager.FindByEmail(User.Identity.Name);
             if (user != null)
                 roles = userManager.GetRoles(user.Id);
             return View(roles);
         }
+
         //--------------------------------------------------------------------------------
         //
         // POST: /Account/Register
@@ -227,25 +219,48 @@ namespace SofthemeClassBooking.Controllers
             {
                 return View("Registration", model);
             }
-            else 
+            else
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                var user = new ApplicationUser {UserName = model.UserName, Email = model.Email};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await UserManager.AddToRoleAsync(user.Id, "user");
 
-                    MailMessage m = new MailMessage(new MailAddress("softhemeclassbooking@gmail.com", "Web Registration"), new MailAddress(user.Email));
-                    m.Subject = "Email confirmation";
-                    m.Body = string.Format("Dear {0}<BR/>Thank you for your registration, please click on the below link to complete your registration: <a href=\"{1}\" title=\"User Email Confirm\">{1}</a>", user.UserName, Url.Action("ConfirmEmail", "Login", new { Token = user.Id, Email = user.Email }, Request.Url.Scheme));
-                    m.IsBodyHtml = true;
-                    SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-                    smtp.Host = "smtp.gmail.com";
-                    smtp.Port = 587;
-                    smtp.Credentials = new System.Net.NetworkCredential("softhemeclassbooking@gmail.com", "softhemeclass");
-                    smtp.EnableSsl = true;
-                    smtp.Send(m);
-                    smtp.Dispose();
+
+                    var mailMessage = new MailMessage(new MailAddress("softhemeclassbooking@gmail.com", "Web Registration"),new MailAddress(user.Email));
+                    {
+                        try
+                        {
+                            mailMessage.Subject = "Email confirmation";
+                            mailMessage.Body =
+                                string.Format(
+                                    "Dear {0}<BR/>Thank you for your registration, please click on the below link to complete your registration: <a href=\"{1}\" title=\"User Email Confirm\">{1}</a>",
+                                    user.UserName,
+                                    Url.Action("ConfirmEmail", "Login", new {Token = user.Id, Email = user.Email},
+                                        Request.Url.Scheme));
+                            mailMessage.IsBodyHtml = true;
+                            using (var smtpClient = new SmtpClient("smtp.gmail.com", 587))
+                            {
+                                smtpClient.Host = "smtp.gmail.com";
+                                smtpClient.Port = 587;
+                                smtpClient.Credentials = new System.Net.NetworkCredential("softhemeclassbooking@gmail.com",
+                                    "softhemeclass");
+                                smtpClient.EnableSsl = true;
+                                smtpClient.Send(mailMessage);
+
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            ModelState.AddModelError("", "FatalError");
+                        }
+                        finally
+                        {
+                            mailMessage.Dispose();
+                         
+                        }
+                    }
                     return RedirectToAction("Confirm", "Login", new { Email = user.Email });
                 }
                 ViewData["Registration"] = "error";
