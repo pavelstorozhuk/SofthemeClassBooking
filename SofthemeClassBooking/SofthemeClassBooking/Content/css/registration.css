@@ -93,7 +93,33 @@ body {
     color: white;
     letter-spacing: 2px;
 }
+#Login  {
+    position: relative;
+    left: 49px;
+}
+#Login input {
+      width: 282px;
+}
+#Login input:nth-of-type(3) {
+    margin-top: 16px !important;
+    
+}
 
+    #Login input:nth-of-type(4) {
+        margin-top: 2px;
+        width: 149px;
+    }
+    #ForgotPassword {
+        position: relative;
+    left: 49px;
+    }
+    #ForgotPassword input {
+        width: 282px;
+    }
+    #ForgotPassword input[type="submit"] {
+         margin-top: 2px;
+        width: 149px;
+    }
 .registration-inner-inner-parallelogram {
     background-color: transparent;
         height: 402px;
@@ -168,10 +194,12 @@ body {
 .button-OK{
     background-Color : #F95752 !important; 
      border: none;
+     cursor: pointer;
 }
 .button-refuse {
     background-Color: #C8CDD9!important;
     border: none;
+    cursor: pointer;
 }
 .registration-form-incorrect-block {
     margin: 2px;
