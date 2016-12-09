@@ -274,6 +274,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Properties\PublishProfiles\SofthemeClassBookingAzure.pubxml" />
     <None Include="Scripts\jquery\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery\jquery-3.1.1.min.js" />
@@ -368,7 +369,7 @@
     <Content Include="Views\Classroom\EditClassRoomInfo.cshtml" />
     <Content Include="Views\RoomEvent\Large.cshtml" />
     <Content Include="Views\RoomEvent\Short.cshtml" />
-    <Content Include="Views\RoomEvent\EditEventInfo.cshtml" />
+    <Content Include="Views\RoomEvent\New.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
     <Content Include="Views\Event\Info.cshtml" />

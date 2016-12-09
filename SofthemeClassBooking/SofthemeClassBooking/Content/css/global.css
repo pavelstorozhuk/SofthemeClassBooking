@@ -8,6 +8,10 @@
     width: 1272px;
 }
 
+.wrapper {
+    position: relative;
+}
+
 .noselect-text {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Chrome/Safari/Opera */
