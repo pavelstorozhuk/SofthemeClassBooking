@@ -13,5 +13,10 @@ namespace SofthemeClassBooking.Controllers
         {
             return PartialView();
         }
+
+        public ActionResult Edit(int? id)
+        {
+            return PartialView();
+        }
     }
 }

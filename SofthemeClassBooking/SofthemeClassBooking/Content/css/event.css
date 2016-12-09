@@ -2,6 +2,10 @@
     position: relative;
 }
 
+.event-position {
+    position: absolute;
+}
+
 .event {
     font-family: 'Arial';
     color: #4A5158;
@@ -55,6 +59,10 @@
 }
 
 .event-create {
+    position: absolute;
+    top:0;
+    background-color: #FFFFFF;
+    z-index: 50;
     border: 1px solid #9FA6B6;
     width: 451px;
 }

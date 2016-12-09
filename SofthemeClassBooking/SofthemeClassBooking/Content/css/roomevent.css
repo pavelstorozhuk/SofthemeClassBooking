@@ -1,18 +1,18 @@
-﻿      .fa {
+﻿      .roomevent-section .fa {
             cursor: pointer;
             color: #EBEEF7;
             margin: 0 3px;
         }
 
-        .fa-selected {
+        .roomevent-section .fa-selected {
             color: #9FA6B6;
         }
 
-        .fa-caret {
+        .roomevent-section .fa-caret {
             color: #9FA6B6;
         }
 
-        .fa-align-justify:hover, .fa-list:hover, .fa-caret-left:hover, .fa-caret-left:hover {
+        .roomevent-section .fa-align-justify:hover, .fa-list:hover, .fa-caret-left:hover, .fa-caret-left:hover {
             color: #4A5158;
         }
 
@@ -102,7 +102,7 @@
         .roomevent-room-cell {
             width: 122px;
             height: 48px;
-                        position: relative;
+            position: relative;
             display: table-cell;
             color: #697184;
             border: 2px solid #EBEEF7;
@@ -204,44 +204,45 @@
             padding-bottom: 10px;
         }
 
-        .eventblock-add {
+        .eventblock-add, .eventblock-lock,  .eventblock-exist {
+            cursor: pointer !important;
             position: absolute;
-            background-color: #FDBCBA;
-            /*width: 122px;*/
             margin: 0 !important;
             top: 0;
             height: 48px;
+        }
+
+        .eventblock-add {
+            background-color: #FDBCBA;
         }
 
         .eventblock-lock {
-            position: relative;
             background-color: #EBEEF7;
             color: #B0B4BC;
-            width: 122px;
-            height: 48px;
         }
 
-        .eventblock-exist {
-            cursor: pointer !important;
-            position: absolute;
-            top: 0;
+        .eventblock-exist {     
             background-color: #F95752;
-            margin: 0 !important;
-            height: 48px;
             font-size: 11px;
         }
         
-        .eventblock-exist .eventblock-time {
-            position: relative;
+        .eventblock-exist, .eventblock-lock .eventblock-time {
+            cursor: default;
+            position: absolute;
             width: 100%;
             margin: 0 !important;
             color: #FDC7C6;
             text-align: right;
             font-size: 12px;
-            opacity: 0.9;
-            z-index: 1;
+            z-index: 3;
             padding-top: 1px;
         }
+
+        .eventblock-exist, .eventblock-lock .eventblock-time-small {
+            line-height: 48px;
+            text-align: center;
+        }
+
 
         .eventblock-exist .eventblock-time span {
             padding-right: 9px;
@@ -256,15 +257,14 @@
         }
 
          .fa-lock, .fa-plus  {
+            cursor: default !important; 
             position: absolute;
-            top: 0;
-            left: 0;
-            margin: 0 auto;
-            display: table-cell;
             width: 100%;
             text-align: center;
-            vertical-align: middle;
-            color: #FFFFFF;
+            margin: 0 !important;
+            top: 2px;
+            text-align: center;
+            color: #FFFFFF !important;
         }
 
         .fa-plus {

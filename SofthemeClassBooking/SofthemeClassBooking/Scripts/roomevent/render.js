@@ -21,6 +21,10 @@ var shortRoomEventTable = 5;
 var longRoomEventTable = 8;
 var currentMode = shortRoomEventTable;
 var timeOffset = 0;
+var eventBlock;
+var eventAddBlockCorrection = 2;
+
+//Event adding to DOM section
 
 $(document).on('click', '#large', function () {
 
@@ -60,6 +64,37 @@ $(document).on('click', '#short', function () {
     }
 });
 
+$(document).on('mouseover', '.exists', function (e) {
+    $('.eventblock-add').remove();
+});
+
+$(document).on('mouseover', '.roomevent-room-cell-middle', function (e) {
+
+    var currentRoomCell = $(this);
+
+    if (currentRoomCell.find('.eventblock-add').length) {
+        return;
+    }
+
+
+    var offset = currentRoomCell.offset();
+
+    var currentRoomCellObject = {
+        id: currentRoomCell.attr('id'),
+        dataLeftOccupied: parseInt(currentRoomCell.attr('data-left-occupied')),
+        dataRightOccupied: parseInt(currentRoomCell.attr('data-right-occupied')),
+        dataInsideEvent: currentRoomCell.attr('data-inside-event').split('-'),
+        mouseRelativePosition: (e.pageX - offset.left)
+    };
+
+    renderEventAdd(currentRoomCellObject);
+    //console.log(e.pageX - offset.left);
+
+
+}).on('mouseleave', '.roomevent-room-cell-middle', function () {
+    $('.eventblock-add').remove();
+});
+
 $(document).on('click', '#roomevent-now', function () {
     resetCurrentCalendarCell();
     renderCalendar(currentCalendarCell.month);
@@ -83,6 +118,8 @@ $(document).on('click', '#roomevent-time-next-part', function () {
     render();
 });
 
+//Render functions 
+
 function render() {
 
     renderCalendar(currentCalendarCell.month);
@@ -93,12 +130,6 @@ function render() {
     renderRooms(currentMode);
     renterStaticSliderTime();
 
-}
-
-function setDateHeader(dateTimeParameters) {
-    var dayOfWeek = getDayOfWeek(new Date(currentCalendarCell.year + '-' + currentCalendarCell.month + '-' + currentCalendarCell.day).getDay());
-
-    $('#event-date').html(currentCalendarCell.day + ', ' + dayNames[dayOfWeek]);
 }
 
 function renderTime(timeCellCount, resetTime) {
@@ -166,27 +197,187 @@ function renderRooms(timeCellCount, resetTime) {
     renderSliders(timeCellCount);
 }
 
+//render event divs
+
+function renderEventExist(eventBlock, roomEventCellId) {
+
+    $(roomEventCellId).html('<div id="' + eventBlock.id + '" class="eventblock-exist">' +
+                      '<div class="eventblock-time">' +
+                      '<span>' + eventBlock.timeStart + ' - ' + eventBlock.timeEnd + '</span>' +
+                      '</div><div class="eventblock-description">' +
+                      '<div>English class - </div>' +
+                      '<div>Speaking for juniours</div></div></div>');
+    $('#' + eventBlock.id).css('width', eventBlock.width).css('left', eventBlock.left);
+
+}
+
+function renderEventLock(eventBlock, roomEventCellId) {
+
+    $(roomEventCellId).html('<div id="' + eventBlock.id + '" class="eventblock-lock">' +
+                      '<div class="eventblock-time">' +
+                      '<span>' + eventBlock.timeStart + ' - ' + eventBlock.timeEnd + '</span>' +
+                      '</div><i class="fa fa-lock fa-3x"></i></div>');
+    $('#' + eventBlock.id).css('width', eventBlock.width).css('left', eventBlock.left);
+}
+
+
+function renderEventAdd(currentRoomCellObject) {
+
+    //debugger;
+
+    if (currentRoomCellObject.dataInsideEvent.length > 1) {
+
+        var leftStart = parseInt(currentRoomCellObject.dataInsideEvent[0]);
+        var leftEnd = parseInt(currentRoomCellObject.dataInsideEvent[1]);
+        var rightOffset = leftStart + leftEnd;
+
+        if ((currentRoomCellObject.mouseRelativePosition >= leftStart)
+            && currentRoomCellObject.mouseRelativePosition <= rightOffset) {
+            return;
+        }
+
+        $('#' + currentRoomCellObject.id).append('<div id="new-' + currentRoomCellObject.id + '" class="eventblock-add">' +
+                '<i class="fa fa-plus fa-2x"></i></div>');
+
+        if (currentRoomCellObject.mouseRelativePosition < leftStart) {
+            $('#new-' + currentRoomCellObject.id)
+                .css('width', leftStart )
+                .css('left', 0);
+        } else {
+            
+            $('#new-' + currentRoomCellObject.id)
+                .css('width', ((timeCellWidth - eventAddBlockCorrection) - rightOffset))
+                .css('left', (rightOffset));
+        }
+
+    } else {
+
+        $('#' + currentRoomCellObject.id).append('<div id="new-' + currentRoomCellObject.id + '" class="eventblock-add">' +
+        '<i class="fa fa-plus fa-2x"></i></div>');
+
+        var width = (timeCellWidth - eventAddBlockCorrection) - (currentRoomCellObject.dataLeftOccupied + currentRoomCellObject.dataRightOccupied);
+        $('#new-' + currentRoomCellObject.id)
+            .css('width', width)
+            .css('left', currentRoomCellObject.dataLeftOccupied);
+    }
+
+}
+
+
+function renderSliders(timeCellCount) {
+    headerTime.append('<div id="header-time-slider-zone"></div>');
+    $('#header-time-slider-zone').css('width', 124 * timeCellCount);
+
+    $('#header-time-slider-zone').append(
+    '<div id="slider-static">' +
+    '<div class="slider-up-static"></div>' +
+    '<div class="slider-down-static"></div>' +
+    '<div class="slider-time-static">Сейчас</div>' +
+    '</div>');
+
+    $('#header-time-slider-zone').append(
+            '<div id="slider">' +
+            '<div class="slider-up"></div>' +
+            '<div class="slider-down"></div>' +
+            '<div class="slider-time"></div>' +
+            '</div>');
+
+    $('#slider, #slider-static').css('height', (roomNames.length * 48) + 44);
+    $('.slider-time').html(renderTimeMinutes(firstTimeCellHour, 0));
+    $('#slider').draggable({
+        axis: "x",
+        cursor: 'pointer',
+        grid: [minutePerPixel, 0],
+        containment: "#header-time-slider-zone",
+        drag: function (event, ui) {
+            /*console.log(collision($('#slider'), $('#bla')));*/
+            renterSliderTime($(this).position().left);
+        }
+    });
+}
+
+function renterStaticSliderTime() {
+
+    var navigation;
+
+    if (currentMode == shortRoomEventTable) {
+        navigation = $('.roomevent-now');
+    } else {
+        navigation = $('.roomevent-now-large');
+    }
+    navigation.hide();
+
+    var targetCellId = $('#hour-cell-' + dateNow.year + '-' + dateNow.month + '-' + dateNow.day + '-' + dateNow.hour);
+    var targetCellIdPosition = targetCellId.position();
+
+    if (targetCellIdPosition != undefined) {
+
+        var sliderOffset = (targetCellIdPosition.left - fisrtTimeCellWidth) + (minutePerPixel * dateNow.minutes);
+
+        $('#slider-static').css('left', sliderOffset);
+    } else {
+        navigation.show();
+
+        var compareDatesResult = compareDates(currentCalendarCell, dateNow, false, true);
+        console.log(compareDatesResult);
+        if (compareDatesResult < 0) {
+            $('#slider-static').hide();
+            navigation.css('text-align', 'right');
+            $('#roomevent-now').html('Сейчас <i class="fa fa-long-arrow-right" aria-hidden="true"></i>')
+        } else {
+            $('#slider-static').hide();
+            navigation.css('text-align', 'left');
+            $('#roomevent-now').html('<i class="fa fa-long-arrow-left" aria-hidden="true"></i> Сейчас')
+        }
+    }
+}
+
+function renterSliderTime(leftPosition) {
+    var hours = Math.floor(leftPosition / (minutePerPixel * 60));
+    var renderHours = firstTimeCellHour + hours;
+
+    console.log(hours);
+    minutes = Math.floor((leftPosition - (hours * 60 * minutePerPixel)) / minutePerPixel);
+
+    while (renderHours >= 24) {
+        renderHours -= 24;
+    }
+
+    $('.slider-time').html(renderTimeMinutes(renderHours, minutes));
+}
+
+//Functions
+
+
+function setDateHeader(dateTimeParameters) {
+    var dayOfWeek = getDayOfWeek(new Date(currentCalendarCell.year + '-' + currentCalendarCell.month + '-' + currentCalendarCell.day).getDay());
+
+    $('#event-date').html(currentCalendarCell.day + ', ' + dayNames[dayOfWeek]);
+}
+
+
 //events from db:
 //EventBlockViewModel  Id, ClassRoomId, BeginingDate, EndingDate
 function doEventStuff() {
     createEventArray();
     calculateEventBlockPosition()
 }
+
 var events;
 function createEventArray() {
     events = [];
     events.push({
         id: 1,
         classRoomId: 1,
-        dateBegining: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + 10 + ':' + 15),
-        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + 10 + ':' + 45)
+        dateBegining: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '02' + ':' + 15),
+        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '02' + ':' + 45)
     });
 
     events.push({
         id: 2,
         classRoomId: 2,
-        dateBegining: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + 20 + ':' + '00'),
-        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + 22 + ':' + 30)
+        dateBegining: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '03' + ':' + '15'),
+        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '05' + ':' + 30)
     });
 }
 
@@ -240,18 +431,20 @@ function calculateEventBlockPosition() {
         if (hoursDuration <= 0 || (hoursDuration == 1 && (minutesBegin == 0 && minutesEnd == 0))) {
             $(cellIdFirst).attr('data-inside-event', leftPosition + '-' + width);
 
-            renderEventBlock(eventBlock, cellIdFirst);
+            renderEventLock(eventBlock, cellIdFirst);
 
         } else if (hoursDuration > 0) {
+            var dataRightOccupied = timeCellWidth - leftPosition - eventAddBlockCorrection;
+            var dataLeftOccupied = hourBeginRelative * timeCellWidth - ((eventBlock.width / timeCellWidth) * dataRightOccupied);
 
-            $(cellIdFirst).attr('data-right-occupied', (timeCellWidth * (hourBeginRelative + 1)) - leftPosition);
+            $(cellIdFirst).attr('data-right-occupied', dataRightOccupied);
             console.log($(cellIdFirst).attr('data-right-occupied'));
 
 
             var cellIdLast = '#' + classRoomId + '_' + year + '-' + month + '-' + day + 'T' + hourEnd;
-            $(cellIdLast).attr('data-left-occupied', (timeCellWidth * (hourEndRelative + 1)) - leftPosition);
+            $(cellIdLast).attr('data-left-occupied', dataLeftOccupied);
             //for (var currentHour = (hourBegin + 1) ; currentHour < hourEnd; currentHour++) {
-            renderEventBlock(eventBlock, cellIdFirst);
+            renderEventExist(eventBlock, cellIdFirst);
 
             //}
         }
@@ -261,19 +454,7 @@ function calculateEventBlockPosition() {
 
 }
 
-function renderEventBlock(eventBlock, roomEventCell) {
-
-    $(roomEventCell).html('<div id="' + eventBlock.id + '" class="eventblock-exist">' +
-                          '<div class="eventblock-time">' +
-                          '<span>' + eventBlock.timeStart + ' - ' + eventBlock.timeEnd + '</span>' +
-                          '</div><div class="eventblock-description">' +
-                          '<div>English class - </div>' +
-                          '<div>Speaking for juniours</div></div></div>');
-    $('#' + eventBlock.id).css('width', eventBlock.width).css('left', eventBlock.left);
-}
-
-
-var eventBlock; //Object contains room # and event block coordinates
+//Object contains room # and event block coordinates
 //properties: roomId, blockId { left, width }; 
 //methods: getInterval(roomId, blockIdOne, blockIdTwo)
 
@@ -288,42 +469,9 @@ function setRoomEventCellHoverZone(id) {
 
     $(document).on('mouseover', '#' + id, function () {
 
-
-
     });
 }
 
-function renderSliders(timeCellCount) {
-    headerTime.append('<div id="header-time-slider-zone"></div>');
-    $('#header-time-slider-zone').css('width', 124 * timeCellCount);
-
-    $('#header-time-slider-zone').append(
-    '<div id="slider-static">' +
-    '<div class="slider-up-static"></div>' +
-    '<div class="slider-down-static"></div>' +
-    '<div class="slider-time-static">Сейчас</div>' +
-    '</div>');
-
-    $('#header-time-slider-zone').append(
-            '<div id="slider">' +
-            '<div class="slider-up"></div>' +
-            '<div class="slider-down"></div>' +
-            '<div class="slider-time"></div>' +
-            '</div>');
-
-    $('#slider, #slider-static').css('height', (roomNames.length * 48) + 44);
-    $('.slider-time').html(renderTimeMinutes(firstTimeCellHour, 0));
-    $('#slider').draggable({
-        axis: "x",
-        cursor: 'pointer',
-        grid: [minutePerPixel, 0],
-        containment: "#header-time-slider-zone",
-        drag: function (event, ui) {
-            /*console.log(collision($('#slider'), $('#bla')));*/
-            renterSliderTime($(this).position().left);
-        }
-    });
-}
 
 function activateStaticSlider() {
     var sliderTime = setInterval(renterStaticSliderTime, sliderTimeInterval);
@@ -339,54 +487,4 @@ function getEventObject(longRoomEventId) {
     }
 
     return EventObject;
-}
-
-function renterStaticSliderTime() {
-
-    var navigation;
-
-    if (currentMode == shortRoomEventTable) {
-        navigation = $('.roomevent-now');
-    } else {
-        navigation = $('.roomevent-now-large');
-    }
-    navigation.hide();
-
-    var targetCellId = $('#hour-cell-' + dateNow.year + '-' + dateNow.month + '-' + dateNow.day + '-' + dateNow.hour);
-    var targetCellIdPosition = targetCellId.position();
-    console.log(targetCellId);
-    if (targetCellIdPosition != undefined) {
-
-        var sliderOffset = (targetCellIdPosition.left - fisrtTimeCellWidth) + (minutePerPixel * dateNow.minutes);
-
-        $('#slider-static').css('left', sliderOffset);
-    } else {
-        navigation.show();
-
-        var compareDatesResult = compareDates(currentCalendarCell, dateNow, false, true);
-        console.log(compareDatesResult);
-        if (compareDatesResult < 0) {
-            $('#slider-static').hide();
-            navigation.css('text-align', 'right');
-            $('#roomevent-now').html('Сейчас <i class="fa fa-long-arrow-right" aria-hidden="true"></i>')
-        } else {
-            $('#slider-static').hide();
-            navigation.css('text-align', 'left');
-            $('#roomevent-now').html('<i class="fa fa-long-arrow-left" aria-hidden="true"></i> Сейчас')
-        }
-    }
-}
-
-function renterSliderTime(leftPosition) {
-    var hours = Math.floor(leftPosition / (minutePerPixel * 60));
-    var renderHours = firstTimeCellHour + hours;
-
-    console.log(hours);
-    minutes = Math.floor((leftPosition - (hours * 60 * minutePerPixel)) / minutePerPixel);
-
-    while (renderHours >= 24) {
-        renderHours -= 24;
-    }
-
-    $('.slider-time').html(renderTimeMinutes(renderHours, minutes));
 }

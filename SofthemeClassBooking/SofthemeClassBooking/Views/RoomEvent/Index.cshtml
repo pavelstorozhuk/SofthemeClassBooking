@@ -86,6 +86,28 @@ Controls for event booking
 
 <script type="text/javascript">
 
+    $(document).on('click', '.eventblock-add', function () {
+        
+        var currentRoomEventCell = $(this);
+        var popupId = 'event-' + currentRoomEventCell.attr('id');
 
+        $('body').append('<div id="'+ popupId + '" class="event-position"></div>');
+
+        var popupDiv = $('#' + popupId);
+        popupDiv.css('top', '300').css('left', '100');
+
+        $.ajax({
+            url: '@Url.Action("Edit", "RoomEvent")',
+            method: 'GET',
+            cache: false,
+            dataType: 'html',
+
+            success: function (result) {
+                popupDiv.html(result);
+            }
+
+        });
+
+    });
 
 </script>

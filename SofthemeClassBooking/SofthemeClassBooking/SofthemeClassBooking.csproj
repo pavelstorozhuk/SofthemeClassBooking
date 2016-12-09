@@ -368,7 +368,7 @@
     <Content Include="Views\Classroom\EditClassRoomInfo.cshtml" />
     <Content Include="Views\RoomEvent\Large.cshtml" />
     <Content Include="Views\RoomEvent\Short.cshtml" />
-    <Content Include="Views\RoomEvent\EditEventInfo.cshtml" />
+    <Content Include="Views\RoomEvent\Edit.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
     <Content Include="Views\Event\Info.cshtml" />
