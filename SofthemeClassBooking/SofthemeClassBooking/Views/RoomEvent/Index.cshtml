@@ -2,32 +2,6 @@
 @Styles.Render("~/Styles/roomevent")
 @Scripts.Render("~/bundles/roomevent")
 
-<!--
-
-Controls for event booking
-
-<div class="event-exist">
-    <div class="event-time">
-        13:30 - 14:30
-    </div>
-    <div class="event-description">
-        <div>English class - </div>
-        <div>Speaking for juniours</div>
-    </div>
-</div>
-
-<div class="event-lock">
-    <div class="event-time">
-        13:30 - 14:30
-    </div>
-    <i class="fa fa-lock fa-3x"></i>
-</div>
-
-<div class="event-add">
-    <i class="fa fa-plus fa-2x"></i>
-</div>
-    -->
-
 <div class="roomevent-section">
 
     <!--Left side-->
@@ -86,18 +60,27 @@ Controls for event booking
 
 <script type="text/javascript">
 
+    var popupId;
+
     $(document).on('click', '.eventblock-add', function () {
-        
+
+        $('.event-position').remove();
+
         var currentRoomEventCell = $(this);
-        var popupId = 'event-' + currentRoomEventCell.attr('id');
+        popupId = 'event-' + currentRoomEventCell.attr('id');
+        var position = currentRoomEventCell.parent().position();
+
+        console.log(currentRoomEventCell);
 
         $('body').append('<div id="'+ popupId + '" class="event-position"></div>');
 
         var popupDiv = $('#' + popupId);
-        popupDiv.css('top', '300').css('left', '100');
+        popupDiv.css('top', position.top).css('left', position.left);
+
+
 
         $.ajax({
-            url: '@Url.Action("Edit", "RoomEvent")',
+            url: '@Url.Action("New", "RoomEvent")',
             method: 'GET',
             cache: false,
             dataType: 'html',
@@ -108,6 +91,10 @@ Controls for event booking
 
         });
 
+    });
+
+    $(document).on('click', '.event-header-close', function () {
+        $('#' + popupId).remove();
     });
 
 </script>

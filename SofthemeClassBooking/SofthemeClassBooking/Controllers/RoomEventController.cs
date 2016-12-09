@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SofthemeClassBooking_BOL.Models;
 
 namespace SofthemeClassBooking.Controllers
 {
@@ -14,9 +15,20 @@ namespace SofthemeClassBooking.Controllers
             return PartialView();
         }
 
-        public ActionResult Edit(int? id)
+        public ActionResult New (EventModel newEvent)
         {
             return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult Create(EventModel newEvent)
+        {
+            if (ModelState.IsValid)
+            {
+                return Json(new { message = "SuccessMessage" });
+            }
+
+            return Json(new {message = "Not success"});
         }
     }
 }

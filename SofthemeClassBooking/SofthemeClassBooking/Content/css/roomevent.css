@@ -111,7 +111,7 @@
             vertical-align: middle;
         }
 
-        .roomevent-room-cell-middle {
+        .roomevent-room-cell-middle {            
             border-left: 1px;
         }
 
@@ -257,7 +257,6 @@
         }
 
          .fa-lock, .fa-plus  {
-            cursor: default !important; 
             position: absolute;
             width: 100%;
             text-align: center;
