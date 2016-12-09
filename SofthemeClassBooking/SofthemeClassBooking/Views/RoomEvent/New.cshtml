@@ -1,4 +1,6 @@
 ﻿
+
+
 <div class="event event-create">
 
     <div class="event-header-edit">
@@ -101,7 +103,7 @@
     </div>
 
     <div class="event-edit-organizers">
-        <div class="event-edit-checkbox">
+        <div class="checkbox">
             <input id="event-edit-register-all-c1" type="checkbox" class="event-edit-checkbox" />
             <label for="event-edit-register-all-c1"></label>
         </div>
@@ -116,7 +118,7 @@
 
     <div class="event-edit-buttons">
         <button class="event-button-create">Создать</button>
-        <button class="event-button-save-changes">Сохранить</button>
+       <!-- <button class="event-button-save-changes">Сохранить</button>-->
     </div>
 
 
@@ -125,9 +127,6 @@
 <script type="text/javascript">
 
         var listed = false;
-
-        $(function () {
-
             $(document).on('click', '#event-edit-room-dropdown', function () {
                 if (!listed) {
                     $('#event-edit-room-dropdown').addClass('event-edit-room-dropdown-list');
@@ -143,7 +142,5 @@
                     listed = false;
                 }
             });
-        });
-
 
 </script>
