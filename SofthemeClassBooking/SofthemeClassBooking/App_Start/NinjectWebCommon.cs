@@ -70,6 +70,7 @@ namespace SofthemeClassBooking.App_Start
             kernel.Bind<IFeedbackService<FeedbackModel>>().To<FeedbackService>();
             kernel.Bind<IClassRoomService<ClassRoomModel>>().To<ClassRoomService>();
             kernel.Bind<IEventService<EventModel>>().To<EventService>();
+            kernel.Bind<IParticipantService<ParicipantModel>>().To<ParticipantService>();
         }        
     }
 }

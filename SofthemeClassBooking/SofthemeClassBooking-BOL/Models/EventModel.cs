@@ -16,18 +16,17 @@ namespace SofthemeClassBooking_BOL.Models
 
         public DateTime BeginingDate { get; set; }
 
-
         public string Description { get; set; }
 
         public DateTime EndingDate { get; set; }
 
         public int Id { get; set; }
 
-        public bool? IsAuthorShown { get; set; }
+        public bool IsAuthorShown { get; set; }
 
-        public bool? IsPrivate { get; set; }
+        public bool IsPrivate { get; set; }
 
-        public bool? IsParticipantsAllowed { get; set; }
+        public bool IsParticipantsAllowed { get; set; }
 
         public string Organizer { get; set; }
 

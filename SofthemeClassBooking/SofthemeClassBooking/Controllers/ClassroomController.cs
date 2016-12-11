@@ -26,7 +26,6 @@ namespace SofthemeClassBooking.Controllers
 
 
         [HttpGet]
-        [Authorize]
         public ActionResult GetNameId()
         {
             var classRooms = _classRoomService.GetNameId();

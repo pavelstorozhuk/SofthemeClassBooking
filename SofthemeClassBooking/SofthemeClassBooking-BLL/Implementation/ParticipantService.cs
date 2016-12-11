@@ -9,9 +9,13 @@ namespace SofthemeClassBooking_BLL.Implementation
 {
     public class ParticipantService : IParticipantService<ParicipantModel>
     {
-        public void Add(ParicipantModel classRoom)
+        public void Add(ParicipantModel participaModel)
         {
-            throw new NotImplementedException();
+            using (var context = new ClassBookingContext())
+            {
+                context.Participants.Add(MapService.Map(participaModel));
+                context.SaveChanges();
+            }
         }
 
         public IEnumerable<ParicipantModel> Get()

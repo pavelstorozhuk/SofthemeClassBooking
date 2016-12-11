@@ -9,82 +9,120 @@ var eventNewDateTimeBegin = {};
 var dateCorrect = true;
 var checkFunctionInterval;
 var minumumAllowedMinutes = 20;
-var availableRooms = {};
 
+var classRooms;
 
-function renderPlanSection(url) {
+var ajaxUrl = {};
 
-    loadSection(url, beforeSendHandler(planLoadingDiv))
-          .done(function (result) {
+function setEngineUrl(url) {
+    ajaxUrl = {
+        RoomIdNameUrl: url.RoomIdNameUrl,
+        RoomEventSectionUrl: url.RoomEventSectionUrl,
+        PlanSectionUrl: url.PlanSectionUrl,
+        MapSectionUrl: url.MapSectionUrl,
+        PlanAdditionalUrl: url.PlanAdditionalUrl,
+        RoomPageUrl: url.RoomPageUrl,
+        EventCreateUrl: url.EventCreateUrl
+    };
+}
 
-              $('#plan-section').html(result);
-              $('#plan-loading').hide();
+function successPlanHandler(result) {
 
-          });
+    $('#plan-section').html(result);
+    $('#plan-loading').hide();
 
 }
 
-function renderMapSection(url) {
+function successMapHandler(result) {
 
-    loadSection(url, beforeSendHandler(mapLoadingDiv))
-    .done(function (result) {
+    $('#map-section').html(result);
+    $('#map-loading').hide();
 
-        $('#map-section').html(result);
-        $('#map-loading').hide();
+}
 
+function successRoomEventHandler(result) {
+    $('#roomevent-section').html(result);
+    $('#roomevent-loading').hide();
+
+    resetCurrentCalendarCell();
+    renderCalendar(currentCalendarMonth);
+    setDateHeader(currentCalendarCell);
+    renderTime(shortRoomEventTable);
+    renderRooms(shortRoomEventTable);
+}
+
+function getClassRooms() {
+
+    var result = {};
+    return $.ajax({
+        url: ajaxUrl.RoomIdNameUrl,
+        method: 'GET',
+        datatype: 'json'
     });
+
+}
+
+function renderPlanSection() {
+    loadSection(ajaxUrl.PlanSectionUrl, beforeSendHandler(planLoadingDiv), successPlanHandler);
+}
+
+function renderMapSection() {
+    loadSection(ajaxUrl.MapSectionUrl, beforeSendHandler(mapLoadingDiv), successMapHandler);
 }
 
 
-function renderRoomEventSection(url) {
-
-    loadSection(url, beforeSendHandler(roomEventLoadingDiv))
-    .done(function (result) {
-
-        $('#roomevent-section').html(result);
-        $('#roomevent-loading').hide();
-
-
-        resetCurrentCalendarCell();
-        renderCalendar(currentCalendarMonth);
-        setDateHeader(currentCalendarCell);
-        renderTime(shortRoomEventTable);
-        renderRooms(shortRoomEventTable);
-        activateStaticSlider();
-
-    });
-
+function renderRoomEventSection() {
+    loadSection(ajaxUrl.RoomEventSectionUrl, beforeSendHandler(roomEventLoadingDiv), successRoomEventHandler);
 }
 
 function submitNewEvent() {
-    debugger;
-    if ($('#event-title').val().length >= 1) {
+
+    $('#room-busy').attr('class', 'status-message display-none');
+
+    if ($('#Title').val().length >= 1) {
 
         $('.error-message').hide();
 
         if (dateCorrect) {
-            //check, if room is not busy at this time
+
+            //Check if event exists on current date!
+
+            //If it doesn't...
             debugger;
-            var eventNew = bindValuesToObject();
+            $('#BeginingDate').val(convertToDateTime(eventNewDateTimeBegin));
+            $('#EndingDate').val(convertToDateTime(compareToDate));
 
-            var form = $('#__AjaxAntiForgeryForm');
-            var token = $('input[name="__RequestVerificationToken"]', form).val();
+            $.ajax({
+                url: ajaxUrl.EventCreateUrl,
+                method: 'POST',
+                data: $('#new-event-form').serialize(),
+                dataType: 'json',
 
-            $.ajax( {
-                url: '/Event/Create',
-                type: 'POST',
-                data: {
-                    __RequestVerificationToken: token, 
-                    eventModel: JSON.stringify(eventNew)
-                },
-                //event: JSON.stringify(eventNew)
-                error: function(result) {
-                    console.log(result);
+                onBegin: function() {
+                    alert(1);
                 },
 
-                done: function(result) {
-                    alert(result);
+                error: function () {
+                    $('#room-busy').attr('class', 'status-message display-none');
+                    $('.icon-place').html('<i id="status-icon-bad" class="fa fa-frown-o"></i>');
+                    $('#error-mesage').html("Случилась ошибка при выполнении запроса");
+                },
+
+                success: function (response) {
+
+                    if (response.message == "good") {
+                        $('#room-busy').attr('class', 'status-message display-inline-block');
+                        $('.icon-place').html('<i id="status-icon-bad" class="fa fa-calendar-check-o"></i>');
+                        $('#error-mesage').html('Ваше событие было успешно добавлено в рассписание');
+                        
+
+                        document.getElementById("new-event-form").reset();
+                    } else {
+                        alert('ACHTUNG MAZA FUCKA');
+                    }
+
                 }
+
             });
 
             //postData('/Event/Create', eventNew).done(function() {
@@ -116,7 +154,7 @@ function bindValuesToObject() {
 
 
 function checkDateTime() {
-
+    console.log(8);
     var dateActualComparisonResult = compareDates(eventNewDateTimeBegin, dateNow, false, true);
     var timeComparisonResult = compareTime({ hour: eventNewDateTimeBegin.hour, minutes: (eventNewDateTimeBegin.minutes + minumumAllowedMinutes) }, compareToDate);
 
@@ -234,11 +272,11 @@ function checkCurrentTimeInterval(cancel) {
 
 }
 
-function setNavigarionEventHandlers(urlCreateEvent) {
+function setNavigarionEventHandlers() {
 
     $('nav').on('click', '#add-event', function () {
 
-        loadSection(urlCreateEvent).done(function (result) {
+        loadSection(ajaxUrl.EventCreateUrl).done(function (result) {
             $('#event-modal-position').html(result);
             $('#lock').show();
 
@@ -281,8 +319,9 @@ function setNavigarionEventHandlers(urlCreateEvent) {
             $('.event-when').on('click', '#timeend-minutes-up', addMinutesToEventEnd);
             $('.event-when').on('click', '#timeend-minutes-down', subMinutesToEventEnd);
 
+
             checkCurrentTimeInterval();
-            getRoomIdNames();
+            fillClassRoomSelectList();
         });
 
     });
@@ -295,22 +334,22 @@ function setNavigarionEventHandlers(urlCreateEvent) {
 
 }
 
-function getRoomIdNames() {
-    loadSection('/Classroom/GetNameId').done(function (result) {
-        debugger;
-        availableRooms = JSON.parse(result);
-        var optionList = '';
 
-        for (var i = 0; i < availableRooms.length; i++) {
-            optionList += '<option value="' + availableRooms[i].Id + '">' + availableRooms[i].Name + '</option>';
+function fillClassRoomSelectList() {
+
+    getClassRooms().done(function(rooms) {
+        classRooms = JSON.parse(rooms);
+        var optionList = '';
+        for (var i = 0; i < classRooms.length; i++) {
+            optionList += '<option value="' + classRooms[i].Id + '">' + classRooms[i].Name + '</option>';
         }
 
-        $('#event-room-select').html(optionList);
-
+        $('#ClassRoomId').html(optionList);
     });
 }
 
-function setStandartPlanRoomEventHandlers(urlPlanRoomAdditional, urlPlanRoomPage) {
+
+function setStandartPlanRoomEventHandlers() {
 
     $('#plan-section').on('mouseover', '.plan-room', function () {
         var planRoom = $(this);
@@ -320,9 +359,9 @@ function setStandartPlanRoomEventHandlers(urlPlanRoomAdditional, urlPlanRoomPage
 
             $('#show, #plan-room-line').show();
 
-            var ajaxUrl = urlPlanRoomAdditional + '/' + planRoomId;
+            var url = ajaxUrl.PlanAdditionalUrl + '/' + planRoomId;
 
-            loadSection(ajaxUrl).done(function (result) {
+            loadSection(url).done(function (result) {
                 $('#show').html(result);
                 $('#plan-room-line').attr('class', 'show plan-room-line-detail-' + planRoomId);
             });
@@ -335,7 +374,7 @@ function setStandartPlanRoomEventHandlers(urlPlanRoomAdditional, urlPlanRoomPage
     });
 
     $('#plan-section').on('click', '.plan-room', function () {
-        window.location.href = urlPlanRoomPage + '/' + $(this).attr('id');
+        window.location.href = ajaxUrl.RoomPageUrl + '/' + $(this).attr('id');
     });
 
 }

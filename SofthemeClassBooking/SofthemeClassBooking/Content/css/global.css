@@ -8,6 +8,15 @@
     width: 1272px;
 }
 
+.display-none {
+    display: none !important;
+}
+
+.display-inline-block {
+    display: inline-block !important;
+}
+
+
 .wrapper {
     position: relative;
 }
@@ -16,4 +25,12 @@
   -webkit-user-select: none;  /* Chrome all / Safari all */
   -moz-user-select: none;     /* Firefox all */
   -ms-user-select: none;      /* IE 10+ */
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.visible {
+    visibility: visible;
 }

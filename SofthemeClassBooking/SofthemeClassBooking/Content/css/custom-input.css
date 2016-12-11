@@ -20,6 +20,7 @@
         height: 23px;
         top: 0;
         left: 0;
+        color: transparent;
     }
 
         .checkbox label:after {
@@ -57,6 +58,7 @@
 }
 
     .checkbox-slider label {
+        color: transparent;
         display: block;
         width: 24px;
         height: 24px;

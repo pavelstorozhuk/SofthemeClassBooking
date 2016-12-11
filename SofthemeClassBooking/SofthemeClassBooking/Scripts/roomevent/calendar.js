@@ -168,8 +168,10 @@ function compareDates(date, dateTo, ignoreDays, incudeTime) {
         return 1;
     } else if (!ignore && (date.day < dateTo.day)) {
         return -1;
-    } else  if(time) {
-        return compareTime( date, dateTo);
+    } else  if (time) {
+        return compareTime(date, dateTo);
+    } else {
+        return 0;
     }
 }
 
@@ -209,7 +211,7 @@ $(document).on('click', '#calendar-month-right', function () {
 });
 
 currentMonthRender.bind('changeCalendarNavigation', function () {
-
+    debugger;
     var dateComparisonResult = compareDates({ year: currentCalendarYear, month: currentCalendarMonth }, dateNow, true);
 
     if (dateComparisonResult == 0) {

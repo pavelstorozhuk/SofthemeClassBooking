@@ -20,7 +20,7 @@ function getName(personid) {
 
 */
 
-function loadSection(url, beforeSendHandler, errorHandler) {
+function loadSection(url, beforeSendHandler, successHandler, errorHandler) {
     var result = {};
 
     return $.ajax({
@@ -29,7 +29,15 @@ function loadSection(url, beforeSendHandler, errorHandler) {
         cache: false,
         data: result,
         beforeSend: beforeSendHandler,
-        error: errorHandler
+        error: errorHandler,
+
+        success: function (result) {
+
+            if (typeof (successHandler) === "function") {
+                successHandler(result);
+            }
+
+        }
     });
 
 }
@@ -44,7 +52,7 @@ function postFormData(url, form, datatype, successHandler, errorHandler) {
 
         success: successHandler,
         error: errorHandler
-});
+    });
 
 }
 
@@ -57,7 +65,7 @@ function postData(url, data, successHandler, errorHandler) {
 
         success: successHandler,
         error: errorHandler
-});
+    });
 
 }
 

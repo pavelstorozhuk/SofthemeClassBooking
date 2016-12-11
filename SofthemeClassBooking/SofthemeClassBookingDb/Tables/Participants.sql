@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [Participants]
 (
  [Id]  INT PRIMARY KEY IDENTITY,
- [Name] NVARCHAR(60	) NOT NULL,
+ [Email] NVARCHAR(256) NOT NULL,
  [EventId] INT NOT NULL
 )
 GO

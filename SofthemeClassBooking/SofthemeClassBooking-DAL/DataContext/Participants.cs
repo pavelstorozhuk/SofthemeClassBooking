@@ -11,8 +11,8 @@ namespace SofthemeClassBooking_DAL
         public int Id { get; set; }
 
         [Required]
-        [StringLength(60)]
-        public string Name { get; set; }
+        [StringLength(256)]
+        public string Email { get; set; }
 
         public int EventId { get; set; }
 

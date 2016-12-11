@@ -21,10 +21,10 @@ namespace SofthemeClassBooking_BOL.Contract.Models
 
          string Description { get; set; }
 
-         bool? IsPrivate { get; set; }
+         bool IsPrivate { get; set; }
 
-         bool? IsAuthorShown { get; set; }
+         bool IsAuthorShown { get; set; }
 
-         bool? IsParticipantsAllowed { get; set; }
+         bool IsParticipantsAllowed { get; set; }
     }
 }

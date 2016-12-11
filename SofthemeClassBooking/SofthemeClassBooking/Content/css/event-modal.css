@@ -187,11 +187,14 @@
          margin: 19px 0 20px 21px;  
     }
 
-    .submit-section  .fa-frown-o {
+    .submit-section  .fa-frown-o, .submit-section .fa-calendar-check-o {
             font-size: 34px;
             color: #62686E;
         }
 
+        .submit-section .fa-calendar-check-o {
+             font-size: 30px;
+        }
      .submit-section .message {
             font: 13px/16px Arial;
             display: inline-block;
@@ -217,8 +220,17 @@
             color: #FFFFFF;
         }
 
-        .submit-section .busy-message {
-            visibility: hidden;
+        .submit-section .status-message {
+            width: 283px;
             display: inline-block;
             vertical-align: top;
+        }
+
+         .submit-section .icon-place {
+             display: inline-block;
+             vertical-align: top;
+             margin: 0;
+             padding: 0;
+             width: auto;
+             height: auto;
         }

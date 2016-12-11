@@ -6,7 +6,7 @@ var roomSection = $('#room-section');
 var roomEventLeftBlock = $('.roomevent-left-block');
 var roomEventHeader = $('.roomevent-header-date-section')
 
-var roomNames = ['Einstein Classroom', 'Tesla Classroom', 'Newton Classroom'];
+//var roomNames = ['Einstein Classroom', 'Tesla Classroom', 'Newton Classroom'];
 
 var fisrtTimeCellWidth = 126;
 var timeCellWidth = 124;
@@ -24,7 +24,9 @@ var timeOffset = 0;
 var eventBlock;
 var eventAddBlockCorrection = 2;
 
+var renderClassRooms;
 var minumumAllowedTimeToBook = 20 * minutePerPixel;
+var roomCountPrevious;
 
 //Event adding to DOM section
 
@@ -162,39 +164,46 @@ function renderTime(timeCellCount, resetTime) {
 
 function renderRooms(timeCellCount, resetTime) {
 
-    var noReset = resetTime || true;
+    getClassRooms().done(function (rooms) {
 
-    roomSection.empty();
+        renderClassRooms = JSON.parse(rooms);
 
-    for (var currentRoom = 1; currentRoom <= roomNames.length; currentRoom++) {
+        renderSliders(timeCellCount);
+        renterStaticSliderTime();
 
-        var renderDate = {
-            year: noReset ? currentCalendarCell.year : dateNow.year,
-            month: noReset ? currentCalendarCell.month : dateNow.month,
-            day: noReset ? currentCalendarCell.day : dateNow.day,
-            hour: noReset ? currentCalendarCell.hour : dateNow.hour,
-            minutes: noReset ? currentCalendarCell.minutes : dateNow.minutes,
-        };
+        var noReset = resetTime || true;
+
+        roomSection.empty();
+
+        for (var currentRoom = 1; currentRoom <= renderClassRooms.length; currentRoom++) {
+
+            var renderDate = {
+                year: noReset ? currentCalendarCell.year : dateNow.year,
+                month: noReset ? currentCalendarCell.month : dateNow.month,
+                day: noReset ? currentCalendarCell.day : dateNow.day,
+                hour: noReset ? currentCalendarCell.hour : dateNow.hour,
+                minutes: noReset ? currentCalendarCell.minutes : dateNow.minutes,
+            };
 
 
-        roomSection.append('<div id="room-row-' + currentRoom + '"></div>');
+            roomSection.append('<div id="room-row-' + renderClassRooms[currentRoom - 1].Id + '"></div>');
 
-        var currentRow = $('#room-row-' + currentRoom);
-        currentRow.append('<div class="roomevent-room-cell">' +
-                                 '<div>' + roomNames[currentRoom - 1] + '</div>' +
-                                 '</div>');
+            var currentRow = $('#room-row-' + renderClassRooms[currentRoom - 1].Id);
+            currentRow.append('<div class="roomevent-room-cell">' +
+                                     '<div>' + renderClassRooms[currentRoom - 1].Name + '</div>' +
+                                     '</div>');
 
-        for (var cell = 0; cell < timeCellCount; cell++) {
+            for (var cell = 0; cell < timeCellCount; cell++) {
 
-            var cellId = currentRoom + '_' + renderDate.year + '-' + renderDate.month
-                + '-' + renderDate.day + '_' + renderDate.hour;
-            addValueToDate(renderDate, { hour: 1 }, true);
-            currentRow.append('<div id=' + cellId + ' class="roomevent-room-cell roomevent-room-cell-middle" data-left-occupied="0" data-right-occupied="0" data-inside-event="0"><div></div></div>');
+                var cellId = currentRoom + '_' + renderDate.year + '-' + renderDate.month
+                    + '-' + renderDate.day + '_' + renderDate.hour;
+                addValueToDate(renderDate, { hour: 1 }, true);
+                currentRow.append('<div id=' + cellId + ' class="roomevent-room-cell roomevent-room-cell-middle" data-left-occupied="0" data-right-occupied="0" data-inside-event="0"><div></div></div>');
+            }
         }
-    }
 
-    doEventStuff();
-    renderSliders(timeCellCount);
+        doEventStuff();
+    });
 }
 
 //render event divs
@@ -317,7 +326,7 @@ function renderSliders(timeCellCount) {
             '<div class="slider-time"></div>' +
             '</div>');
 
-    $('#slider, #slider-static').css('height', (roomNames.length * 48) + 44);
+    $('#slider, #slider-static').css('height', ((renderClassRooms.length * 48) + 44));
     $('.slider-time').html(renderTimeMinutes(firstTimeCellHour, 0));
     $('#slider').draggable({
         axis: "x",
@@ -333,6 +342,7 @@ function renderSliders(timeCellCount) {
 
 function renterStaticSliderTime() {
 
+    debugger;
     var navigation;
 
     if (currentMode == shortRoomEventTable) {
@@ -348,7 +358,6 @@ function renterStaticSliderTime() {
     if (targetCellIdPosition != undefined) {
 
         var sliderOffset = (targetCellIdPosition.left - fisrtTimeCellWidth) + (minutePerPixel * dateNow.minutes);
-
         $('#slider-static').css('left', sliderOffset);
     } else {
         navigation.show();
@@ -372,7 +381,7 @@ function renterSliderTime(leftPosition) {
     var renderHours = firstTimeCellHour + hours;
 
     console.log(hours);
-    minutes = Math.floor((leftPosition - (hours * 60 * minutePerPixel)) / minutePerPixel);
+    var minutes = Math.floor((leftPosition - (hours * 60 * minutePerPixel)) / minutePerPixel);
 
     while (renderHours >= 24) {
         renderHours -= 24;
@@ -514,7 +523,6 @@ function setRoomEventCellHoverZone(id) {
     });
 }
 
-
 function activateStaticSlider() {
     var sliderTime = setInterval(renterStaticSliderTime, sliderTimeInterval);
     renterStaticSliderTime();
@@ -529,8 +537,4 @@ function getEventObject(longRoomEventId) {
     }
 
     return EventObject;
-}
-
-function converToSharpDateTime(roomCellId) {
-
 }
