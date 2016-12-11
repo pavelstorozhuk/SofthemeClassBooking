@@ -2,9 +2,9 @@
 @{
     ViewBag.Title = "Index";
 }
-@section stylesUp {
-    @Styles.Render("~/Styles/plan")
-    @Styles.Render("~/Styles/event")
+@section stylesDeclarationInHeader {
+    @Styles.Render("~/bundles/styles/plan")
+    @Styles.Render("~/bundles/styles/event")
 }
 
 
@@ -253,95 +253,23 @@
 
 <script type="text/javascript">
 
-    $(document)
-        .ready(function () {
-            $.ajax({
-                url: '@Url.Action("Index", "Classroom")',
-                method: 'GET',
-                cache: false,
-                dataType: 'html',
+    (function ($, window, document) {
 
-                success: function (result) {
-                    $('#plan-section').html(result);
-                },
+        $(function () {
 
-                error: function (result) {
-                    $('#plan-section').html(result);
-                },
+            renderPlanSection('@Url.Action("Index", "Classroom")');
+            renderMapSection('@Url.Action("MapPartial", "Home")');
+            setStandartPlanRoomEventHandlers();
 
-                function() {
-                    $('#plan-loading').hide();
-                }
-
-            });
-
-
-            $.ajax({
-                url: '@Url.Action("MapPartial","Home")',
-                method: 'GET',
-                cache: false,
-                dataType: 'html',
-
-                success: function (result) {
-                    $('#map-section').html(result);
-                },
-
-                error: function (result) {
-                    $('#map-section').html(result);
-                },
-
-                function() {
-                    $('#map-loading').hide();
-                }
-
-            });
 
         });
+        // The rest of the code goes here!
+    }(window.jQuery, window, document));
 
-    $(document)
-        .ready(function () {
-
-            $(document).on('mouseover', '.plan-room', function () {
-
-                if ($(this).hasClass('-available')) {
-
-                    var roomId = $(this).attr('id');
-                    $('.show').show();
-                    $.ajax({
-                        url: '@Url.Action("AdditionalInfo", "Classroom")' + '/' + roomId,
-                        method: 'GET',
-                        cache: false,
-                        dataType: 'html',
-
-                        success: function (result) {
-                            $('#show').html(result);
-                            $('#plan-room-line').attr('class', 'show plan-room-line-detail-' + roomId);
-                        }
-
-                    });
-                }
-
-            }).on('mouseleave', '.plan-room', function () {
-                $('.show').hide();
-            });
-
-        });
-
-
-    $(document)
-        .ready(function () {
-            console.log(3);
-            $(document).on('click', '.plan-room', function () {
-                //if ($(this).hasClass('-available')) { when roles are applied. Now for admin only
-
-                window.location.href = '/Classroom/RoomPage/' + $(this).attr('id');
-                //}
-            });
-        });
 
 </script>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/map")
+@section scriptDeclarationAfterFooter {
+    @Scripts.Render("~/bundles/scripts/jqueryval")
+    @Scripts.Render("~/bundles/scripts/map")
 }

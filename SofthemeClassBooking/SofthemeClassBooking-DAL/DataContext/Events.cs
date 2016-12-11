@@ -40,6 +40,8 @@ namespace SofthemeClassBooking_DAL
 
         public bool? IsAuthorShown { get; set; }
 
+        public bool? IsParticipantsAllowed { get; set; }
+
         public virtual AspNetUsers AspNetUsers { get; set; }
 
         public virtual ClassRooms ClassRooms { get; set; }

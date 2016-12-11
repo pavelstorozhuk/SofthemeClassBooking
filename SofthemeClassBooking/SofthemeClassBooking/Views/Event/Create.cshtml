@@ -1,0 +1,134 @@
+﻿@using Microsoft.AspNet.Identity
+@model SofthemeClassBooking_BOL.Models.EventModel
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.BeginingDate);
+
+<div class="event-new">
+    <div class="event-header-new noselect-text">
+        <div class="event-header-title">
+            <i class="fa fa-calendar-o" aria-hidden="true"></i>
+            <div class="text">Зарезервировать аудиторию</div>
+            <i id="event-new-close" class="fa fa-remove" aria-hidden="true"></i>
+        </div>
+    </div>
+
+    <div class="event-when noselect-text">
+        <div id="event-date-error" class="error-message"> <img src="/Content/images/danger.png" /> Указана неверная дата и (или) время </div>
+
+        <div class="text">
+            Когда
+        </div>
+
+        <div class="datetime">
+            <div id="date-day-up" class="arrow-up"> <i class="fa fa-sort-up"></i> </div>
+            <div id="date-day-value" class="value">18</div>
+            <div id="date-day-down" class="arrow-down"> <i class="fa fa-sort-desc" aria-hidden="true"></i> </div>
+        </div>
+
+        <div class="datetime month-margin">
+            <div id="date-month-up" class="arrow-up"> <i class="fa fa-sort-up"></i> </div>
+            <div id="date-month-value" class="value">Мая</div>
+            <div id="date-month-down" class="arrow-down"> <i class="fa fa-sort-desc" aria-hidden="true"></i> </div>
+        </div>
+
+        <div class="datetime">
+            <div id="timebegin-hours-up" class="arrow-up"> <i class="fa fa-sort-up"></i> </div>
+            <div id="timebegin-hours-value" class="value">18</div>
+            <div id="timebegin-hours-down" class="arrow-down"> <i class="fa fa-sort-desc" aria-hidden="true"></i> </div>
+        </div><!----><div class="delimeter">
+            :
+        </div><!----><div class="datetime">
+            <div id="timebegin-minutes-up" class="arrow-up"> <i class="fa fa-sort-up"></i> </div>
+            <div id="timebegin-minutes-value" class="value">00</div>
+            <div id="timebegin-minutes-down" class="arrow-down"> <i class="fa fa-sort-desc" aria-hidden="true"></i> </div>
+        </div>
+
+        <div class="delimeter">-</div>
+
+        <div class="datetime">
+            <div id="timeend-hours-up" class="arrow-up"> <i class="fa fa-sort-up"></i> </div>
+            <div id="timeend-hours-value" class="value">19</div>
+            <div id="timeend-hours-down" class="arrow-down"> <i class="fa fa-sort-desc" aria-hidden="true"></i> </div>
+        </div><!----><div class="delimeter">
+            :
+        </div><!----><div class="datetime">
+            <div id="timeend-minutes-up" class="arrow-up"> <i class="fa fa-sort-up"></i> </div>
+            <div id="timeend-minutes-value" class="value">00</div>
+            <div id="timeend-minutes-down" class="arrow-down"> <i class="fa fa-sort-desc" aria-hidden="true"></i> </div>
+        </div>
+
+    </div>
+
+
+    <div class="event-where">
+        <div class="text">
+            Где
+        </div>
+
+        <div class="select">
+            <select id="event-room-select">  </select>
+
+            <i class="fa fa-sort-desc" aria-hidden="true"> </i>
+        </div>
+    </div>
+
+    <div class="title-section">
+        <span id="event-title-error" class="error-message"> <img src="/Content/images/danger.png" /> Поле не может быть пустым! </span>
+        <input id="event-title" type="text" placeholder="Заголовок" required />
+    </div>
+
+    <textarea id="event-description" placeholder="Дополнительная информация"></textarea>
+
+
+    <div class="event-param-line">
+
+        <div class="checkbox">
+            <input id="event-register-all" type="checkbox" class="event-edit-checkbox" />
+            <label for="event-register-all"></label>
+        </div>
+        <div class="text">Регистрация желающих</div>
+        <div class="text public">Публично</div>
+
+        <div class="checkbox-slider">
+            <input id="checkboxOneInput" type="checkbox" value="1" name="" />
+            <label for="checkboxOneInput"></label>
+        </div>
+
+        <div class="text private">Приватно</div>
+
+    </div>
+
+
+    <div class="event-param-line second">
+
+        <div class="checkbox">
+            <input id="event-show-author" type="checkbox" class="event-edit-checkbox" />
+            <label for="event-show-author"></label>
+        </div>
+        <div class="text">Показать автора</div>
+        <div class="text or">или</div>
+        <input id="event-organizer" type="text" placeholder="Указать организатора" />
+    </div>
+
+
+    <div id="submit-section" class="submit-section">
+
+        <div id="room-busy" class="busy-message">
+            <i class="fa fa-frown-o"></i>
+            <div class="message">
+                <span>Эта аудитория занята на выбранное время. Выберите, пожалуйста, другое.</span>
+            </div>
+        </div>
+
+        <button id="event-new-submit" type="button" class="save">Создать</button>
+        <input id="user-id" type="hidden" value="@User.Identity.GetUserId()"/>
+    </div>
+
+
+</div>
+
+}

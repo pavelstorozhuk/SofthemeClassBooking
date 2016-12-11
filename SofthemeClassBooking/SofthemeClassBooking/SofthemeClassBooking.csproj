@@ -205,6 +205,7 @@
     <Compile Include="Helpers\ActiveMenuOptionHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppDbInitializer.cs" />
+    <Compile Include="Models\ClassRoomIdNameViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -215,6 +216,7 @@
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\custom-input.css" />
+    <Content Include="Content\css\event-modal.css" />
     <Content Include="Content\css\event.css" />
     <Content Include="Content\css\eventpage.css" />
     <Content Include="Content\css\feedback.css" />
@@ -225,6 +227,7 @@
     <Content Include="Content\css\modal.css" />
     <Content Include="Content\css\profile.css" />
     <Content Include="Content\css\registration.css" />
+    <Content Include="Content\css\reset.css" />
     <Content Include="Content\css\roomevent.css" />
     <Content Include="Content\images\addEvent.png" />
     <Content Include="Content\images\addinfo\icon-board.png" />
@@ -276,18 +279,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Properties\PublishProfiles\SofthemeClassBookingAzure.pubxml" />
     <None Include="Scripts\jquery\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\ajax\loader.js" />
     <Content Include="Scripts\jquery\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery\jquery-3.1.1.min.js" />
-    <Content Include="Scripts\jquery\jquery-3.1.1.slim.js" />
-    <Content Include="Scripts\jquery\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\jquery\jquery-ui.js" />
     <Content Include="Scripts\jquery\jquery-ui.min.js" />
     <Content Include="Scripts\map\initializers.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\css\global.css" />
-    <Content Include="Scripts\bootstrap\bootstrap.js" />
-    <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
@@ -295,19 +295,11 @@
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="fonts\NWV.TTF" />
     <None Include="Properties\PublishProfiles\AzureVMDeploy.pubxml" />
-    <Content Include="Scripts\jquery\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery\jquery-3.1.1.min.map" />
-    <None Include="Scripts\jquery\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery\jquery-1.10.2.min.js" />
     <None Include="Scripts\validation\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.matchmedia.addListener.js" />
-    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
-    <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\roomevent\calendar.js" />
     <Content Include="Scripts\roomevent\render.js" />
+    <Content Include="Scripts\shared.js" />
     <Content Include="Scripts\validation\feedback-validation.js" />
     <Content Include="Scripts\validation\jquery.validate.js" />
     <Content Include="Scripts\validation\jquery.validate.min.js" />
@@ -315,8 +307,6 @@
     <Content Include="Scripts\validation\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\map\jquery.mapit.min.js" />
     <Content Include="Scripts\map\jquery.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\bootstrap\respond.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -330,7 +320,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Scripts\jquery\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -375,9 +364,11 @@
     <Content Include="Views\Event\Info.cshtml" />
     <Content Include="Views\Home\Profile.cshtml" />
     <Content Include="Views\Home\ChangeUserNameEmail.cshtml" />
+    <Content Include="Views\Event\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\event\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

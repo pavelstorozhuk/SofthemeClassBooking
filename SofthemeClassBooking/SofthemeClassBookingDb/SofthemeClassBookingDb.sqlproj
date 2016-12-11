@@ -75,4 +75,7 @@
   <ItemGroup>
     <PostDeploy Include="Scripts\PostDeploy\Script.PostDeployment.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="SofthemeClassBookingDb.refactorlog" />
+  </ItemGroup>
 </Project>

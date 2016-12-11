@@ -8,63 +8,73 @@ namespace SofthemeClassBooking
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            #region Script
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery/jquery-{version}.js"));
+            #region scripts
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/validation/jquery.validate*",
-                        "~/Scripts/validation/feedback-validation.js"));
+            bundles.Add(new ScriptBundle("~/bundles/scripts/general").Include(
+                        "~/Scripts/jquery/jquery-{version}.js",
+                        "~/Scripts/ajax/loader.js",
+                        "~/Scripts/shared.js",
+                         "~/Scripts/event/event-modal.js"
+                        ));
 
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+            bundles.Add(new ScriptBundle("~/bundles/scripts/jquery").Include(
+                        "~/Scripts/jquery/jquery-{version}.js"
+                        ));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap/bootstrap.js",
-                      "~/Scripts/bootstrap/respond.js"));
+            bundles.Add(new ScriptBundle("~/bundles/scripts/jqueryval").Include(
+                        "~/Scripts/validation/jquery.validate*"
+                        ));
 
-            bundles.Add(new ScriptBundle("~/bundles/map").Include(
+            bundles.Add(new ScriptBundle("~/bundles/scripts/feedback").Include(
+                        "~/Scripts/validation/feedback-validation.js"
+                        ));
+
+            bundles.Add(new ScriptBundle("~/bundles/scripts/map").Include(
                         "~/Scripts/map/jquery.min.js",
-                      "~/Scripts/map/jquery.mapit.min.js"));
+                        "~/Scripts/map/jquery.mapit.min.js"));
 
 
-            bundles.Add(new ScriptBundle("~/bundles/roomevent").Include(
+            bundles.Add(new ScriptBundle("~/bundles/scripts/roomevent").Include(
                         "~/Scripts/jquery/jquery-ui.js",
                         "~/Scripts/roomevent/calendar.js",
                       "~/Scripts/roomevent/render.js"));
             #endregion
 
-            #region Style
-            bundles.Add(new StyleBundle("~/Styles/css").Include(
+
+            #region styles
+
+            bundles.Add(new StyleBundle("~/bundles/styles/general").Include(
+                      "~/Content/css/reset.css",
+                      "~/Content/css/layout.css",
                       "~/Content/css/global.css",
                       "~/Content/css/font-awesome.css",
-                      "~/Content/css/custom-input.css"));
+                      "~/Content/css/custom-input.css",
+                      "~/Content/css/modal.css",
+                       "~/Content/css/event-modal.css"
+                      ));
 
-            bundles.Add(new StyleBundle("~/Styles/registration").Include(
+            bundles.Add(new StyleBundle("~/bundles/styles/registration").Include(
                 "~/Content/css/registration.css"
-            ));
+                      ));
 
-            bundles.Add(new StyleBundle("~/Styles/layout").Include(
+            bundles.Add(new StyleBundle("~/bundles/styles/layout").Include(
                   "~/Content/css/layout.css"));
 
-            bundles.Add(new StyleBundle("~/Styles/feedback").Include(
+            bundles.Add(new StyleBundle("~/bundles/styles/feedback").Include(
                     "~/Content/css/feedback.css"));
 
-            bundles.Add(new StyleBundle("~/Styles/profile").Include(
+            bundles.Add(new StyleBundle("~/bundles/styles/profile").Include(
                     "~/Content/css/profile.css"));
 
 
-            bundles.Add(new StyleBundle("~/Styles/plan").Include(
+            bundles.Add(new StyleBundle("~/bundles/styles/plan").Include(
                     "~/Content/css/plan.css",
-                    "~/Content/css/additionalInfoRoom.css",
-                    "~/Content/css/modal.css"));
+                    "~/Content/css/additionalInfoRoom.css"));
 
-            bundles.Add(new StyleBundle("~/Styles/event").Include(
+            bundles.Add(new StyleBundle("~/bundles/styles/event").Include(
                     "~/Content/css/eventpage.css"));
 
-            bundles.Add(new StyleBundle("~/Styles/roomevent").Include(
+            bundles.Add(new StyleBundle("~/bundles/styles/roomevent").Include(
                     "~/Content/css/roomevent.css",
                     "~/Content/css/event.css"));
             #endregion

@@ -1,4 +1,5 @@
-﻿using SofthemeClassBooking_BOL.Contract.Models;
+﻿using System.Collections.Generic;
+using SofthemeClassBooking_BOL.Contract.Models;
 using SofthemeClassBooking_BOL.Enum;
 
 namespace SofthemeClassBooking_BOL.Contract.Services
@@ -8,5 +9,6 @@ namespace SofthemeClassBooking_BOL.Contract.Services
     {
         TModel Get(int id);
         void ChangeRoomStatus(int id, ClassRoomStatus classRoomStatus);
+        IEnumerable<object> GetNameId();
     }
 }

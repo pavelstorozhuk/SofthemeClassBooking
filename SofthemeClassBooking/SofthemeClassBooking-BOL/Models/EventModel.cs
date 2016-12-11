@@ -9,9 +9,13 @@ namespace SofthemeClassBooking_BOL.Models
 {
     public class EventModel : IEvent
     {
-        public DateTime BeginingDate { get; set; }
+        public string Title { get; set; }
+        public string UserId { get; set; }
 
         public int ClassRoomId { get; set; }
+
+        public DateTime BeginingDate { get; set; }
+
 
         public string Description { get; set; }
 
@@ -21,12 +25,12 @@ namespace SofthemeClassBooking_BOL.Models
 
         public bool? IsAuthorShown { get; set; }
 
-        public bool? IsPublic { get; set; }
+        public bool? IsPrivate { get; set; }
+
+        public bool? IsParticipantsAllowed { get; set; }
 
         public string Organizer { get; set; }
 
-        public string Title { get; set; }
 
-        public string UserId { get; set; }
     }
 }

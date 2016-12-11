@@ -24,6 +24,8 @@ var timeOffset = 0;
 var eventBlock;
 var eventAddBlockCorrection = 2;
 
+var minumumAllowedTimeToBook = 20 * minutePerPixel;
+
 //Event adding to DOM section
 
 $(document).on('click', '#large', function () {
@@ -76,6 +78,7 @@ $(document).on('mouseover', '.roomevent-room-cell-middle', function (e) {
 
     var currentRoomCellObject = {
         id: currentRoomCell.attr('id'),
+        nextId: currentRoomCell.next(),
         dataLeftOccupied: parseInt(currentRoomCell.attr('data-left-occupied')),
         dataRightOccupied: parseInt(currentRoomCell.attr('data-right-occupied')),
         dataInsideEvent: currentRoomCell.attr('data-inside-event').split('-'),
@@ -103,17 +106,18 @@ $(document).on('click', '#roomevent-now', function () {
     renterStaticSliderTime();
 });
 
-$(document).on('click', '#roomevent-time-before-part', function () {
-
-    addValueToDate(currentCalendarCell, { hour: 1 }, false);
-    render();
-});
-
-$(document).on('click', '#roomevent-time-next-part', function () {
-
+function listNextHour() {
     addValueToDate(currentCalendarCell, { hour: 1 }, true);
     render();
-});
+}
+
+function lestPreviousHour() {
+    addValueToDate(currentCalendarCell, { hour: 1 }, false);
+    render();
+}
+
+$(document).on('click', '#roomevent-time-before-part', lestPreviousHour);
+$(document).on('click', '#roomevent-time-next-part', listNextHour);
 
 //Render functions 
 
@@ -216,9 +220,36 @@ function renderEventLock(eventBlock, roomEventCellId) {
     $('#' + eventBlock.id).css('width', eventBlock.width).css('left', eventBlock.left);
 }
 
+function getFreeLeftSpace(roomCellObject) {
+    debugger;
+
+
+    var dataInsideEvent = roomCellObject.attr('data-inside-event').split('-');
+
+    if (dataInsideEvent.length > 1) {
+
+        return parseInt(dataInsideEvent[0]);
+
+    } else {
+
+        var leftOccupied = parseInt(roomCellObject.attr('data-left-occupied'));
+        var rightOccupied = parseInt(roomCellObject.attr('data-right-occupied'));
+
+        return leftOccupied == 0 ? (timeCellWidth - rightOccupied) : 0;
+    }
+
+}
 
 function renderEventAdd(currentRoomCellObject) {
+    debugger;
 
+
+    var freeSpaceNextCell = getFreeLeftSpace(currentRoomCellObject.nextId);
+
+    var freeSpaceLeft = timeCellWidth - currentRoomCellObject.dataRightOccupied;
+    if (minumumAllowedTimeToBook > freeSpaceLeft) {
+        return;
+    }
 
     if (currentRoomCellObject.dataInsideEvent.length > 1) {
 
@@ -226,8 +257,12 @@ function renderEventAdd(currentRoomCellObject) {
         var leftEnd = parseInt(currentRoomCellObject.dataInsideEvent[1]);
         var rightOffset = leftStart + leftEnd;
 
+        var freeSpace = (timeCellWidth - rightOffset) + freeSpaceNextCell;
+
         if ((currentRoomCellObject.mouseRelativePosition >= leftStart)
-            && currentRoomCellObject.mouseRelativePosition <= rightOffset) {
+            && (currentRoomCellObject.mouseRelativePosition <= rightOffset)
+            || (minumumAllowedTimeToBook > leftStart) && (currentRoomCellObject.mouseRelativePosition < leftStart)
+            || minumumAllowedTimeToBook > freeSpace) {
             return;
         }
 
@@ -236,21 +271,22 @@ function renderEventAdd(currentRoomCellObject) {
 
         if (currentRoomCellObject.mouseRelativePosition < leftStart) {
             $('#new-' + currentRoomCellObject.id)
-                .css('width', leftStart )
+                .css('width', leftStart)
                 .css('left', 0);
         } else {
-            
+            var actualWidth = (timeCellWidth - eventAddBlockCorrection) - rightOffset;
+            var width = actualWidth < minumumAllowedTimeToBook ? minumumAllowedTimeToBook : actualWidth;
             $('#new-' + currentRoomCellObject.id)
-                .css('width', ((timeCellWidth - eventAddBlockCorrection) - rightOffset))
+                .css('width', width)
                 .css('left', (rightOffset));
         }
 
     } else {
 
+        //check if time is allowed
+
         $('#' + currentRoomCellObject.id).append('<div id="new-' + currentRoomCellObject.id + '" class="eventblock-add">' +
         '<i class="fa fa-plus fa-2x"></i></div>');
-
-        console.log(currentRoomCellObject.id);
 
         var width = (timeCellWidth - eventAddBlockCorrection) - (currentRoomCellObject.dataLeftOccupied + currentRoomCellObject.dataRightOccupied);
         $('#new-' + currentRoomCellObject.id)
@@ -259,6 +295,8 @@ function renderEventAdd(currentRoomCellObject) {
     }
 
 }
+
+
 
 
 function renderSliders(timeCellCount) {
@@ -366,15 +404,22 @@ function createEventArray() {
     events.push({
         id: 1,
         classRoomId: 1,
-        dateBegining: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '02' + ':' + 15),
-        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '02' + ':' + 45)
+        dateBegining: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '11' + ':' + 15),
+        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '11' + ':' + 45)
+    });
+
+    events.push({
+        id: 3,
+        classRoomId: 1,
+        dateBegining: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '12' + ':' + 06),
+        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '12' + ':' + 35)
     });
 
     events.push({
         id: 2,
         classRoomId: 2,
-        dateBegining: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '03' + ':' + '15'),
-        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '05' + ':' + 30)
+        dateBegining: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '13' + ':' + '21'),
+        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '15' + ':' + 11)
     });
 }
 
@@ -410,9 +455,7 @@ function calculateEventBlockPosition() {
 
         var width = duration * minutePerPixel;
 
-        //var width = 
-        //    ((hourEndRelative * (minutePerPixel * 60)) + (minutesEnd * minutePerPixel))
-        //    - leftPositionRelative;
+        debugger;
 
         var eventBlock = {
             id: 'eventblock-' + events[currentEvent].id,
@@ -425,14 +468,18 @@ function calculateEventBlockPosition() {
 
         var cellIdFirst = '#' + classRoomId + '_' + year + '-' + month + '-' + day + '_' + hourBegin;
 
-        if (hoursDuration <= 0 || (hoursDuration == 1 && (minutesBegin == 0 && minutesEnd == 0))) {
+        if ((hourEnd == hourBegin) || ((hoursDuration == 1) && (minutesBegin == 0 && minutesEnd == 0))) {
             $(cellIdFirst).attr('data-inside-event', leftPosition + '-' + width);
 
             renderEventLock(eventBlock, cellIdFirst);
 
         } else if (hoursDuration > 0) {
             var dataRightOccupied = timeCellWidth - leftPosition - eventAddBlockCorrection;
-            var dataLeftOccupied = hourBeginRelative * timeCellWidth - ((eventBlock.width / timeCellWidth) * dataRightOccupied);
+            //var dataLeftOccupied = hourBeginRelative * timeCellWidth - ((eventBlock.width / timeCellWidth) * dataRightOccupied);
+            var dataLeftOccupied = width - dataRightOccupied - eventAddBlockCorrection;
+            while (dataLeftOccupied > timeCellWidth) {
+                dataLeftOccupied -= timeCellWidth;
+            }
 
             $(cellIdFirst).attr('data-right-occupied', dataRightOccupied);
 
@@ -485,5 +532,5 @@ function getEventObject(longRoomEventId) {
 }
 
 function converToSharpDateTime(roomCellId) {
-    
+
 }

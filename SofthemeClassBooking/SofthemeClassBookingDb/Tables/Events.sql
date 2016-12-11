@@ -8,8 +8,9 @@
  [BeginingDate] DATETIME NOT NULL,
  [EndingDate] DATETIME NOT NULL,
  [Description] NVARCHAR(200) NULL,
- [IsPublic] BIT DEFAULT 1,
- [IsAuthorShown] BIT DEFAULT 1
+ [IsPrivate] BIT DEFAULT 1,
+ [IsAuthorShown] BIT DEFAULT 1, 
+ [IsParticipantsAllowed] BIT DEFAULT 1
 )
 GO
 
