@@ -58,7 +58,7 @@ function renderCalendar(month) {
     calendarBody.append('<div id="day-names"></div>');
 
     for (var dayNumberToFillIntoCalendarName = 0; dayNumberToFillIntoCalendarName < 7; dayNumberToFillIntoCalendarName++) {
-        $('#day-names').append('<div class="roomevent-calendar-cell ">' + dayNames[dayNumberToFillIntoCalendarName] + '</div>');
+        $('#day-names').append('<div class="roomevent-calendar-cell-daynames ">' + dayNames[dayNumberToFillIntoCalendarName] + '</div>');
     }
 
     for (var row = 0; row < maxRowCalendarSize; row++) {
@@ -202,16 +202,18 @@ $(document).on('click', '#calendar-month-left', function () {
 });
 
 $(document).on('click', '#calendar-month-right', function () {
+
     currentCalendarMonth++;
     if (currentCalendarMonth > 12) {
         currentCalendarMonth = 1;
         currentCalendarYear++;
     }
     renderCalendar(currentCalendarMonth);
+
 });
 
 currentMonthRender.bind('changeCalendarNavigation', function () {
-    debugger;
+
     var dateComparisonResult = compareDates({ year: currentCalendarYear, month: currentCalendarMonth }, dateNow, true);
 
     if (dateComparisonResult == 0) {
@@ -224,6 +226,7 @@ currentMonthRender.bind('changeCalendarNavigation', function () {
         calendarTodayNavigaion.css('text-align', 'left');
         calendarTodayNavigationValue.html('<i class="fa fa-long-arrow-left" aria-hidden="true"></i> Сегодня')
     }
+
 });
 
 $(document).on('click', '.roomevent-calendar-cell', function () {

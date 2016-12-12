@@ -4,7 +4,7 @@ var headerTime = $('#header-time');
 var roomSection = $('#room-section');
 
 var roomEventLeftBlock = $('.roomevent-left-block');
-var roomEventHeader = $('.roomevent-header-date-section')
+var roomEventHeader = $('.roomevent-header-date-section');
 
 //var roomNames = ['Einstein Classroom', 'Tesla Classroom', 'Newton Classroom'];
 
@@ -23,6 +23,10 @@ var currentMode = shortRoomEventTable;
 var timeOffset = 0;
 var eventBlock;
 var eventAddBlockCorrection = 2;
+var shortBlockMinimumTime = 40;
+
+var eventBlockType = { short: 0, long: 1 };
+var eventType = { public: 0, private: 1 };
 
 var renderClassRooms;
 var minumumAllowedTimeToBook = 20 * minutePerPixel;
@@ -36,8 +40,6 @@ $(document).on('click', '#large', function () {
         largeView.addClass('fa-selected');
         shortView.removeClass('fa-selected');
 
-        roomEventLeftBlock.addClass('roomevent-left-block-large');
-        roomEventHeader.addClass('roomevent-header-date-section-large');
         $('#roomevent-navigation').attr('class', 'roomevent-now-large');
         renderTime(longRoomEventTable);
         renderRooms(longRoomEventTable);
@@ -54,8 +56,6 @@ $(document).on('click', '#short', function () {
         shortView.addClass('fa-selected');
         largeView.removeClass('fa-selected');
 
-        roomEventLeftBlock.removeClass('roomevent-left-block-large');
-        roomEventHeader.removeClass('roomevent-header-date-section-large');
         $('#roomevent-navigation').attr('class', 'roomevent-now');
 
         renderTime(shortRoomEventTable);
@@ -113,12 +113,12 @@ function listNextHour() {
     render();
 }
 
-function lestPreviousHour() {
+function listPreviousHour() {
     addValueToDate(currentCalendarCell, { hour: 1 }, false);
     render();
 }
 
-$(document).on('click', '#roomevent-time-before-part', lestPreviousHour);
+$(document).on('click', '#roomevent-time-before-part', listPreviousHour);
 $(document).on('click', '#roomevent-time-next-part', listNextHour);
 
 //Render functions 
@@ -190,7 +190,7 @@ function renderRooms(timeCellCount, resetTime) {
 
             var currentRow = $('#room-row-' + renderClassRooms[currentRoom - 1].Id);
             currentRow.append('<div class="roomevent-room-cell">' +
-                                     '<div>' + renderClassRooms[currentRoom - 1].Name + '</div>' +
+                                     '<div class="roomdiv">' + renderClassRooms[currentRoom - 1].Name + '</div>' +
                                      '</div>');
 
             for (var cell = 0; cell < timeCellCount; cell++) {
@@ -207,30 +207,46 @@ function renderRooms(timeCellCount, resetTime) {
 }
 
 //render event divs
+var eventBlockRender;
 
-function renderEventExist(eventBlock, roomEventCellId) {
+function renderEventBlock(eventBlock, roomEventCellId) {
 
-    $(roomEventCellId).html('<div id="' + eventBlock.id + '" class="eventblock-exist">' +
-                      '<div class="eventblock-time">' +
-                      '<span>' + eventBlock.timeStart + ' - ' + eventBlock.timeEnd + '</span>' +
-                      '</div><div class="eventblock-description">' +
-                      '<div>English class - </div>' +
-                      '<div>Speaking for juniours</div></div></div>');
+    var eventBlockRenderIcon = "";
+    var descriptionPart = "";
+
+    if (eventBlock.eventType == eventType.public) {
+
+        if (eventBlock.blockType == eventBlockType.short) {
+            eventBlockRender = '<div id="' + eventBlock.id + '" class="eventblock-exist short-time">';
+        } else {
+            eventBlockRender = '<div id="' + eventBlock.id + '" class="eventblock-exist long-time">';
+            descriptionPart = '<div class="eventblock-description">' +
+                              '<div class="text">' + eventBlock.title + '</div>' +
+                              '<div class="text">' + eventBlock.description + '</div></div>';
+        }
+
+    } else {
+        eventBlockRenderIcon = '<i class="fa fa-lock fa-3x"></i>';
+        if (eventBlock.blockType == eventBlockType.short) {
+            eventBlockRender = '<div id="' + eventBlock.id + '" class="eventblock-lock short-time">';
+        } else {
+            eventBlockRender = '<div id="' + eventBlock.id + '" class="eventblock-lock long-time">';
+        }
+
+    }
+
+    eventBlockRender += '<div class="eventblock-time">' +
+                  '<div class="text">' + eventBlock.timeStart + '</div>' +
+                  '<div class="text"> - </div>' +
+                  '<div class="text">' + eventBlock.timeEnd + '</div></div>' + descriptionPart +
+                  eventBlockRenderIcon + '</div>';
+
+    $(roomEventCellId).html(eventBlockRender);
     $('#' + eventBlock.id).css('width', eventBlock.width).css('left', eventBlock.left);
 
-}
-
-function renderEventLock(eventBlock, roomEventCellId) {
-
-    $(roomEventCellId).html('<div id="' + eventBlock.id + '" class="eventblock-lock">' +
-                      '<div class="eventblock-time">' +
-                      '<span>' + eventBlock.timeStart + ' - ' + eventBlock.timeEnd + '</span>' +
-                      '</div><i class="fa fa-lock fa-3x"></i></div>');
-    $('#' + eventBlock.id).css('width', eventBlock.width).css('left', eventBlock.left);
 }
 
 function getFreeLeftSpace(roomCellObject) {
-    debugger;
 
 
     var dataInsideEvent = roomCellObject.attr('data-inside-event').split('-');
@@ -250,7 +266,6 @@ function getFreeLeftSpace(roomCellObject) {
 }
 
 function renderEventAdd(currentRoomCellObject) {
-    debugger;
 
 
     var freeSpaceNextCell = getFreeLeftSpace(currentRoomCellObject.nextId);
@@ -342,7 +357,6 @@ function renderSliders(timeCellCount) {
 
 function renterStaticSliderTime() {
 
-    debugger;
     var navigation;
 
     if (currentMode == shortRoomEventTable) {
@@ -350,7 +364,7 @@ function renterStaticSliderTime() {
     } else {
         navigation = $('.roomevent-now-large');
     }
-    navigation.hide();
+    $('#roomevent-now').empty();
 
     var targetCellId = $('#hour-cell-' + dateNow.year + '-' + dateNow.month + '-' + dateNow.day + '-' + dateNow.hour);
     var targetCellIdPosition = targetCellId.position();
@@ -414,21 +428,41 @@ function createEventArray() {
         id: 1,
         classRoomId: 1,
         dateBegining: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '11' + ':' + 15),
-        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '11' + ':' + 45)
+        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '11' + ':' + 45),
+        eventType: 1
     });
 
     events.push({
         id: 3,
         classRoomId: 1,
         dateBegining: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '12' + ':' + 06),
-        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '12' + ':' + 35)
+        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '12' + ':' + 35),
+        eventType: 1
+    });
+
+    events.push({
+        id: 4,
+        classRoomId: 1,
+        dateBegining: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '13' + ':' + 06),
+        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '14' + ':' + 35),
+        eventType: 1
+
     });
 
     events.push({
         id: 2,
         classRoomId: 2,
         dateBegining: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '13' + ':' + '21'),
-        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '15' + ':' + 11)
+        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '15' + ':' + 11),
+        eventType: 0
+    });
+
+    events.push({
+        id: 6,
+        classRoomId: 2,
+        dateBegining: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '15' + ':' + '40'),
+        dateEnding: new Date(dateNow.year + '-' + dateNow.month + '-' + dateNow.day + ' ' + '16' + ':' + '00'),
+        eventType: 0
     });
 }
 
@@ -464,27 +498,30 @@ function calculateEventBlockPosition() {
 
         var width = duration * minutePerPixel;
 
-        debugger;
-
         var eventBlock = {
             id: 'eventblock-' + events[currentEvent].id,
             left: leftPosition,
             width: width,
             timeStart: renderTimeMinutes(hourBegin, minutesBegin),
             timeEnd: renderTimeMinutes(hourEnd, minutesEnd),
-            description: 'blabla'
-        }
+            title: 'title',
+            description: 'blabla',
+            blockType: duration < shortBlockMinimumTime ? eventBlockType.short : eventBlockType.long,
+            eventType: events[currentEvent].eventType
+
+    }
 
         var cellIdFirst = '#' + classRoomId + '_' + year + '-' + month + '-' + day + '_' + hourBegin;
 
         if ((hourEnd == hourBegin) || ((hoursDuration == 1) && (minutesBegin == 0 && minutesEnd == 0))) {
             $(cellIdFirst).attr('data-inside-event', leftPosition + '-' + width);
 
-            renderEventLock(eventBlock, cellIdFirst);
+            renderEventBlock(eventBlock, cellIdFirst);
+            continue;
+
 
         } else if (hoursDuration > 0) {
             var dataRightOccupied = timeCellWidth - leftPosition - eventAddBlockCorrection;
-            //var dataLeftOccupied = hourBeginRelative * timeCellWidth - ((eventBlock.width / timeCellWidth) * dataRightOccupied);
             var dataLeftOccupied = width - dataRightOccupied - eventAddBlockCorrection;
             while (dataLeftOccupied > timeCellWidth) {
                 dataLeftOccupied -= timeCellWidth;
@@ -494,10 +531,9 @@ function calculateEventBlockPosition() {
 
             var cellIdLast = '#' + classRoomId + '_' + year + '-' + month + '-' + day + '_' + hourEnd;
             $(cellIdLast).attr('data-left-occupied', dataLeftOccupied);
-            //for (var currentHour = (hourBegin + 1) ; currentHour < hourEnd; currentHour++) {
-            renderEventExist(eventBlock, cellIdFirst);
 
-            //}
+            renderEventBlock(eventBlock, cellIdFirst);
+
         }
 
     }
