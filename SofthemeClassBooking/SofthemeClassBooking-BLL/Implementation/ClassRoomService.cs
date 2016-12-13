@@ -37,6 +37,29 @@ namespace SofthemeClassBooking_BLL.Implementation
             return classRoomModel;
         }
 
+        public IEnumerable<object> GetNameId()
+        {
+            var listOfAttributes = new List<object>();
+
+            using (var context = new ClassBookingContext())
+            {
+                var attributes = context.ClassRooms.Where(field => field.IsLocked == false)
+                    .Select(field => new
+                        {
+                            field.Id,
+                            field.Name
+                        })
+                    .ToList();
+
+                foreach (var attribute in attributes)
+                {
+                    listOfAttributes.Add(attribute);
+                }
+            }
+
+            return listOfAttributes;
+        }
+
         public IEnumerable<ClassRoomModel> Get(Expression<Func<ClassRoomModel, bool>> where)
         {
             throw new NotImplementedException();

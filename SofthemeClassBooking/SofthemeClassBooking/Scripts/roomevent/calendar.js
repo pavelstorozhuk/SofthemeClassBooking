@@ -4,6 +4,9 @@ var calendarTodayNavigationValue = $('#roomevent-calendar-today');
 
 var dayNames = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 var monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+var monthNamesAccusative = ["Января", "Февраля", "Марта", "Апреля", "Майа", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"];
+
+
 
 var date = new Date();
 
@@ -55,7 +58,7 @@ function renderCalendar(month) {
     calendarBody.append('<div id="day-names"></div>');
 
     for (var dayNumberToFillIntoCalendarName = 0; dayNumberToFillIntoCalendarName < 7; dayNumberToFillIntoCalendarName++) {
-        $('#day-names').append('<div class="roomevent-calendar-cell ">' + dayNames[dayNumberToFillIntoCalendarName] + '</div>');
+        $('#day-names').append('<div class="roomevent-calendar-cell-daynames ">' + dayNames[dayNumberToFillIntoCalendarName] + '</div>');
     }
 
     for (var row = 0; row < maxRowCalendarSize; row++) {
@@ -135,6 +138,19 @@ function getDayOfWeek(day) {
     return trueDay;
 }
 
+function compareTime(time, timeTo) {
+    var totalMinutes = time.hour * 60 + time.minutes;
+    var totalMinutesTo = timeTo.hour * 60 + timeTo.minutes;
+
+    if (totalMinutes > totalMinutesTo) {
+        return 1;
+    } else if (totalMinutes < totalMinutesTo) {
+        return -1;
+    } else {
+        return 0;
+    }
+}
+
 function compareDates(date, dateTo, ignoreDays, incudeTime) {
 
     var ignore = ignoreDays || false;
@@ -148,18 +164,12 @@ function compareDates(date, dateTo, ignoreDays, incudeTime) {
         return 1;
     } else if (date.month < dateTo.month) {
         return -1;
-    } else if ((date.day > dateTo.day) && !ignore) {
+    } else if (!ignore && (date.day > dateTo.day)) {
         return 1;
-    } else if ((date.day < dateTo.day) && !ignore) {
+    } else if (!ignore && (date.day < dateTo.day)) {
         return -1;
-    } else if ((date.hour < dateTo.hour) && time) {
-        return -1;
-    } else if ((date.hour > dateTo.hour) && time) {
-        return 1;
-    } else if((date.minutes < dateTo.minutes) && time){
-        return -1;
-    } else if ((date.minutes > dateTo.minutes) && time) {
-        return 1;
+    } else  if (time) {
+        return compareTime(date, dateTo);
     } else {
         return 0;
     }
@@ -192,12 +202,14 @@ $(document).on('click', '#calendar-month-left', function () {
 });
 
 $(document).on('click', '#calendar-month-right', function () {
+
     currentCalendarMonth++;
     if (currentCalendarMonth > 12) {
         currentCalendarMonth = 1;
         currentCalendarYear++;
     }
     renderCalendar(currentCalendarMonth);
+
 });
 
 currentMonthRender.bind('changeCalendarNavigation', function () {
@@ -214,6 +226,7 @@ currentMonthRender.bind('changeCalendarNavigation', function () {
         calendarTodayNavigaion.css('text-align', 'left');
         calendarTodayNavigationValue.html('<i class="fa fa-long-arrow-left" aria-hidden="true"></i> Сегодня')
     }
+
 });
 
 $(document).on('click', '.roomevent-calendar-cell', function () {
@@ -246,11 +259,16 @@ $(document).on('click', '.roomevent-calendar-cell', function () {
     renterStaticSliderTime();
 });
 
-function renderTimeMinutes(hours, minutes) {
+function renderTimeMinutes(hours, minutes, asObject) {
     var renderHours = hours > 9 ? hours : '0' + hours;
     var renderMinutes = minutes > 9 ? minutes : '0' + minutes;
+
+    if (asObject) {
+        return { hour: renderHours, minutes: renderMinutes };
+    }
     return renderHours + ':' + renderMinutes;
 }
+
 
 function getCurrentTime(returnObject) {
     var dateNow = new Date();
@@ -263,9 +281,23 @@ function getCurrentTime(returnObject) {
     return renderTimeMinutes(dateNow.getHours(), dateNow.getMinutes());
 }
 
-function addValueToDate(targetDate, dateObject, add) {
+function convertToDateTime(dateTime) {
+    return dateTime.day + '/' + dateTime.month + '/' + dateTime.year
+            + " " + dateTime.hour + ':' + dateTime.minutes + ':00';
+}
 
-    var maxDayCount = getDaysInMonth(targetDate.month, targetDate.year);
+function convertToDateObject(dateTimeString) {
+    var dateParts = dateTimeString.split('-');
+    return {
+        year: parseInt(dateParts[0]),
+        month: parseInt(dateParts[1]),
+        day: parseInt(dateParts[2]),
+        hour: parseInt(dateParts[3]),
+        minutes: parseInt(dateParts[4])
+    };
+}
+
+function addValueToDate(targetDate, dateObject, add) {
 
     if (add == true) {
 
@@ -273,10 +305,17 @@ function addValueToDate(targetDate, dateObject, add) {
         targetDate.month += dateObject.month || 0;
         targetDate.day += dateObject.day || 0;
         targetDate.hour += dateObject.hour || 0;
-        targetDate.minute += dateObject.minute || 0;
+        targetDate.minutes += dateObject.minutes || 0;
 
-        while (targetDate.minute > 60) {
-            targetDate.minute -= 60;
+        while (targetDate.month > 12) {
+            targetDate.month -= 12;
+            targetDate.year++;
+        }
+
+        var maxDayCount = getDaysInMonth(targetDate.month, targetDate.year);
+
+        while (targetDate.minutes >= 60) {
+            targetDate.minutes -= 60;
             targetDate.hour++;
         }
 
@@ -299,14 +338,21 @@ function addValueToDate(targetDate, dateObject, add) {
 
     } else {
 
+        var maxDayCount = getDaysInMonth(targetDate.month, targetDate.year);
+
         targetDate.year -= dateObject.year || 0;
         targetDate.month -= dateObject.month || 0;
         targetDate.day -= dateObject.day || 0;
         targetDate.hour -= dateObject.hour || 0;
-        targetDate.minute -= dateObject.minute || 0;
+        targetDate.minutes -= dateObject.minutes || 0;
 
-        while (targetDate.minute < 0) {
-            targetDate.minute += 60;
+        while (targetDate.month <= 0) {
+            targetDate.month += 12;
+            targetDate.year--;
+        }
+
+        while (targetDate.minutes < 0) {
+            targetDate.minutes += 60;
             targetDate.hour--;
         }
 

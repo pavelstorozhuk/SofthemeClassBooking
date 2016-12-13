@@ -7,9 +7,7 @@
 
         <ul>
             <li>
-                <a href="@Url.Action("Index", "Event")">
-                    <div style="padding-top: 25%;"><img src="~/Content/images/addEvent.png" alt="Add event" /></div>
-                </a>
+                <i id="add-event" class="fa fa-plus-square" aria-hidden="true"></i>
             </li>
             <li>
                 <a href="@Url.Action("Schedule", "Home")"
@@ -24,9 +22,12 @@
                 </a>
                 <div @(ViewContext.RouteData.Values["controller"].ToString().Equals("Feedback") ? "class=nav-line-display" : "class=nav-line-hide")></div>
             </li>
+            <li class="li-user">
+                <i class="fa fa-user"></i>
+            </li>
             <li>
                 <a href="@Url.Action("UserProfile", "Home")">
-                <div class="nav-text"><img src="~/Content/images/profile.png" alt="profile" /> @User.Identity.Name </div>
+                    <div class="nav-text"> @User.Identity.Name </div>
                 </a>
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()"><div class="nav-text">Off</div></a></li>

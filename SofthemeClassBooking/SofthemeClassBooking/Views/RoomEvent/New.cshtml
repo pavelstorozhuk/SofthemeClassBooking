@@ -1,4 +1,4 @@
-﻿
+﻿@model SofthemeClassBooking_BOL.Models.EventModel
 
 
 <div class="event event-create">
@@ -126,21 +126,23 @@
 
 <script type="text/javascript">
 
-        var listed = false;
-            $(document).on('click', '#event-edit-room-dropdown', function () {
-                if (!listed) {
-                    $('#event-edit-room-dropdown').addClass('event-edit-room-dropdown-list');
-                    $('#event-edit-room-dropdown').removeClass('event-edit-room-dropdown-selected');
-                    $('#event-edit-room-selected').addClass('event-edit-room-dropdown-variant-selected');
-                    $('.event-edit-room-dropdown-variant').css('display', 'inline-block');
-                    listed = true;
-                } else {
-                    $('#event-edit-room-dropdown').removeClass('event-edit-room-dropdown-list');
-                    $('#event-edit-room-dropdown').addClass('event-edit-room-dropdown-selected');
-                    $('#event-edit-room-selected').removeClass('event-edit-room-dropdown-variant-selected');
-                    $('.event-edit-room-dropdown-variant').css('display', 'none');
-                    listed = false;
-                }
-            });
+    var EventObject = JSON.parse(@Html.Raw(Json.Encode(Model)));
+
+    var listed = false;
+    $(document).on('click', '#event-edit-room-dropdown', function () {
+        if (!listed) {
+            $('#event-edit-room-dropdown').addClass('event-edit-room-dropdown-list');
+            $('#event-edit-room-dropdown').removeClass('event-edit-room-dropdown-selected');
+            $('#event-edit-room-selected').addClass('event-edit-room-dropdown-variant-selected');
+            $('.event-edit-room-dropdown-variant').css('display', 'inline-block');
+            listed = true;
+        } else {
+            $('#event-edit-room-dropdown').removeClass('event-edit-room-dropdown-list');
+            $('#event-edit-room-dropdown').addClass('event-edit-room-dropdown-selected');
+            $('#event-edit-room-selected').removeClass('event-edit-room-dropdown-variant-selected');
+            $('.event-edit-room-dropdown-variant').css('display', 'none');
+            listed = false;
+        }
+    });
 
 </script>

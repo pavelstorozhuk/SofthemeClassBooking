@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using SofthemeClassBooking_BOL.Contract.Services;
 using SofthemeClassBooking_DAL;
@@ -9,19 +10,43 @@ namespace SofthemeClassBooking_BLL.Implementation
 {
     public class ParticipantService : IParticipantService<ParicipantModel>
     {
-        public void Add(ParicipantModel classRoom)
+        public void Add(ParicipantModel participaModel)
         {
-            throw new NotImplementedException();
+            using (var context = new ClassBookingContext())
+            {
+                context.Participants.Add(new Participants
+                {
+                    Email = participaModel.Email,
+                    EventId = participaModel.EventId
+                });
+                context.SaveChanges();
+            }
         }
 
-        public IEnumerable<ParicipantModel> Get()
+        public IEnumerable<ParicipantModel> Get(int eventId)
         {
-            throw new NotImplementedException();
+            var participantModelList = new List<ParicipantModel>();
+
+            using (var context = new ClassBookingContext())
+            {
+                var participants =  context.Participants
+                    .Where(p => p.EventId == eventId)
+                    .ToList();
+                foreach (var participant in participants)
+                {
+                    participantModelList.Add(MapService.Map(participant));
+                }
+            }
+
+            return participantModelList;
         }
 
-        public IEnumerable<ParicipantModel> Get(Expression<Func<ParicipantModel, bool>> where)
+        public int GetCount(int eventId)
         {
-            throw new NotImplementedException();
+            using (var context = new ClassBookingContext())
+            {
+                return context.Participants.Count(p => p.EventId == eventId);
+            }
         }
 
         public void Remove(ParicipantModel classRoom)
@@ -29,9 +54,5 @@ namespace SofthemeClassBooking_BLL.Implementation
             throw new NotImplementedException();
         }
 
-        public void Update(ParicipantModel classRoom)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

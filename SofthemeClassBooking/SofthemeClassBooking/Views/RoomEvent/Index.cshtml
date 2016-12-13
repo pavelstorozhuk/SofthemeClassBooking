@@ -1,18 +1,18 @@
 ﻿
-@Styles.Render("~/Styles/roomevent")
-@Scripts.Render("~/bundles/roomevent")
+@Styles.Render("~/bundles/styles/roomevent")
+@Scripts.Render("~/bundles/scripts/roomevent")
 
 <div class="roomevent-section">
 
     <!--Left side-->
-    <div class="roomevent-left-block">
+    <div class="roomevent-left-block noselect-text">
 
         <!--main part-->
         <!--header-->
         <div class="roomevent-header">
 
             <!--switch-->
-            <div class="roomevent-header-switch-section">
+            <div class="roomevent-header-switch-section ">
                 <div class="roomevent-header-switch">
                     <div class="button">
                         <i id="large" class="fa fa-align-justify fa-lg" aria-hidden="true"></i>
@@ -22,7 +22,7 @@
             </div>
 
             <!--Date navigation-->
-            <div class="roomevent-header-date-section">
+            <div class="roomevent-header-date-section ">
                 <i id="roomevent-time-before-part" class="fa fa-caret fa-caret-left fa-2x" aria-hidden="true" style="float: left;"></i>
                 <span id="event-date"></span>
                 <i id="roomevent-time-next-part" class="fa fa-caret fa-caret-right fa-2x" aria-hidden="true" style="float: right;"></i>
@@ -43,7 +43,7 @@
 
     <!--right block-->
 
-    <div class="roomevent-right-block">
+    <div class="roomevent-right-block noselect-text">
 
         <div class="roomevent-calener-date-section">
             <i id="calendar-month-left" class="fa fa-caret fa-caret-left fa-2x" aria-hidden="true" style="float: left;"></i>
@@ -61,6 +61,8 @@
 <script type="text/javascript">
 
     var popupId;
+
+
 
     $(document).on('click', '.eventblock-add', function () {
 
