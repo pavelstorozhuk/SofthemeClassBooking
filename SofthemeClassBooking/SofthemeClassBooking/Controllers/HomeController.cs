@@ -50,6 +50,7 @@ namespace SofthemeClassBooking.Controllers
             //Thread.Sleep(2000);
             return PartialView();
         }
+        
        
     }
 }

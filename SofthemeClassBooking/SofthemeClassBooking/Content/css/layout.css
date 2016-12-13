@@ -12,13 +12,14 @@
         margin: 0;
         padding: 0;
         overflow: hidden;
-        padding-right: 134px;
+        
         background-color: #FFFFFF;
     }
 
     nav li {
         height: inherit;
         float: left;
+        width: 147px;
     }
 
         nav li a {
@@ -37,6 +38,7 @@
             background-color: #F4F6FB;
         }
 
+
 .nav-line-display {
     width: inherit;
     background-color: #F95752;
@@ -50,11 +52,22 @@
 }
 
 nav .nav-text {
-    height: inherit;
+    
     display: inherit;
     padding-top: 20px;
+    height: 40px;
 }
-
+.nav-text img {
+    float: left;
+        position: relative;
+    left: -5px;
+}
+.UserName {
+           position: relative;
+    top: 2px;
+    left: 0px;
+    width: 127px;
+}
 /* Change the link color to #111 (black) on hover */
 nav li a:hover {
     color: #F95752 !important;
@@ -123,4 +136,24 @@ footer {
         color: #CFD4E1;
         text-align: center;
         padding-top: 5px;
+    }
+    #main-menu  li #event {
+        margin-top: 10px !important;
+    }
+
+        #main-menu  li:last-of-type {
+            margin-right: 137px;
+                border-bottom: 3px solid red;
+                   background: #F4F6FB;
+        }
+
+#main-menu li {
+    margin-left: 6px;
+    width: auto;
+    height: 58px;
+ 
+}
+    #main-menu li a {
+        padding-left: 12px;
+        padding-right: 12px;
     }

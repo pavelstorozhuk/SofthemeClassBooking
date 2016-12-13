@@ -11,24 +11,35 @@
 {
     @Styles.Render("~/Styles/profile")
 }
+
 <div class="content">
+    <div class="clear"></div>
+
     
+    @using (Html.BeginForm("LogOff", "Login", FormMethod.Post))
+    {@Html.AntiForgeryToken()
+
+        <button id="exit" value="Login/LogOff">Выйти</button>
+
+    }
+   
+    <div class="clear"></div>
 
     <div class="info">
         <div id="info">
-        <h1>@User.Identity.Name @if (@User.IsInRole("Admin"))
-                                {
-                                    <sup>admin</sup>}</h1>
-        <p><b>Email:</b>&nbsp;@Html.Action("GetUserEmail", "Login", new {id = @User.Identity.GetUserId()})</p>
-        <p><b>Количество активных событий:</b>&nbsp; 12
-        </p>
+            <p id="UserName">@User.Identity.Name @if (@User.IsInRole("admin"))
+                                    {
+                                        <sup>admin</sup>}</p>
+            <p><b>Email:</b>&nbsp;@Html.Action("GetUserEmail", "Login", new {id = @User.Identity.GetUserId()})</p>
+            <p><b>Количество активных событий:</b>&nbsp; 12
+            </p>
             <button id="change">Изменить</button>
-            </div>
+        </div>
     </div>
-    <button id="exit">Выйти</button>
+
     
     <div class="pass">
-        <h2>Изменить пароль</h2>
+        <p>Изменить пароль</p>
 
         @using (Html.BeginForm("ChangePasswordFromUserProfile", "Manage", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@id = "Login", role = "form"}))
         {
@@ -40,8 +51,11 @@
             <input type="submit" class="button-refuse" value="Сохранить" id="mysubmit">
             if (ViewData["ChangePasswordSuccess"] != null)
             {
-                <p class="changepassword-success"> <img src="~/Content/images/success.png"/>Пароль успешно изменен
-                </p>
+                <div id="changepassword-success">
+                    <p>
+                        <img src="~/Content/images/success.png" />Пароль успешно изменен
+                    </p>
+                </div>
             }
         }
     </div>

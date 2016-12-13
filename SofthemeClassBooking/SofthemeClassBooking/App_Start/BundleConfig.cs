@@ -48,12 +48,16 @@ namespace SofthemeClassBooking
 
             bundles.Add(new StyleBundle("~/Styles/layout").Include(
                   "~/Content/css/layout.css"));
+           
+
 
             bundles.Add(new StyleBundle("~/Styles/feedback").Include(
                     "~/Content/css/feedback.css"));
 
             bundles.Add(new StyleBundle("~/Styles/profile").Include(
                     "~/Content/css/profile.css"));
+            bundles.Add(new StyleBundle("~/Styles/users").Include(
+                   "~/Content/css/users.css"));
 
 
             bundles.Add(new StyleBundle("~/Styles/plan").Include(
