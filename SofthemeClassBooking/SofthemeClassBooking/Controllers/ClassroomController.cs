@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using SofthemeClassBooking_BOL.Contract.Models;
 using SofthemeClassBooking_BOL.Contract.Services;
 using SofthemeClassBooking_BOL.Enum;
@@ -21,6 +22,16 @@ namespace SofthemeClassBooking.Controllers
         public ActionResult Index()
         {
             return PartialView(_classRoomService.Get());
+        }
+
+
+        [HttpGet]
+        public ActionResult GetNameId()
+        {
+            var classRooms = _classRoomService.GetNameId();
+            var jsonSerialiser = new JavaScriptSerializer();
+            return Json(jsonSerialiser.Serialize(classRooms), JsonRequestBehavior.AllowGet);
+
         }
 
         [HttpGet]

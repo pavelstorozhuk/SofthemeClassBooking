@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,43 +10,11 @@ namespace SofthemeClassBooking_BOL.Models
 {
     public class ParicipantModel : IParticipant
     {
-        public int EventId
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+        public int EventId { get; set; }
+        public int Id { get; set; }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        [StringLength(256)]
+        public string Email { get; set; }
 
-        public int Id
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
     }
 }

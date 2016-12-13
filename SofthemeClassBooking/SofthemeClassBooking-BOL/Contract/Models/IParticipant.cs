@@ -3,7 +3,7 @@
     public interface IParticipant
     {
          int Id { get; set; }
-         string Name { get; set; }
+         string Email { get; set; }
          int EventId { get; set; }
     }
 }

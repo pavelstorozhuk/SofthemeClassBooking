@@ -1,4 +1,8 @@
-﻿.wrapper {
+﻿.fa-link {
+    cursor: pointer;
+}
+
+.wrapper {
     position: relative;
 }
 
@@ -12,18 +16,16 @@
 }
 
     .event h4 {
+        padding: 8px 11px 2px 14px;
         text-align: left;
         margin: 0;
-        padding-left: 14px;
-        padding-right: 11px;
-        padding-top: 8px;
-        padding-bottom: 2px;
         width: 312px;
         overflow: hidden;
         font-weight: normal;
     }
 
 .event-public {
+    background-color: #FFFFFF;
     border: 1px solid #F95752;
     width: 312px;
 }
@@ -87,10 +89,7 @@
 
 .event-body {
     font-size: 12px;
-    padding-left: 14px;
-    padding-top: 11px;
-    padding-right: 30px;
-    padding-bottom: 4px;
+    padding: 11px 30px 4px 14px;
     text-align: left;
     line-height: 15px;
 }
@@ -375,18 +374,6 @@
     text-align: left;
 }
 
-
-.event-edit-checkbox-access {
-    margin: 0 11px;
-    display: inline-block;
-    vertical-align: top;
-    width: 44px;
-    height: 24px;
-    border: 1px solid #F95752;
-    position: relative;
-    border-radius: 15px;
-}
-
 .event-edit-access-section {
     display: inline-block;
     padding-right: 15px;
@@ -405,23 +392,6 @@
 
 .event-edit-access-text-private {
     color: #697184;
-}
-
-.event-edit-checkbox-access label {
-    display: block;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    transition: all .3s ease;
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    left: -1px;
-    background: #F95752;
-}
-
-.event-edit-checkbox-access input[type=checkbox]:checked + label {
-    left: 21px;
 }
 
 .event-edit-text-or {

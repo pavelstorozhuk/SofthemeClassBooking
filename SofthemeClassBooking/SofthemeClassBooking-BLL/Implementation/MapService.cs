@@ -46,5 +46,60 @@ namespace SofthemeClassBooking_BLL.Implementation
                 Text = feedbackModel.Text
             };
         }
+
+        public static Events Map(EventModel feedbackModel)
+        {
+            return new Events
+            {
+                Title = feedbackModel.Title,
+                UserId = feedbackModel.UserId,
+                ClassRoomId = feedbackModel.ClassRoomId,
+                Organizer = feedbackModel.Organizer,
+                BeginingDate = feedbackModel.BeginingDate,
+                EndingDate = feedbackModel.EndingDate,
+                Description = feedbackModel.Description,
+                IsPrivate = feedbackModel.IsPrivate,
+                IsAuthorShown = feedbackModel.IsAuthorShown,
+                IsParticipantsAllowed = feedbackModel.IsParticipantsAllowed
+            };
+        }
+
+        public static EventModel Map(Events events)
+        {
+            return new EventModel
+            {
+                Title = events.Title,
+                UserId = events.UserId,
+                ClassRoomId = events.ClassRoomId,
+                Organizer = events.Organizer,
+                BeginingDate = events.BeginingDate,
+                EndingDate = events.EndingDate,
+                Description = events.Description,
+                IsPrivate = events.IsPrivate,
+                IsAuthorShown = events.IsAuthorShown,
+                IsParticipantsAllowed = events.IsParticipantsAllowed
+            };
+        }
+
+        public static ParicipantModel Map(Participants participants)
+        {
+            return new ParicipantModel
+            {
+                Id = participants.Id,
+                EventId = participants.Id,
+                Email = participants.Email
+            };
+        }
+
+        public static Participants Map(ParicipantModel paricipantModel)
+        {
+            return new Participants
+            {
+                Id = paricipantModel.Id,
+                EventId = paricipantModel.Id,
+                Email = paricipantModel.Email
+            };
+        }
     }
+
 }

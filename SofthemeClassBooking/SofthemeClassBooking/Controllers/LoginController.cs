@@ -75,6 +75,7 @@ namespace SofthemeClassBooking.Controllers
             return View("RegistrationResult");
         }
 
+
         public ActionResult SofthemeLogin(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -120,7 +121,7 @@ namespace SofthemeClassBooking.Controllers
                     case SignInStatus.LockedOut:
                         return View("Lockout");
                     case SignInStatus.RequiresVerification:
-                        return RedirectToAction("SendCode", new {ReturnUrl = returnUrl, RememberMe = model.RememberMe});
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                     case SignInStatus.Failure:
                     default:
                         ModelState.AddModelError("", "Неверные данные");
@@ -139,8 +140,7 @@ namespace SofthemeClassBooking.Controllers
         }
 
         [HttpPost]
-
-
+        
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]

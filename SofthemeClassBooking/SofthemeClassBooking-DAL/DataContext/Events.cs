@@ -36,9 +36,11 @@ namespace SofthemeClassBooking_DAL
         [StringLength(200)]
         public string Description { get; set; }
 
-        public bool? IsPublic { get; set; }
+        public bool IsPrivate { get; set; }
 
-        public bool? IsAuthorShown { get; set; }
+        public bool IsAuthorShown { get; set; }
+
+        public bool IsParticipantsAllowed { get; set; }
 
         public virtual AspNetUsers AspNetUsers { get; set; }
 
