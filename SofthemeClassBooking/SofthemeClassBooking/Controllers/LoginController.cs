@@ -25,6 +25,7 @@ namespace SofthemeClassBooking.Controllers
 
         public LoginController()
         {
+             
         }
 
         [AllowAnonymous]
@@ -95,10 +96,11 @@ namespace SofthemeClassBooking.Controllers
 
             var user = await UserManager.FindByEmailAsync(model.Email);
 
-
+           
             if (user != null)
             {
-                if (!user.EmailConfirmed || _userManager.IsInRole(user.Id, "admin"))
+
+                if (!user.EmailConfirmed &&  !UserManager.IsInRole(user.Id, "admin"))
                 {
 
                     ModelState.AddModelError("", "Confirm Email Address.");
@@ -225,6 +227,7 @@ namespace SofthemeClassBooking.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+
                     await UserManager.AddToRoleAsync(user.Id, "user");
 
 
