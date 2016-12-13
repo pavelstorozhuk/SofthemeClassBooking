@@ -1,57 +1,53 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-}
+﻿@using Microsoft.AspNet.Identity
+@model SofthemeClassBooking.Models.EventViewModel
+
 @section stylesDeclarationInHeader {
     @Styles.Render("~/bundles/styles/plan")
     @Styles.Render("~/bundles/styles/event")
 }
-
-
 <div class="eventpage">
-
     <div class="eventpage-info">
 
-        <div class="title-edit">
-            <input type="text" id="title-edit" placeholder="Заголовок" maxlength="100" />
-        </div>
+        <div class="title">@Model.Event.Title</div>
 
         <div class="author">
+            <i class="fa fa-user"></i>
+            <div class="event-creator-name">@Model.Author</div>
+        </div>
 
-            <div class="position">
+        <div class="description">
+            @Model.Event.Description
+        </div>
 
-                <div class="checkbox">
-                    <input id="show-author" type="checkbox" class="checkbox" />
-                    <label for="show-author"></label>
-                </div>
 
-                <div class="label">Показать автора</div>
-                <div class="or">или</div>
-
-                <input type="text" id="organizer" placeholder="Указать организатора" />
-
+        <div class="participants">
+            <span>Планируют принять участие <span>@Model.ParticipantCount</span> человек</span>
+            @if (@Model.Event.IsParticipantsAllowed)
+            {
+                if (Model.Event.UserId == User.Identity.GetUserId())
+                {
+                    <input id="Email" name="Email" type="text" placeholder="Вы уже принимаете участие в событии" required disabled />
+                }
+                else
+                {
+                    using (Html.BeginForm("Add", "Participant", FormMethod.Post, new { id = "add-participant-form" }))
+                    {<div class="participant-add">
+                <span>Присоединиться</span>
+                <input id="add-participant-email" name="Email" type="text" placeholder="Укажите e-mail чтобы присоединиться" required />
+                <i id="add-participant-from-event-submit" class="fa fa-plus fa-lg"></i>
+                <input type="hidden" name="EventId" value="@Model.Event.Id" />
             </div>
+                    }
+                }
 
+            }
+            else
+            {
+                <input id="Email" name="Email" type="text" placeholder="Событые уже свершилось" required disabled />
+            }
 
         </div>
-        <div class="description-edit">
-            <textarea id="description" placeholder="Дополнительная информация"></textarea>
 
-        </div>
-
-        <div class="participants-edit">
-            <div class="position">
-                <div class="checkbox">
-                    <input id="register-participants" type="checkbox" class="checkbox" />
-                    <label for="register-participants"></label>
-                </div>
-
-                <div class="label">Регистрация желающих</div>
-
-                <div class="or">Планируют принять участие <span>9</span> человек</div>
-
-            </div>
-        </div>
 
     </div>
 
@@ -141,7 +137,6 @@
 
         </div>
 
-
     </div>
 
 
@@ -176,7 +171,6 @@
 
         </div>
     </div>
-
 
 </div>
 
@@ -256,10 +250,6 @@
     (function ($, window, document) {
 
         $(function () {
-
-            renderPlanSection('@Url.Action("Index", "Classroom")');
-            renderMapSection('@Url.Action("MapPartial", "Home")');
-            setStandartPlanRoomEventHandlers();
 
 
         });

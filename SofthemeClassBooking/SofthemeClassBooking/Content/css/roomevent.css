@@ -18,7 +18,7 @@
 
 .roomevent-section {
     display: block;
-    mix-width: 1150px;
+    max-width: 1150px;
     min-height: 334px;
     font-family: 'Arial';
 }
@@ -259,6 +259,10 @@
     text-align: center;
 }
 
+.eventblock-exist .text {
+    color: #FDC7C6;
+}
+
 .eventblock-exist .eventblock-description .text {
     display: block;
     font: 12px/13px Arial;
@@ -283,7 +287,7 @@
         text-align: left;
     }
 
-.fa-lock, .fa-plus {
+.roomevent-section .fa-lock, .roomevent-section .fa-plus {
     position: absolute;
     width: 100%;
     text-align: center;
@@ -293,11 +297,11 @@
     color: #FFFFFF !important;
 }
 
-.fa-plus {
+.roomevent-section .fa-plus {
     line-height: 48px;
 }
 
-.fa-add {
+.roomevent-section .fa-add {
     color: #FFFFFF;
 }
 

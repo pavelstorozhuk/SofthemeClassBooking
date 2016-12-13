@@ -11,18 +11,23 @@ var checkFunctionInterval;
 var minumumAllowedMinutes = 20;
 
 var classRooms;
+var eventWasAdded;
 
 var ajaxUrl = {};
 
 function setEngineUrl(url) {
     ajaxUrl = {
         RoomIdNameUrl: url.RoomIdNameUrl,
+        RoomPageUrl: url.RoomPageUrl,
         RoomEventSectionUrl: url.RoomEventSectionUrl,
         PlanSectionUrl: url.PlanSectionUrl,
-        MapSectionUrl: url.MapSectionUrl,
         PlanAdditionalUrl: url.PlanAdditionalUrl,
-        RoomPageUrl: url.RoomPageUrl,
-        EventCreateUrl: url.EventCreateUrl
+        MapSectionUrl: url.MapSectionUrl,
+        EventCreateUrl: url.EventCreateUrl,
+        EventsBriefUrl: url.EventsBriefUrl,
+        EventUrl: url.EventUrl,
+        EventInfoVerbose: url.EventInfoVerbose,
+        ParticipantAddUrl: url.ParticipantAddUrl
     };
 }
 
@@ -52,15 +57,38 @@ function successRoomEventHandler(result) {
 }
 
 function getClassRooms() {
-
-    var result = {};
-    return $.ajax({
-        url: ajaxUrl.RoomIdNameUrl,
-        method: 'GET',
-        datatype: 'json'
-    });
-
+    return loadSection(ajaxUrl.RoomIdNameUrl);
 }
+
+function getEventsBrief() {
+    return loadSection(ajaxUrl.EventsBriefUrl);
+}
+
+function getEventInfoVerbose(eventId) {
+    return loadSection(ajaxUrl.EventInfoVerbose + '/' + eventId);
+}
+/*
+    $.ajax({
+        url: ajaxUrl.EventInfoVerbose + '/' + eventId,
+        type: 'GET',
+        success: function (result) {
+            debugger;
+            var bla = result;
+        },
+        error: function(result) {
+            debugger;
+            var bla2 = result;
+        }
+    });
+*/
+
+function renderPlanSectionTest() {
+    return loadSection(ajaxUrl.PlanSectionUrl);
+} 
+
+function renderMapSectionTest() {
+    return loadSection(ajaxUrl.MapSectionUrl);
+} 
 
 function renderPlanSection() {
     loadSection(ajaxUrl.PlanSectionUrl, beforeSendHandler(planLoadingDiv), successPlanHandler);
@@ -88,7 +116,7 @@ function submitNewEvent() {
             //Check if event exists on current date!
 
             //If it doesn't...
-            debugger;
+           
             $('#BeginingDate').val(convertToDateTime(eventNewDateTimeBegin));
             $('#EndingDate').val(convertToDateTime(compareToDate));
 
@@ -98,7 +126,7 @@ function submitNewEvent() {
                 data: $('#new-event-form').serialize(),
                 dataType: 'json',
 
-                onBegin: function() {
+                onBegin: function () {
                     alert(1);
                 },
 
@@ -109,17 +137,18 @@ function submitNewEvent() {
                 },
 
                 success: function (response) {
+                    $('#room-busy').attr('class', 'status-message display-inline-block');
 
-                    if (response.message == "good") {
-                        $('#room-busy').attr('class', 'status-message display-inline-block');
+                    if (response.success) {
                         $('.icon-place').html('<i id="status-icon-bad" class="fa fa-calendar-check-o"></i>');
-                        $('#error-mesage').html('Ваше событие было успешно добавлено в рассписание');
-                        
-
-                        document.getElementById("new-event-form").reset();
                     } else {
-                        alert('ACHTUNG MAZA FUCKA');
+                        $('.icon-place').html('<i id="status-icon-bad" class="fa fa-frown-o"></i>');
                     }
+
+                    $('#error-mesage').html(response.message);
+                    eventWasAdded = true;
+
+                    document.getElementById("new-event-form").reset();
 
                 }
 
@@ -275,7 +304,7 @@ function checkCurrentTimeInterval(cancel) {
 function setNavigarionEventHandlers() {
 
     $('nav').on('click', '#add-event', function () {
-
+        eventWasAdded = false;
         loadSection(ajaxUrl.EventCreateUrl).done(function (result) {
             $('#event-modal-position').html(result);
             $('#lock').show();
@@ -328,16 +357,34 @@ function setNavigarionEventHandlers() {
 
     $('#event-modal-position').on('click', '#event-new-close', function () {
         checkCurrentTimeInterval(true);
+        debugger;
+        if (eventWasAdded) {
+            renderRooms(currentMode);
+        }
         $('#event-modal-position').empty();
         $('#lock').hide();
     });
 
 }
 
+$(document).on('click', '.fa-link', function () {
+    debugger;
+    window.location = ajaxUrl.EventUrl + "/Index/" + $(this).attr('id').split('-')[1];
+});
+
+$(document).on('click', '#add-participant-submit', function () {
+
+    if ($('#add-participant-email').val().length >= 1) {
+
+        postFormData(ajaxUrl.ParticipantAddUrl, $('#add-participant-form'));
+    }
+
+});
+
 
 function fillClassRoomSelectList() {
 
-    getClassRooms().done(function(rooms) {
+    getClassRooms().done(function (rooms) {
         classRooms = JSON.parse(rooms);
         var optionList = '';
         for (var i = 0; i < classRooms.length; i++) {

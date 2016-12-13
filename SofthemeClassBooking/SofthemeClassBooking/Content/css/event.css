@@ -1,4 +1,8 @@
-﻿.wrapper {
+﻿.fa-link {
+    cursor: pointer;
+}
+
+.wrapper {
     position: relative;
 }
 
@@ -21,6 +25,7 @@
     }
 
 .event-public {
+    background-color: #FFFFFF;
     border: 1px solid #F95752;
     width: 312px;
 }

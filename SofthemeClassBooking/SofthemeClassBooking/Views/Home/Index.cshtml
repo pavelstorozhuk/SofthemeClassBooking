@@ -52,7 +52,11 @@
             MapSectionUrl: '@Url.Action("MapPartial", "Home")',
             PlanAdditionalUrl: '@Url.Action("AdditionalInfo","Classroom")',
             RoomPageUrl: '@Url.Action("RoomPage","Classroom")',
-            EventCreateUrl: '@Url.Action("Create", "Event")'
+            EventCreateUrl: '@Url.Action("Create", "Event")',
+            EventsBriefUrl: '@Url.Action("Brief", "Event")',
+            EventUrl: '@Url.Action("Index", "Event")',
+            EventInfoVerbose: '@Url.Action("InfoVerbose", "Event")',
+            ParticipantAddUrl: '@Url.Action("Add","Participant")'
         };
         setEngineUrl(url);
 
@@ -64,7 +68,7 @@
 
         });
 
-       
+
 
         renderPlanSection();
         renderMapSection();

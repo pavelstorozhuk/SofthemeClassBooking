@@ -32,7 +32,6 @@ function loadSection(url, beforeSendHandler, successHandler, errorHandler) {
         error: errorHandler,
 
         success: function (result) {
-
             if (typeof (successHandler) === "function") {
                 successHandler(result);
             }

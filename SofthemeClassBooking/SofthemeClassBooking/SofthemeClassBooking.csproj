@@ -212,6 +212,8 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppDbInitializer.cs" />
     <Compile Include="Models\ClassRoomIdNameViewModel.cs" />
+    <Compile Include="Models\EventInfoViewModel.cs" />
+    <Compile Include="Models\EventViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -362,7 +364,7 @@
     <Content Include="Views\Login\Registration.cshtml" />
     <Content Include="Views\Login\ResetPasswordResult.cshtml" />
     <Content Include="Views\Classroom\EditClassRoomInfo.cshtml" />
-    <Content Include="Views\RoomEvent\Large.cshtml" />
+    <Content Include="Views\Event\InfoVerbose.cshtml" />
     <Content Include="Views\RoomEvent\Short.cshtml" />
     <Content Include="Views\RoomEvent\New.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />

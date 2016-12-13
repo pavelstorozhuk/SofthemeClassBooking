@@ -286,6 +286,16 @@ function convertToDateTime(dateTime) {
             + " " + dateTime.hour + ':' + dateTime.minutes + ':00';
 }
 
+function convertToDateObject(dateTimeString) {
+    var dateParts = dateTimeString.split('-');
+    return {
+        year: parseInt(dateParts[0]),
+        month: parseInt(dateParts[1]),
+        day: parseInt(dateParts[2]),
+        hour: parseInt(dateParts[3]),
+        minutes: parseInt(dateParts[4])
+    };
+}
 
 function addValueToDate(targetDate, dateObject, add) {
 
