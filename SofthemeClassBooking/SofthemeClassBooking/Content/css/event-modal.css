@@ -1,0 +1,241 @@
+﻿.event-modal {
+    position: absolute;
+    z-index: 199;
+}
+
+.event-new {
+        position: absolute;
+        top: 196px;
+        left: 388px;
+        z-index: 1;
+        background-color: #FFFFFF;
+        width: 496px;
+        border: 1px solid #C0C9D9;
+    }
+
+    .event-header-new {
+        height: 57px;
+        background-color: #9FA6B6;
+        color: #FFFFFF;
+    }
+
+    .event-header-title {
+        padding: 12px 19px 15px 21px; 
+    }
+
+    .event-header-title .fa-calendar-o {
+        font-size: 29px;
+    }
+
+   .event-header-title .fa-remove {
+       cursor: pointer;
+        font-size: 28px;
+        color: #CFD3DB;
+        float: right;
+    }
+
+    .event-header-title .text {
+        display: inline-block;
+        vertical-align: top;
+        font: 16px/33px Arial;
+        padding-left: 12px;
+    }
+
+    .event-when {
+        padding: 10px 0px 0px 18px;
+    }
+
+    .event-when .text, .event-where .text, .delimeter {
+        vertical-align: top;
+        display: inline-block;
+        font: 15px/35px Arial;
+        width: auto;
+    }
+
+    .event-when .text {
+        margin-right: 23px;
+    }
+
+    .event-when .datetime {
+        padding-top: 2px;
+        display: inline-block;
+        max-height: 35px;
+    }
+
+    .event-when .datetime .arrow-up, .arrow-down, .fa-sort-desc, .fa-sort-up {
+        position: relative;
+        height: 5px;
+        text-align: center;
+    }
+
+    .event-when .datetime .fa-sort-desc, .fa-sort-up {
+        cursor: pointer;
+    }
+
+    .event-when .datetime .fa-sort-desc {
+        top: -9px;
+    }
+
+     .event-when .datetime .fa-sort-up {
+         top: -3px;
+     }
+
+    .event-when .datetime .value {
+        font: 14px/25px Arial;
+        text-align: left;
+    }
+
+    .event-when .month-margin {
+        margin: 0 30px 0 11px;
+    }
+
+     .event-where {
+        padding: 10px 2px 0px 18px;
+    }
+
+    .event-where .text {
+        font: 15px/30px Arial;
+    }
+
+    .event-where .select {
+        display: inline-block;
+        vertical-align: top;
+        position: relative;
+        padding-left: 21px;
+    }
+
+    .event-where .select .fa {
+        position: absolute;
+        top: 4px;
+        left: 88%;
+        pointer-events: none; 
+    }
+
+   .event-new  input[type="text"] {
+       text-indent: 15px;
+    }
+
+    .event-new select, .event-new  input[type="text"], .event-new  textarea {
+        outline: none;  
+        border: 1px solid #EBEEF7;
+        border-radius: 13px;
+        font: 14px/12px Arial;
+    }
+
+    .event-where select{
+        cursor: pointer;
+        padding: 8px 0 8px 14px;
+        min-width: 197px;
+        background: transparent;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+    }
+
+    .event-new .title-section {
+         margin: 20px 0 0 20px;
+    }
+
+    .event-new input[type="text"], .event-new  textarea {
+        width: 455px;
+        height: 26px;
+    }
+
+    .event-new .error-message {
+        display: none;
+        font: 11px/13px Arial;
+        padding: 0 0 5px 0;
+    }
+
+      .event-new textarea {
+        padding: 7px 0 0 4px;
+        margin: 20px 0 0 20px;
+        height: 86px;
+        resize: none;
+    }
+
+    .event-param-line  {
+        margin: 15px 0 0 21px;  
+    }
+
+    .event-param-line .text {
+        display: inline-block;
+        vertical-align: top;
+        font: 13px/28px Arial;
+        margin: 0 0 0 10px;
+    }
+
+    .event-param-line .public {
+        color: #F95752;
+        margin: 0 10px 0 74px;
+    }
+
+    .event-param-line input[type="text"] {
+        vertical-align: top;
+        width: 252px;
+        margin: 0;
+        font: 14px/25px Arial;
+    }
+
+    .event-param-line .private {
+        margin: 0 0 0 10px;
+    }
+
+    .event-param-line .or {
+        margin: 0 17px 0 17px;
+    }
+
+    .event-new .second {
+        margin: 9px 0 0 21px;
+    }
+
+    .submit-section {
+         margin: 19px 0 20px 21px;  
+    }
+
+    .submit-section  .fa-frown-o, .submit-section .fa-calendar-check-o {
+            font-size: 34px;
+            color: #62686E;
+        }
+
+        .submit-section .fa-calendar-check-o {
+             font-size: 30px;
+        }
+     .submit-section .message {
+            font: 13px/16px Arial;
+            display: inline-block;
+            vertical-align: top;
+            width: 245px;
+        }
+
+        .submit-section .save {
+            outline: none;
+            vertical-align: top;
+            border: none;
+            font: 13px/34px Arial;
+            width: 150px;
+            margin-left: 24px;
+            background-color: #C8CEDA;
+            color: #4A5158;
+            border-radius: 17px;
+            cursor: pointer;
+        }
+
+        .submit-section .save-ready {
+            background-color: #F95752;
+            color: #FFFFFF;
+        }
+
+        .submit-section .status-message {
+            width: 283px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+         .submit-section .icon-place {
+             display: inline-block;
+             vertical-align: top;
+             margin: 0;
+             padding: 0;
+             width: auto;
+             height: auto;
+        }

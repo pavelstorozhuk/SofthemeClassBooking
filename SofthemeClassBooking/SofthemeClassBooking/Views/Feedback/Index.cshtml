@@ -1,7 +1,11 @@
 ﻿@model SofthemeClassBooking_BOL.Models.FeedbackModel
 
-@section stylesUp {
-    @Styles.Render("~/Styles/feedback")
+@section stylesDeclarationInHeader {
+    @Styles.Render("~/bundles/styles/feedback")
+}
+
+@section scriptDeclarationInHeader {
+    @Scripts.Render("~/bundles/scripts/feedback")
 }
 
 <link rel="stylesheet" href="~/Content/css/feedback.css" />
@@ -12,15 +16,15 @@
             <div class="feedback-write-message"><h2>Написать сообщение</h2></div>
             <div id="result-message" class="feedback-result-message">&nbsp;</div>
         </div>
-        
+
         <div>
             <div class="feedback-left">
                 <div class="feedback-proposition-text">Напишите, если у вас есть идеи, предложения, замечания или вопросы.</div>
                 <div class="feedback-image"></div>
             </div>
 
-            <div class="feedback-form"> 
-                
+            <div class="feedback-form">
+
                 @using (Html.BeginForm("Send", "Feedback", FormMethod.Post, new { role = "form", id = "feedback", autocomplete = "off" }))
                 {
                     @Html.AntiForgeryToken()
@@ -62,31 +66,31 @@
             </div>
         </div>
 
-      
+
     </div>
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+@section scriptDeclarationAfterFooter {
+    @Scripts.Render("~/bundles/scripts/jqueryval")
 }
 
 <script type="text/javascript">
-    $("#submit")
-             .click(function (e) {
-                 e.preventDefault();
 
-                 if ($('#feedback').valid()) {
-                     $.ajax({
-                         url: '@Url.Action("Send")',
-                         method: 'POST',
-                         data: $('#feedback').serialize(),
-                         dataType: 'json',
-                         success: function (result) {
-                             $('#result-message').html(result.message);
-                             $("#feedback").trigger('reset');
-                             $("#submit").toggleClass('feedback-form-button-submit-ok feedback-form-button-submit');
-                         }
-                     });
-                 }
-             });
+    (function($, window, document) {
+
+        $(function() {
+
+            setEventHandlers();
+            $("#submit")
+                .click(function(e) {
+                    e.preventDefault();
+
+                    if ($('#feedback').valid()) {
+                        postFormData('@Url.Action("Send")', $('#feedback'), 'json', successHandler);
+                    }
+                });
+
+        }(window.jQuery, window, document));
+    });
+
 </script>

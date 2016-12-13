@@ -9,11 +9,11 @@ namespace SofthemeClassBooking_BLL.Implementation
 {
     public class FeedbackService : IFeedbackService<FeedbackModel>
     {
-        public void Add(FeedbackModel feedbackEntity)
+        public void Add(FeedbackModel feedbackModel)
         {
             using (var context = new ClassBookingContext())
             {
-                context.Feedbacks.Add(MapService.Map(feedbackEntity));
+                context.Feedbacks.Add(MapService.Map(feedbackModel));
                 context.SaveChanges();
             }
         }

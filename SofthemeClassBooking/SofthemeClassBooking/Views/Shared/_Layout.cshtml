@@ -4,13 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Styles/css")
-    @Styles.Render("~/Styles/layout")
     
-    @RenderSection("stylesUp", required: false)
+    @Styles.Render("~/bundles/styles/general")
+    @Scripts.Render("~/bundles/scripts/jquery")
+    @Scripts.Render("~/bundles/scripts/general")
 
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
+
+    @RenderSection("stylesDeclarationInHeader", required: false)
+    @RenderSection("scriptDeclarationInHeader", required: false)
+
 </head>
 <body>
 
@@ -47,6 +49,6 @@
     </div>
 </footer>
 
-    @RenderSection("scripts", required: false)
+    @RenderSection("scriptDeclarationAfterFooter", required: false)
 </body>
 </html>

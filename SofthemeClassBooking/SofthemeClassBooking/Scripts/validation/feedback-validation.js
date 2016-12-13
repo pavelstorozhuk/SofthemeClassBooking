@@ -1,41 +1,47 @@
-﻿$(document)
-       .ready(function () {
+﻿var isEmailValid, iFirstNameValid, ifLastNameValid, isMessageValid;
 
-           var form = $("#feedback");
-        var isEmailValid, iFirstNameValid, ifLastNameValid, isMessageValid;
-           var email = $("#email");
-           var firstName = $("#firstName");
-           var lastName = $("#lastName");
-           var message = $("#message");
+function checkFormCorrectness() {
 
-        email.keyup(function() {
-            isEmailValid = email.valid();
-        });
+    if (isEmailValid && iFirstNameValid && ifLastNameValid && isMessageValid) {
 
-        firstName.keyup(function () {
-            iFirstNameValid = firstName.valid();
-        });
+        $('#submit').addClass('feedback-form-button-submit-ok');
+        $('#submit').removeClass('feedback-form-button-submit');
 
-        lastName.keyup(function () {
-            ifLastNameValid = lastName.valid();
-        });
+    } else {
+        $('#submit').addClass('feedback-form-button-submit');
+        $('#submit').removeClass('feedback-form-button-submit-ok');
+    }
+}
 
-        message.keyup(function () {
-            isMessageValid = message.valid();
-        });
+function setEventHandlers() {
 
-           $("#email, #firstName, #lastName, #message").keyup(function () {
-               if (isEmailValid &&
-                   iFirstNameValid &&
-                   ifLastNameValid &&
-                   isMessageValid) {
+    $('#firstName').on('keyup', function () {
+        iFirstNameValid = $('#firstName').valid();
+        checkFormCorrectness();
+    });
 
-                   $("#submit").addClass("feedback-form-button-submit-ok");
-                   $("#submit").removeClass("feedback-form-button-submit");
+    $('#lastName').on('keyup', function () {
+        ifLastNameValid = $('#lastName').valid();
+        checkFormCorrectness();
+    });
 
-               } else {
-                   $("#submit").addClass("feedback-form-button-submit");
-                   $("#submit").removeClass("feedback-form-button-submit-ok");
-               }
-           });
-});
+    $('#email').on('keyup', function () {
+        isEmailValid = $('#email').valid();
+        checkFormCorrectness();
+    });
+
+    $('#message').on('keyup', function () {
+        isMessageValid = $('#message').valid();
+        checkFormCorrectness();
+    });
+
+}
+
+
+
+
+function successHandler(result) {
+    $('#result-message').html(result.message);
+    $("#feedback").trigger('reset');
+    $("#submit").toggleClass('feedback-form-button-submit-ok feedback-form-button-submit');
+}

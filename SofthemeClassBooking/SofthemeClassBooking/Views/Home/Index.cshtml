@@ -1,5 +1,5 @@
-﻿@section stylesUp {
-    @Styles.Render("~/Styles/plan")
+﻿@section stylesDeclarationInHeader {
+    @Styles.Render("~/bundles/styles/plan")
 }
 
 <div id="plan-section">
@@ -7,12 +7,11 @@
         <div class="plan-loading-section">
             <div>Загрузка плана этажа...</div>
             <div>
-                <img src="~/Content/images/gif/ajax-loader.gif" alt="loader"/>
+                <img src="~/Content/images/gif/ajax-loader.gif" alt="loader" />
             </div>
         </div>
     </div>
 </div>
-
 
 
 <div id="roomevent-section" style="margin-left: 126px; padding-top: 25px;">
@@ -26,6 +25,7 @@
     </div>
 </div>
 
+
 <div id="map-section">
     <div id="map-loading">
         <div class="plan-loading-section">
@@ -37,122 +37,54 @@
     </div>
 </div>
 
+<div id="lock" class="modal-background"></div>
+<div id="event-modal-position"></div>
 
 <script type="text/javascript">
 
-    $(function () {
-            $.ajax({
-                url: '@Url.Action("Index", "Classroom")',
-                method: 'GET',
-                cache: false,
-                dataType: 'html',
+    // IIFE - Immediately Invoked Function Expression
+    (function ($, window, document) {
 
-                success: function (result) {
-                    $('#plan-section').html(result);
-                },
+        var url = {
+            RoomIdNameUrl: '@Url.Action("GetNameId","Classroom")',
+            RoomEventSectionUrl: '@Url.Action("Index", "RoomEvent")',
+            PlanSectionUrl: '@Url.Action("Index", "Classroom")',
+            MapSectionUrl: '@Url.Action("MapPartial", "Home")',
+            PlanAdditionalUrl: '@Url.Action("AdditionalInfo","Classroom")',
+            RoomPageUrl: '@Url.Action("RoomPage","Classroom")',
+            EventCreateUrl: '@Url.Action("Create", "Event")',
+            EventsBriefUrl: '@Url.Action("Brief", "Event")',
+            EventUrl: '@Url.Action("Index", "Event")',
+            EventInfoVerbose: '@Url.Action("InfoVerbose", "Event")',
+            ParticipantAddUrl: '@Url.Action("Add","Participant")'
+        };
+        setEngineUrl(url);
 
-                error: function(result) {
-                    $('#plan-section').html(result);
-                },
+        // The $ is now locally scoped
+        // Listen for the jQuery ready event on the document
+        $(function () {
 
-                function() {
-                    $('#plan-loading').hide();
-                }
-
-            });
-
-
-            $.ajax({
-                url: '@Url.Action("MapPartial","Home")',
-                method: 'GET',
-                cache: false,
-                dataType: 'html',
-
-                success: function (result) {
-                    $('#map-section').html(result);
-                },
-
-                error: function (result) {
-                    $('#map-section').html(result);
-                },
-
-                function() {
-                    $('#map-loading').hide();
-                }
-
-            });
-
-            $.ajax({
-                url: '@Url.Action("Index","RoomEvent")',
-                method: 'GET',
-                cache: false,
-                dataType: 'html',
-
-                success: function (result) {
-                    $('#roomevent-section').html(result);
-
-                    resetCurrentCalendarCell();
-                    renderCalendar(currentCalendarMonth);
-                    setDateHeader(currentCalendarCell);
-                    renderTime(shortRoomEventTable);
-                    renderRooms(shortRoomEventTable);
-                    activateStaticSlider();
-                },
-
-                error: function (result) {
-                    $('#roomevent-section').html(result);
-                },
-
-                function() {
-                    $('#roomevent-loading').hide();
-                }
-
-            });
-
-
-        });
-
-    $(function() {
-
-            $(document).on('mouseover', '.plan-room', function () {
-
-                if ($(this).hasClass('-available')) {
-
-                    var roomId = $(this).attr('id');
-                    $('.show').show();
-                    $.ajax({
-                        url: '@Url.Action("AdditionalInfo", "Classroom")' + '/' + roomId,
-                        method: 'GET',
-                        cache: false,
-                        dataType: 'html',
-
-                        success: function (result) {
-                            $('#show').html(result);
-                            $('#plan-room-line').attr('class','show plan-room-line-detail-' + roomId);
-                        }
-
-                    });
-                }
-
-            }).on('mouseleave', '.plan-room', function () {
-                $('.show').hide();
-            });
+            // The DOM is ready!
 
         });
 
 
-    $(function () {
-            $(document).on('click', '.plan-room', function () {
-                //if ($(this).hasClass('-available')) { when roles are applied. Now for admin only
 
-                window.location.href = '/Classroom/RoomPage/' + $(this).attr('id');
-                //}
-            });
-        });
+        renderPlanSection();
+        renderMapSection();
+        renderRoomEventSection();
+
+        setStandartPlanRoomEventHandlers();
+        setNavigarionEventHandlers();
+
+        // The rest of the code goes here!
+    }(window.jQuery, window, document));
+    // The global jQuery object is passed as a parameter
+
 
 </script>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/map")
+@section scriptDeclarationAfterFooter {
+    @Scripts.Render("~/bundles/scripts/jqueryval")
+    @Scripts.Render("~/bundles/scripts/map")
 }
