@@ -1,0 +1,150 @@
+﻿nav {
+    position: relative;
+    z-index: 1;
+    box-shadow: 0px 4px 4px 0px #D7D9E1;
+    font-size: 14px;
+    height: 61px;
+    width: 100%;
+    background-color: #FFFFFF;
+}
+
+    nav ul {
+        float: right;
+        height: inherit;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        padding-right: 111px;
+    }
+
+    nav .fa-plus-square {
+        cursor: pointer;
+        font-size: 47px;
+        line-height: 61px;
+        color: #9FA6B6;
+        margin: 0 21px 0 0;
+    }
+
+    nav li {
+        height: inherit;
+        float: left;
+    }
+
+        nav li a, nav li .a-user {
+            font: 14px/21px Arial, Helvetica;
+            height: 61px;
+            display: block;
+            color: #4A5158;
+            text-decoration: none;
+            text-align: center;
+            padding: 0 22px 0 19px;
+            text-decoration: none;
+        }
+
+        nav li .a-user {
+            position: relative;
+            left: 7px;
+        }
+
+        nav .li-user {
+            position: relative;
+            left: 21px;
+            font-size: 24px;
+            line-height: 59px;
+            color: #4A5158;
+        }
+
+        nav li .current {
+            height: 58px;
+            background-color: #F4F6FB;
+        }
+
+.nav-line-display {
+    width: inherit;
+    background-color: #F95752;
+    height: 3px;
+}
+
+.nav-line-hide {
+    display: none;
+    background-color: #F95752;
+    height: 3px;
+}
+
+nav .nav-text {
+    height: inherit;
+    display: inherit;
+    padding: 20px 0 0 0;
+}
+
+
+/* Change the link color to #111 (black) on hover */
+nav li a:hover {
+    color: #F95752 !important;
+    text-decoration: none;
+}
+
+nav li a:visited, a:link, a:active {
+    text-decoration: none;
+    color: #4A5158;
+}
+
+/*<nav li a:hover + .nav-line {
+    visibility: visible;
+}*/
+
+nav .containerLogo {
+    display: inline-block;
+    height: inherit;
+    width: 5%;
+}
+
+    nav .containerLogo img {
+        display: block;
+        padding-top: 16px;
+        padding-left: 124px;
+    }
+
+nav .containerNav {
+    float: right;
+    height: inherit;
+    width: auto;
+}
+
+footer {
+    position: relative;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 128px;
+    background-color: #F4F6FB;
+}
+
+    footer .line {
+        padding-top: 14px;
+    }
+
+    footer .image {
+        padding-top: 28px;
+    }
+
+    footer hr {
+        border: 0px;
+        height: 1px;
+        background-color: #CFD4E1;
+    }
+
+    footer .container {
+        margin: 0 auto;
+        height: inherit;
+        width: 165px;
+        align-content: center;
+    }
+
+    footer .text {
+        font-size: 12px;
+        color: #CFD4E1;
+        text-align: center;
+        padding-top: 10px;
+    }

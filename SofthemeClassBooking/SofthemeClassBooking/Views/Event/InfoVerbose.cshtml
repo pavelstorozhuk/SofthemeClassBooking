@@ -1,0 +1,133 @@
+﻿@using System.Web.Configuration
+@using Microsoft.AspNet.Identity
+@using SofthemeClassBooking_BOL.Models
+@model SofthemeClassBooking.Models.EventViewModel
+@{
+    var eventPage = Url.Action("Index", "Event") + "/" + Model.Event.Id;
+    var eventPlanned = DateTime.Compare(Model.Event.EndingDate, DateTime.UtcNow.AddHours(2)) > 0;
+    var editAccess = (User.Identity.GetUserId() == Model.Event.UserId) ||
+                     (User.IsInRole(WebConfigurationManager.AppSettings["UserRoleAdmin"]));
+
+}
+
+<div id="event" class="event event-public">
+
+    <div id="event-header" class="event-public-header">
+        <div class="event-header-datetime-section ">
+            <div id="event-verbose-date" class="event-header-datetime"></div>
+            <div id="event-verbose-time" class="event-header-datetime-time"></div>
+        </div>
+
+        <div class="event-header-close-section">
+            <div id="event-modal-close" class="event-header-close"></div>
+        </div>
+
+        <!-- buttons to change-->
+        @if (editAccess)
+        {
+            <div class="event-buttons">
+                @if (eventPlanned)
+                {
+                    <button id="event-modal-button-change" class="event-button-change">@Localization.ButtonEdit</button>
+                    <button id="event-modal-button-cancel" class="event-button-cancel">@Localization.ButtonCancel</button>
+                }
+                else
+                {
+                    <button class="event-button-change" disabled>@Localization.ButtonEdit</button>
+                    <button class="event-button-cancel" disabled>@Localization.ButtonCancel</button>
+                }
+
+            </div>
+        }
+
+    </div>
+
+    <h4 id="event-title">@Model.Event.Title</h4>
+
+    <div class="event-body">
+        @Model.Event.Description
+    </div>
+
+    <div class="event-users">
+        <div class="event-creator">
+            <i class="fa fa-user fa-2x"></i>
+            <div class="event-creator-name">@Model.Author</div>
+        </div>
+
+        <div class="event-participant">
+            <i class="fa fa-users fa-2x"></i>
+            <div class="event-participants" id="verbose-participant-count">@Model.ParticipantCount</div>
+        </div>
+    </div>
+
+
+    @if (@Model.Event.IsParticipantsAllowed)
+    {
+        <div class="event-add">
+
+            @if (eventPlanned)
+            {
+
+                <input id="event-modal-email-take-part" class="display-none" name="Email" type="text" placeholder="@Localization.ErrorEventAlreadyEnrolledPlaceholder" disabled />
+
+                using (Html.BeginForm("Add", "Participant", FormMethod.Post, new { id = "verbose-add-participant-form", @class="display-none" }))
+                {
+                    <input id="verbose-add-participant-email" name="Email" type="text" placeholder="@Localization.EventParticipantJoin" required />
+                        <i id="verbose-add-participant-submit" class="fa fa-plus fa-lg"></i>
+                        <input type="hidden" name="EventId" value="@Model.Event.Id" />
+                        <div id="verbose-email-error-message" class="error-message-form noselect-text display-none">
+                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                            @Localization.ErrorEmail
+                        </div>
+                }
+
+
+            }
+            else
+            {
+                <input id="Email" name="Email" type="text" placeholder="@Localization.ErrorEventPassedPlaceholder" disabled />
+            }
+
+        </div>
+    }
+
+    <div class="event-icon-section">
+        <div class="event-icon-position">
+            <i class="fa fa-calendar-plus-o fa-lg"></i>
+            <i class="fa fa-envelope-o fa-lg"></i>
+            <i class="fa fa-print fa-lg"></i>
+            <i id="event-@Model.Event.Id" class="fa fa-link fa-lg"></i>
+
+        </div>
+    </div>
+
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "event-cancel-token" }))
+{
+    @Html.AntiForgeryToken()
+}
+
+
+@Scripts.Render("~/bundles/scripts/event-popup")
+
+
+<script>
+
+
+
+    roomeventPopupVerboseInit(
+        convertToDateObject('@Model.Event.BeginingDate.ToString("yyyy-MM-dd-HH-mm")'),
+        convertToDateObject('@Model.Event.EndingDate.ToString("yyyy-MM-dd-HH-mm")'),
+        '@Model.Event.Id');
+
+
+    roomeventDialogWindow = new DialogWindow({
+        title: '@Localization.DialogCancelEventTitle',
+        bodyMessage: ""
+    });
+
+    roomeventDialogWindow.setDialogAnswerNoHandler(cancelCancelEvent);
+    roomeventDialogWindow.setDialogAnswerYesHandler(cancelEvent);
+
+</script>

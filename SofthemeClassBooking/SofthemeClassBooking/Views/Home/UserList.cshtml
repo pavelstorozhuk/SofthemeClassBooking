@@ -1,0 +1,74 @@
+﻿@using PagedList.Mvc
+@using System.Web.Security;
+@model SofthemeClassBooking.Models.UserSearchModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section stylesDeclarationInHeader
+{
+    @Styles.Render("~/bundles/styles/users")
+}
+
+<div class="user-wripper">
+    <p id="users-title">
+        @Localization.AccountUserList
+    </p>
+    <span id="users-list-count">@Localization.Total:  @Model.SearchResults.Count</span>
+
+
+
+
+
+
+    @using (Ajax.BeginForm("Search", "Manage", new AjaxOptions { UpdateTargetId = "users" }))
+    {
+
+        @Html.TextBoxFor(m => m.SearchButton)
+        <button type="submit" id="completed-task" class="users-search-button">
+            <i class="fa fa-search"></i>
+        </button>
+    }
+</div>
+
+
+
+
+<div id="users">
+    <table>
+
+        @foreach (var user in Model.SearchResults)
+        {
+            <tr>
+                <td>
+                    @user.UserName
+                    @Html.Action("UserIsAdmin", "Login", new { user })
+                </td>
+                <td>
+                    @user.Email
+
+                </td>
+                <td>
+                    <img src="~/Content/images/calendar.png" />  &nbsp;@Html.Action("GetNumberOfEventsByUser","Manage",new { id=user.Id})
+                </td>
+                <td>
+                    @if (user.UserName != User.Identity.Name)
+                    {
+                        using (Html.BeginForm("RemoveLogin", "Manage", new { userId = user.Id }))
+                        {@Html.AntiForgeryToken()
+                            <button type="submit" id="completed-task" class="users-search-button">
+                                <img src="~/Content/images/DeleteUser.png" />
+                            </button>
+
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+    @Html.PagedListPager(Model.SearchResults, page => Url.Action("Index", new { page, id = "PageList" }))
+
+
+</div>
+<div class="clearfix"></div>
+<br />

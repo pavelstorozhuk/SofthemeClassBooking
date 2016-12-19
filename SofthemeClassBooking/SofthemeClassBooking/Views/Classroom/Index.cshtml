@@ -1,0 +1,68 @@
+﻿@using System.Web.Configuration
+@using SofthemeClassBooking_BOL.Enum
+@model SofthemeClassBooking.Models.ClassRoomViewModel
+
+<h1 class="plan-stage">
+    @(Model.LoadParameters == PlanSectionLoadParameters.EventRoomSelection ? Localization.StageSelect : Localization.Stage)
+    10
+</h1>
+
+
+@foreach (var classroom in Model.ClassRooms)
+{
+    var nameParts = classroom.Name.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+    
+
+    var className = classroom.IsLocked ? String.Empty : "-available";
+
+    if (Model.LoadParameters == PlanSectionLoadParameters.SelectedRoom)
+    {
+        className = classroom.Id == Model.SelectedClassRoom ? "-busy" : "";
+
+    }else if (Model.LoadParameters == PlanSectionLoadParameters.EventRoomSelection)
+    {
+        className = classroom.Id == Model.SelectedClassRoom ? "-busy" : className;
+    }
+
+
+    var english = classroom.Id == 8 ? "plan-room-text-8" : "plan-room-text";
+
+
+    <div class="plan-wrapper">
+        <input id="eventpage-selected-room-@classroom.Id" type="hidden" value="@classroom.Name" />
+        <div class="plan-room-position-@classroom.Id">
+            <div id="@classroom.Id" class="plan-room-@classroom.Id@className plan-room @className">
+                @if (nameParts.Length > 0)
+                {
+
+                    <span id="plan-room-showname-@classroom.Id" class="@english plan-noselect-text">
+                        @for (int i = 0; i < nameParts.Length; i++)
+                        {
+                            if (i >= 1)
+                            { <br /> }
+                            <span>@nameParts[i]</span>
+                        }
+                    </span>
+                }
+            </div>
+        </div>
+
+    </div>
+}
+
+<div class="plan-walls-background"></div>
+
+<div class="plan-wrapper">
+    <div id="classroom-additional-info" class="additional-info plan-show-additional-info-short"></div>
+</div>
+
+<div id="classroom-additional-info-line" class="additional-info"></div>
+<div id="classroom-path"></div>
+
+@Scripts.Render("~/bundles/scripts/plan")
+
+<script type="text/javascript">
+    planSectionInit(
+        '@User.IsInRole(WebConfigurationManager.AppSettings["UserRoleAdmin"])', 
+         '@((int)Model.LoadParameters)');
+</script>

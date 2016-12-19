@@ -1,0 +1,71 @@
+﻿@section stylesDeclarationInHeader {
+    @Styles.Render("~/bundles/styles/plan")
+}
+
+<div id="plan-section" class="plan-section">
+    <div id="plan-loading">
+        <div class="plan-loading-section">
+            <div>@Localization.LoadingPlanSection...</div>
+            <div>
+                <img src="~/Content/images/gif/ajax-loader.gif" alt="loader" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="roomevent-section" style="margin-left: 126px; padding-top: 25px;">
+    <div id="roomevent-loading">
+        <div class="roomevent-loading-section">
+            <div>@Localization.LoadingRoomEventSection...</div>
+            <div>
+                <img src="~/Content/images/gif/ajax-loader.gif" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="map-section">
+    <div id="map-loading">
+        <div class="plan-loading-section">
+            <div>@Localization.LoadingMapSection...</div>
+            <div>
+                <img src="~/Content/images/gif/ajax-loader.gif" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    roomeventEventsByUser = false;
+
+    (function ($, window, document) {
+
+        $(function () {
+
+            renderSection('@Url.Action("Index","Classroom")', $('#plan-section'), $('#plan-loading'));
+            renderSection('@Url.Action("MapPartial","Home")', $('#map-section'), $('#map-loading'));
+            renderSection('@Url.Action("Index","RoomEvent")', $('#roomevent-section'), $('#roomevent-loading'));
+
+
+
+
+            $.validator.addMethod("email-check",
+                function (value, element, regexp) {
+                    var re = new RegExp(regexp);
+                    return this.optional(element) || re.test(value);
+                },
+                ""
+        );
+        });
+
+    }(window.jQuery, window, document));
+
+</script>
+
+@section scriptDeclarationAfterFooter {
+    @Scripts.Render("~/bundles/scripts/jqueryval")
+    @Scripts.Render("~/bundles/scripts/map")
+}

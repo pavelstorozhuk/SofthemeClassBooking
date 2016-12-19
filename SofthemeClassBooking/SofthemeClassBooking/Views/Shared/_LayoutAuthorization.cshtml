@@ -1,0 +1,49 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" type="image/ico" href="/Content/images/ico/logo.ico">
+    <title>SofthemeLogin</title>
+    @Styles.Render("~/bundles/styles/general-auth")
+    @Scripts.Render("~/bundles/scripts/jquery")
+
+</head>
+<body>
+   
+   
+    <div class="container">
+        <div class="registration-wrapper">
+            <div class="registration-parallelogram">
+                <div class="registration-inner-inner-parallelogram">
+                </div>
+
+                <div class="registration-inner-parallelogram">
+                    @RenderSection("Title")
+                    <div class="registration-inner-inner-parallelogram2">
+                    </div>
+
+                </div>
+
+                <div class="registration-form">
+                    @RenderBody()
+                </div>
+            </div>
+            <div class="registration-logo">
+                <a href="@Url.Action("Index", "Home")">
+                    <img width="162px" src="~/Content/images/logo-gray.png" />
+                </a>
+
+                
+                <!-- 552 596 -->
+                <hr id="hr-style">
+              
+                @RenderSection("Menu")
+
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

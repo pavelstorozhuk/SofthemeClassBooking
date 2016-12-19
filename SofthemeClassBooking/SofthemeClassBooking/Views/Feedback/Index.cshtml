@@ -1,0 +1,72 @@
+﻿@model SofthemeClassBooking_BOL.Models.FeedbackModel
+
+@section stylesDeclarationInHeader {
+    @Styles.Render("~/bundles/styles/feedback")
+}
+
+<link rel="stylesheet" href="~/Content/css/feedback.css" />
+
+<div id="feedback-section" class="feedback">
+    <div class="feedback-container">
+        <div class="feedback-header">
+            <div class="feedback-write-message">@Localization.FeedbackWriteMessage</div>
+            <div id="result-message" class="feedback-result-message">&nbsp;</div>
+        </div>
+
+        <div>
+            <div class="feedback-left">
+                <div class="feedback-proposition-text">@Localization.FeedbackNoteToUser</div>
+                <div class="feedback-image"></div>
+            </div>
+
+            <div class="feedback-form">
+
+                @using (Html.BeginForm("Send", "Feedback", FormMethod.Post, new { role = "form", id = "feedback-form", autocomplete = "off" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div>
+                        <div class="feedback-form-inline-name">
+                            <div class="feedback-form-incorrect-block">
+                                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "feedback-form-incorrect-with-image" })
+                            </div>
+                            @Html.TextBoxFor(m => m.Name, new { id = "firstName", placeholder = Localization.FeedbackNamePlaceholder, @class = "feedback-form-name" })
+                        </div>
+                        <div class="feedback-form-inline-lastname">
+                            <div class="feedback-form-incorrect-block">
+                                @Html.ValidationMessageFor(m => m.Surname, "", new { @class = "feedback-form-incorrect-with-image" })
+                            </div>
+                            @Html.TextBoxFor(m => m.Surname, new { id = "lastName", placeholder = Localization.FeedbackLastnamePlaceholder, @class = "feedback-form-lastname" })
+                        </div>
+                    </div>
+
+                    <div class="feedback-form-incorrect-block">
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "feedback-form-incorrect-with-image" })
+                    </div>
+                    <div class="feedback-form-email-block">
+                        @Html.TextBoxFor(m => m.Email, new { id = "email", placeholder = Localization.FeedbackEmailPlaceholder, @class = "feedback-form-email" })
+                    </div>
+
+                    <div class="feedback-form-incorrect-block">
+                        @Html.ValidationMessageFor(m => m.Text, "", new { @class = "feedback-form-incorrect-with-image" })
+                    </div>
+                    <div>
+                        @Html.TextAreaFor(m => m.Text, new { id = "message", @class = "feedback-form-message" })
+                    </div>
+
+                    <div class="feedback-form-button-submit-block">
+                        <button id="submit" type="submit" class="feedback-form-button-submit">@Localization.ButtonSend</button>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+@section scriptDeclarationAfterFooter {
+    @Scripts.Render("~/bundles/scripts/jqueryval")
+    @Scripts.Render("~/bundles/scripts/feedback")
+}

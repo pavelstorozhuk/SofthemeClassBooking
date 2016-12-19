@@ -1,0 +1,34 @@
+﻿@using System.Web.Configuration
+@model SofthemeClassBooking.Models.ChangeUserNameEmail
+
+<div class="changeuser">
+
+    @using (Html.BeginForm("SaveChangeUserNameEmail", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "Login", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationMessageFor(m => m.UserName, "")
+        @Html.TextBoxFor(m => m.UserName, new { placeholder = "Имя Фамилия"})
+
+        @Html.ValidationMessageFor(m => m.Email, "")
+        @Html.TextBoxFor(m => m.Email, new { placeholder = "Адрес электронной почты", type = "email" })
+
+        if (@User.IsInRole(WebConfigurationManager.AppSettings["UserRoleAdmin"]))
+        {
+            <div class="checkbox-slider">
+                <input id="IsAdmin" name="IsAdmin" type="checkbox" value="true" checked>
+                <label for="IsAdmin"></label>
+                <input name="IsAdmin" type="hidden" value="false">
+            </div>
+
+            <div class="text">@Localization.UserAdmin</div>
+        }
+
+        <input type="submit" class="button-refuse" value="@Localization.ButtonSave" id="changeName">
+    }
+
+</div>
+
+<script>
+    profileSectionChangeEmailInit();
+</script>

@@ -1,0 +1,32 @@
+﻿
+
+
+@{
+    Layout = "~/Views/Shared/_LayoutAuthorization.cshtml";
+}
+
+@section Title
+                {
+    <p id="title"> Регистрация </p>
+}
+
+ <p align="center">
+                    Регистрация нового пользователя прошла успешно.
+                    Пожалуйста ожидайте одобрение администратора сайта
+                </p>
+                <p align="center">
+                    На указанный адрес электронной <br />
+                    почты будет отправлено приглашение
+                </p>
+
+@section Menu
+            {
+    <p> @Html.ActionLink("Вход", "Index", "Login", null, new { @class = "notselect" })</p>
+
+    <p>@Html.ActionLink("Регистрация", "Registration", "Login", null, new {  @class = "notselect" })</p>
+
+    <p>@Html.ActionLink("Смена пароля", "ForgotPassword", "Login", null, new {  @class = "select" })</p>
+
+}
+
+

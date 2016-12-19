@@ -1,0 +1,70 @@
+﻿@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul>
+            <li>
+                <i id="add-event" class="fa fa-plus-square" aria-hidden="true"></i>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Index", "Home")"
+                   @(ViewContext.RouteData.Values["controller"].ToString().Equals("Home") && (ViewContext.RouteData.Values["action"].ToString().Equals("Schedule") || ViewContext.RouteData.Values["action"].ToString().Equals("Index")) ? "class=current" : "")>
+                    <div class="nav-text">@Localization.LayoutNavSchedule</div>
+                </a>
+                <div @(ViewContext.RouteData.Values["controller"].ToString().Equals("Home") && (ViewContext.RouteData.Values["action"].ToString().Equals("Schedule") || ViewContext.RouteData.Values["action"].ToString().Equals("Index")) ? "class=nav-line-display" : "class=nav-line-hide")></div>
+            </li>
+            @if (@User.IsInRole("admin"))
+            {
+                <li>
+                    <a href="@Url.Action("UserList", "Manage")">
+
+                        <div id="feedback" class="nav-text">@Localization.LayoutNavUsers</div>
+                    </a>
+
+                </li>
+            }
+            <li>
+                <a href="@Url.Action("Index", "Feedback")" @(ViewContext.RouteData.Values["controller"].ToString().Equals("Feedback") ? "class=current" : "")>
+                    <div class="nav-text">@Localization.LayoutNavFeedback</div>
+                </a>
+                <div @(ViewContext.RouteData.Values["controller"].ToString().Equals("Feedback") ? "class=nav-line-display" : "class=nav-line-hide")></div>
+            </li>
+            <li class="li-user">
+                <i class="fa fa-user"></i>
+            </li>
+            <li>
+                <a class="a-user" href="@Url.Action("UserProfile", "Home")">
+                    <div class="nav-text"> @User.Identity.Name </div>
+                </a>
+            </li>
+        </ul>
+    }
+}
+else
+{
+    <ul>
+        <li>
+            <a href="@Url.Action("Index", "Home")"
+               @(ViewContext.RouteData.Values["controller"].ToString().Equals("Home") && (ViewContext.RouteData.Values["action"].ToString().Equals("Schedule") || ViewContext.RouteData.Values["action"].ToString().Equals("Index")) ? "class=current" : "")>
+                <div class="nav-text">@Localization.LayoutNavSchedule</div>
+            </a>
+            <div @(ViewContext.RouteData.Values["controller"].ToString().Equals("Home") && (ViewContext.RouteData.Values["action"].ToString().Equals("Schedule") || ViewContext.RouteData.Values["action"].ToString().Equals("Index")) ? "class=nav-line-display" : "class=nav-line-hide")></div>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Feedback")" @(ViewContext.RouteData.Values["controller"].ToString().Equals("Feedback") ? "class=current" : "")>
+                <div class="nav-text">@Localization.LayoutNavFeedback</div>
+            </a>
+            <div @(ViewContext.RouteData.Values["controller"].ToString().Equals("Feedback") ? "class=nav-line-display" : "class=nav-line-hide")></div>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Login")">
+                <div class="nav-text">@Localization.LayoutNavLogIn</div>
+            </a>
+        </li>
+    </ul>
+}

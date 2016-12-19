@@ -1,0 +1,75 @@
+﻿body {
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+    font-family: Arial, Helvetica;
+    /*height: 1500px;*/
+    /*background-color: #000000;*/
+    width: 1272px;
+
+}
+
+body button, input, textarea {
+    outline: none;
+    font-family: Arial, Helvetica;
+}
+
+body button {
+    cursor: pointer;
+}
+
+.display-none {
+    display: none !important;
+}
+
+.display-inline-block {
+    display: inline-block !important;
+}
+
+.wrapper {
+    position: relative;
+}
+
+.noselect-text {
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.error-message-form {
+    width: 250px;
+    text-align: left;
+    font-size: 11px;
+    color: #626D81;
+}
+
+.error-message-form .fa-exclamation-circle {
+    padding: 0 !important;
+    margin: 0 !important;
+    cursor: default !important;
+    color: #FF5651 !important;
+}
+
+*::-webkit-input-placeholder {
+    color: #C8C9CC;
+}
+
+*:-moz-placeholder {
+    color: #C8C9CC;
+}
+
+*::-moz-placeholder {
+    color: #C8C9CC;
+}
+
+*:-ms-input-placeholder {
+    color: #C8C9CC;
+}

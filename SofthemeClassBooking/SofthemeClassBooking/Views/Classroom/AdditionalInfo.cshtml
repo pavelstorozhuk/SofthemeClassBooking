@@ -1,0 +1,59 @@
+﻿@model SofthemeClassBooking_BOL.Contract.Models.IClassRoom
+
+    <div class="plan-room-popup-info">
+
+        <div class="plan-room-popup-info-section">
+            <img src="~/Content/images/addinfo/icon-table.png" />
+        </div>
+        <div class="plan-room-popup-info-count">
+            <span>
+                    @Model.Capacity
+            </span>
+        </div>
+        <div class="plan-room-popup-info-section">
+            <img src="~/Content/images/addinfo/icon-board.png" />
+        </div>
+        <div class="plan-room-popup-info-count">
+            <span>
+                @if (Model.QuantityOfBoards != 0)
+                {
+                   @Model.QuantityOfBoards
+                }
+            </span>
+        </div>
+        <div class="plan-room-popup-info-section">
+            <img src="~/Content/images/addinfo/icon-laptop.png" />
+        </div>
+        <div class="plan-room-popup-info-count">
+            <span>
+                @if (Model.QuantityOfLaptops != 0)
+                {
+                    @Model.QuantityOfLaptops
+                }
+            </span>
+        </div>
+        <div class="plan-room-popup-info-section">
+            <img src="~/Content/images/addinfo/icon-print.png" />
+        </div>
+        <div class="plan-room-popup-info-count">
+            <span>
+                @if (Model.QuantityOfPrinters != 0)
+                {
+                    @Model.QuantityOfPrinters
+                }
+            </span>
+        </div>
+        <div class="plan-room-popup-info-section">
+            <img src="~/Content/images/addinfo/icon-proect.png" />
+        </div>
+        <div class="plan-room-popup-info-count">
+            <span>
+                @if (Model.QuantityOfTables != 0)
+                {
+                    @Model.QuantityOfTables
+                }
+            </span>
+        </div>
+
+    </div>
+

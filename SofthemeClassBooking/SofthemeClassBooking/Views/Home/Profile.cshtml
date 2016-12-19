@@ -1,0 +1,129 @@
+﻿@using System.Web.Configuration
+@using Microsoft.AspNet.Identity
+@using SofthemeClassBooking.Models
+
+@model ChangePasswordViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section stylesDeclarationInHeader
+{
+    @Styles.Render("~/bundles/styles/profile")
+}
+
+<div class="button-logout">
+    @using (Html.BeginForm("LogOff", "Login", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <button id="exit" value="Login/LogOff">@Localization.ButtonLogOut</button>
+    }
+
+</div>
+
+
+<div class="user-profile">
+
+
+    <div class="left-section">
+
+        <div class="user-info-section">
+            <div id="user-info">
+
+                <div class="username">
+                    @User.Identity.Name
+                    @if (User.IsInRole(WebConfigurationManager.AppSettings["UserRoleAdmin"]))
+                    {
+                        <sup>admin</sup>
+                    }
+                </div>
+
+                <div class="email-section">
+                    <div class="text">Email:</div>
+                    <div class="email"> @Html.Action("GetUserEmail", "Login", new { id = User.Identity.GetUserId() }) </div>
+                </div>
+
+                <div class="event-count-section">
+                    <div class="text">@Localization.UserActiveEventCount:</div>
+                    <div id="user-event-count" class="event-count">0</div>
+                </div>
+
+                <div class="button-change">
+                    <button id="change">@Localization.ButtonEdit</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="right-section">
+
+        <div class="change-password-section">
+            <div class="text">@Localization.UserChangePassword</div>
+
+            @using (Html.BeginForm("ChangePasswordFromUserProfile", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "Login", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.TextBoxFor(m => m.OldPassword, new { placeholder = "Старый пароль", @id = "oldPassword", type = "password" })
+                @Html.TextBoxFor(m => m.NewPassword, new { @id = "newPassword", placeholder = "Новый пароль", type = "password" })
+                @Html.TextBoxFor(m => m.ConfirmPassword, new { @id = "confirmNewPassword", placeholder = "Повторить новый пароль", type = "password", @class = "confirm-password" })
+
+                <input type="submit" class="button-refuse" value="Сохранить" id="mysubmit">
+
+                if (ViewData["ChangePasswordSuccess"] != null)
+                {
+                    <div class="changepassword-success">
+                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                        <div class="text">@Localization.UserChangedPasswordSuccess</div>
+                    </div>
+                }
+            }
+        </div>
+
+    </div>
+
+</div>
+
+<div id="roomevent-section" class="roomevent-profile">
+    <div id="roomevent-loading">
+        <div class="roomevent-loading-section">
+            <div>@Localization.LoadingRoomEventSection...</div>
+            <div>
+                <img src="~/Content/images/gif/ajax-loader.gif" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    
+    roomeventEventsByUser = true;
+
+    (function ($, window, document) {
+
+        $(function () {
+
+            profileSectionInit('@Url.Action("ChangeUserNameEmail","Manage")');
+            getUserEvents();
+
+        });
+
+        renderSection('@Url.Action("Index","RoomEvent")', $('#roomevent-section'), $('#roomevent-loading'));
+
+    }(window.jQuery, window, document));
+
+
+</script>
+
+@section scriptDeclarationInHeader
+{
+    @Scripts.Render("~/bundles/scripts/profile")
+}
+
+@section scriptDeclarationAfterFooter {
+    @Scripts.Render("~/bundles/scripts/jqueryval")
+}

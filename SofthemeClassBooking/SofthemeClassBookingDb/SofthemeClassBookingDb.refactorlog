@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="69c44d99-cdbc-4265-a54b-50ffcfec5fe2" ChangeDateTime="12/11/2016 01:48:32">
+    <Property Name="ElementName" Value="[dbo].[Events].[AllowRegister]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Events]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IsParticipantsAllowed" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ffa8b826-3d46-419a-afe4-ad58128c8e9f" ChangeDateTime="12/11/2016 01:51:27">
+    <Property Name="ElementName" Value="[dbo].[Events].[IsPublic]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Events]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IsPrivate" />
+  </Operation>
+</Operations>

@@ -1,0 +1,127 @@
+﻿.feedback {
+    height: 773px;
+    background-color: #FFFFFF;
+    color: #4A5158;
+}
+
+.feedback-container {
+    margin-top: 48px;
+    margin-left: 126px;
+    color: #4A5158;
+}
+
+.feedback-header {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.feedback-write-message {
+    float: left;
+    font-size: 28px;
+    width: 533px;
+}
+
+.feedback-result-message {
+    display: inline-block;
+    font-size: 14px;
+    padding-top: 15px;
+    width: 483px;
+    text-align: center;
+}
+
+.feedback-proposition-text {
+    padding: 4px 0 0 0;
+    color: #4A5158;
+    font-size: 14px;
+}
+
+.feedback-image {
+    margin: 17px 0 0 5px;
+    height: 293px;
+    background-image: url("../images/contact-bg.png");
+    background-repeat: no-repeat;
+}
+
+.feedback-left {
+    margin-top: 11px;
+    float: left;
+    width: 500px;
+}
+
+.feedback-form {
+    display: inline-block;
+    margin-left: 35px;
+    width: 500px;
+}
+
+    .feedback-form input[type="text"], .feedback-form button, .feedback-form textarea {
+        border: none;
+        outline: none;
+        border-radius: 19px;
+        height: 34px;
+        background-color: #F5F6FB;
+        resize: none;
+        text-indent: 12px;
+    }
+
+    .feedback-form textarea {
+        margin: 0 0 0 0;
+        height: 117px;
+    }
+
+.feedback-form-inline-name {
+    display: inline-block;
+}
+
+.feedback-form-inline-lastname {
+    display: inline-block;
+    padding-left: 9px;
+}
+
+.feedback-form-name {
+    width: 205px;
+}
+
+.feedback-form-lastname {
+    width: 275px;
+}
+
+.feedback-form-email {
+    width: 495px;
+}
+
+.feedback-form-message {
+    width: 490px;
+    height: 134px;
+    padding-top: 16px;
+}
+
+.feedback-form-button-submit-block {
+    margin-top: 11px;
+    text-align: center;
+}
+
+.feedback-form .feedback-form-button-submit,
+.feedback-form .feedback-form-button-submit-ok {
+    font-size: 14px;
+    cursor: pointer;
+    text-indent: 0px;
+    margin: 0 0 0 3px;
+    color: #858B94;
+    background-color: #C8CEDA;
+    text-align: center;
+    height: 36px;
+    width: 150px;
+}
+
+.feedback-form .feedback-form-button-submit-ok {
+    background-color: #F95752;
+    color: #FEFEFF;
+}
+
+.feedback-form-incorrect-block {
+    margin: 2px;
+    height: 12px;
+    font-size: 10px;
+    color: #626D81;
+}
