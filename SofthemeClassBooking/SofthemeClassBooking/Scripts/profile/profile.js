@@ -40,17 +40,20 @@ function profileSectionInit(url) {
 
     profileSection.off();
 
-    profileSection.on('keyup', `#${profileOldPassword.attr('id')}`, function () {
+    $(document).off('keyup', `#${profileOldPassword.attr('id')}`);
+    $(document).on('keyup', `#${profileOldPassword.attr('id')}`, function () {
         profileIsprofileOldPasswordValid = profileOldPassword.valid();
         checkFormCorrectness();
     });
 
-    profileSection.on('keyup', `#${profileNewPassword.attr('id')}`, function () {
+    $(document).off('keyup', `#${profileNewPassword.attr('id')}`);
+    $(document).on('keyup', `#${profileNewPassword.attr('id')}`, function () {
         profileIsNewPasswordValid = profileNewPassword.valid();
         checkFormCorrectness();
     });
 
-    profileSection.on('keyup', `#${profileConfirmNewPassword.attr('id')}`, function () {
+    $(document).off('keyup', `#${profileConfirmNewPassword.attr('id')}`);
+    $(document).on('keyup', `#${profileConfirmNewPassword.attr('id')}`, function () {
         profileIsNewPasswordConfirmValid = profileConfirmNewPassword.valid();
         checkFormCorrectness();
     });
@@ -137,9 +140,9 @@ function profileSectionChangeEmailInit() {
 
 function getUserEvents() {
 
-    getEventsBriefByUser().done(function (events) {
-        userEvents = JSON.parse(events);
-        profileEventCountByUser.html(userEvents.length);
-    });
+    postData(ajaxUrl.EventUsersUrl, '', function (events) {
+            userEvents = JSON.parse(events);
+            profileEventCountByUser.html(userEvents.length);
+    })
 
 }

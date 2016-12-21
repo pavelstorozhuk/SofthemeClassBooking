@@ -23,9 +23,6 @@ function renderCalendar(month) {
 
     var selectedCalendarMonth = month || dateNow.month;
 
-    var maxRowCalendarSize = 5;
-    var maxCellCalendarSize = 7;
-
     var firstDayOfWeekInMonth = getDayOfWeek(new Date(currentCalendarYear + '-' + selectedCalendarMonth + '-01').getDay());
     var maxDayCount = getDaysInMonth(selectedCalendarMonth, currentCalendarYear);
     var maxDayCountLastMonth = getDaysInMonth(selectedCalendarMonth - 1, currentCalendarYear) - firstDayOfWeekInMonth + 1;
@@ -102,16 +99,16 @@ function parseIdFromCalendarSell(longId) {
 
     var splittedLongId = longId.split('-');
     return {
-        month: splittedLongId[0],
-        day: splittedLongId[1],
-        year: splittedLongId[2],
+        month: parseInt(splittedLongId[0]),
+        day: parseInt(splittedLongId[1]),
+        year: parseInt(splittedLongId[2]),
         hour: 0,
         minutes: 0
     }
 }
 
 //Click events
-
+$(document).off('click', '#roomevent-calendar-today');
 $(document).on('click', '#roomevent-calendar-today', function () {
     currentCalendarMonth = dateNow.month;
     currentCalendarYear = dateNow.year;
@@ -123,6 +120,7 @@ $(document).on('click', '#roomevent-calendar-today', function () {
     renterStaticSliderTime();
 });
 
+$(document).off('click', '#calendar-month-left');
 $(document).on('click', '#calendar-month-left', function () {
     currentCalendarMonth--;
     if (currentCalendarMonth < 1) {
@@ -132,6 +130,7 @@ $(document).on('click', '#calendar-month-left', function () {
     renderCalendar(currentCalendarMonth);
 });
 
+$(document).off('click', '#calendar-month-right');
 $(document).on('click', '#calendar-month-right', function () {
 
     currentCalendarMonth++;
@@ -160,6 +159,7 @@ currentMonthRender.bind('changeCalendarNavigation', function () {
 
 });
 
+$(document).off('click', '.roomevent-calendar-cell');
 $(document).on('click', '.roomevent-calendar-cell', function () {
 
     var selectedCalendarCell = $(this);
@@ -180,9 +180,10 @@ $(document).on('click', '.roomevent-calendar-cell', function () {
     }
 
     if (currentCalendarCell.day != dateNow.day) {
-        renderTime(currentMode, { hour: 0, minutes: 0 });
-        renderRooms(currentMode, { hour: 0, minutes: 0 });
-        $('.slider-time').html(renderTimeMinutes(0, 0));
+        currentCalendarCell.hour = defaultMinimumBookHour;
+        renderTime(currentMode, { hour: defaultMinimumBookHour, minutes: 0 });
+        renderRooms(currentMode, { hour: defaultMinimumBookHour, minutes: 0 });
+        $('.slider-time').html(renderTimeMinutes(defaultMinimumBookHour, 0));
     } else {
         renderTime(currentMode);
         renderRooms(currentMode);

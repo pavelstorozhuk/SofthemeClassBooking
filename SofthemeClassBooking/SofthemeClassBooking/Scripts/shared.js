@@ -1,14 +1,12 @@
 ﻿var compareToDate = {};
 var eventNewDateTimeBegin = {};
-
 var defaultAjaxDataType = 'json';
-
 var dateCorrect = true;
 var checkFunctionInterval;
 var minumumAllowedMinutes = 20;
 
 var defaultDateTimeFormat = "yy-MM-dd-HH-mm";
-
+var defaultYearAddToShor = 2000;
 var defaultOneMinute = 1000 * 60;
 var defaultNewEventEndHourOffset = 1;
 var defaultNewEventStartMinutesOffset = 5;
@@ -16,6 +14,37 @@ var defaultNewEventStartMinutesOffset = 5;
 //Shared id for all popups - only 1 at a time
 var singleRoomeventPopupId = 777;
 
+var defaultMaximumBookHour = 19;
+var defaultMaximumBookMinutes = 0;
+var defaultMinimumBookHour = 9;
+var defaultMinimumBookMinutes = 0;
+var defaultMaximumDurationMinutes = 180;
+var defaultHourLeftOffsetEventLoading = 12;
+var defaultHourRightOffsetEventLoading = 12;
+
+var fisrtTimeCellWidth = 102;
+var timeCellWidth = 122;
+var minutePerPixel = (timeCellWidth / 60);
+var minutesPerPixelVertical = 48 / 60;
+
+var shortRoomEventTable = 5;
+var longRoomEventTable = 8;
+var sliderTimeInterval = 1000 * 60;
+var maxRowCalendarSize = 5;
+
+var roompageCalendarCellBorderWidth = 2;
+var roompageWeekendWidthPx = 40;
+var maxCellCalendarSize = 7;
+var minumumAllowedTimeToBook = 20 * minutePerPixel;
+var timeOffset = 0;
+var eventAddBlockCorrection = 2;
+var shortBlockMinimumTime = 40;
+var eventBlockType = { short: 0, long: 1 };
+var roompageMaxDayCalendarCount = 9;
+var roompageMaxRowCount = 12;
+
+var roompageMaxHour = 19;
+var milisecondsPerDay = 1000 * 60 * 60 * 24;
 
 var renderDateTimeType = {
     withMonthNames: 0,
@@ -46,6 +75,7 @@ function setCurrentUserId(id) {
     currentUserId = id;
 }
 
+$(document).off('click', '#add-event');
 $(document).on('click', '#add-event', function () {
 
     loadSection(ajaxUrl.EventCreateUrl).done(function (result) {
@@ -77,14 +107,14 @@ function setEngineUrl(url) {
         EventCancelUrl: url.EventCancelUrl,
         EventUpdateUrl: url.EventUpdateUrl,
         EventsBriefUrl: url.EventsBriefUrl,
-        EventInfo: url.EventInfo,
-        EventInfoPrivate: url.EventInfoPrivate,
+        EventByClassRoomUrl: url.EventByClassRoomUrl,
         EventUrl: url.EventUrl,
         EventInfoVerbose: url.EventInfoVerbose,
         ParticipantAddUrl: url.ParticipantAddUrl,
         ParticipantsUrl: url.ParticipantsUrl,
         ParticipantExist: url.ParticipantExist,
-        DialogWindowUrl: url.DialogWindowUrl
+        DialogWindowUrl: url.DialogWindowUrl,
+        UserEmailUrl: url.UserEmailUrl
     };
 
 
@@ -95,6 +125,7 @@ function getClassRooms() {
 }
 
 function getEventsBrief() {
+    
     return loadSection(ajaxUrl.EventsBriefUrl);
 }
 
@@ -102,18 +133,9 @@ function getEventsBriefByUser() {
     return loadSection(ajaxUrl.EventUsersUrl);
 }
 
-function getEventInfoVerbose(eventId) {
-    return loadSection(ajaxUrl.EventInfoVerbose + '/' + eventId);
+function getEventInfoVerbose(eventId,eventPrivate) {
+    return loadSection(ajaxUrl.EventInfoVerbose + '?id=' + eventId + '&isPrivate=' + eventPrivate);
 }
-
-function getEventInfoPrivate(eventId) {
-    return loadSection(ajaxUrl.EventInfoPrivate + '/' + eventId);
-}
-
-function getEventInfo(eventId) {
-    return loadSection(ajaxUrl.EventInfo + '/' + eventId);
-}
-
 
 function renderSection(url, domElement, domLoadingElement, finallyFunction) {
     loadSection(url, function () {
@@ -130,15 +152,15 @@ function renderSection(url, domElement, domLoadingElement, finallyFunction) {
         }
 
     }, function (errorResponse) {
-        console.log(errorResponse);
-        domElement.html(errorResponse.message);
+        eventPageDialogWindowError.BodyMessage += `#${errorResponse.message}`;
+        eventPageDialogWindowError.show();
         domLoadingElement.hide();
     });
 }
 
-
+$(document).off('click', '.fa-link');
 $(document).on('click', '.fa-link', function () {
-    window.location = ajaxUrl.EventUrl + "/Index/" + $(this).attr('id').split('-')[1];
+    window.location = ajaxUrl.EventUrl + '/' + $(this).attr('id').split('-')[1];
 });
 
 
@@ -166,20 +188,11 @@ function addParticipant(participantForm, participantFormDom, isForm) {
             }
 
         },
-        function (message) {
-            console.log(message);
+        function (errorResponse) {
+            eventPageDialogWindowError.BodyMessage += `#${errorResponse.message}`;
+            eventPageDialogWindowError.show();
         });
 }
-
-$(document).on('click', '#add-participant-submit', function () {
-    if ($('#add-participant-email').val().length >= 1) {
-
-        postFormData(ajaxUrl.ParticipantAddUrl, $('#add-participant-form'), 'json', addParticipantSubmitCallback, function (message) {
-            console.log(message);
-        });
-    }
-
-});
 
 function fillClassRoomSelectList(selectDom) {
 

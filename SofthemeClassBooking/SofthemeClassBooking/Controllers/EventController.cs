@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using SofthemeClassBooking.Helpers;
 using SofthemeClassBooking.Models;
 using SofthemeClassBooking_BOL.Contract.Models;
 using SofthemeClassBooking_BOL.Contract.Services;
+using SofthemeClassBooking_BOL.Enum;
 using SofthemeClassBooking_BOL.Models;
 using SofthemeClassBooking_BOL.Exceptions;
 
@@ -27,39 +30,88 @@ namespace SofthemeClassBooking.Controllers
 
         }
 
-        [HttpGet]
+        [HttpPost]
         [AllowAnonymous]
-        public ActionResult Brief()
+        public ActionResult Brief(DateTime dateEventsFrom, DateTime dateEventsTo)
         {
-            var eventsBriefJson = JsonConvert.SerializeObject(_eventService.GetBrief(), Formatting.None, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd-HH-mm-ss" });
-            return Json(eventsBriefJson, JsonRequestBehavior.AllowGet);
+            if (!DateTimeValidationHelper.IsDateTimeValid(dateEventsFrom, dateEventsTo))
+            {
+                return Json(new { message = Localization.Localization.ErrorInvalidDatetime, success = false });
+            }
+            try
+            {
+                var eventsBriefJson = JsonConvert.SerializeObject(_eventService.GetBrief(dateEventsFrom, dateEventsTo),
+                    Formatting.None, new IsoDateTimeConverter() { DateTimeFormat = EventSettings.DateTimeToJsonLong });
+                return Json(eventsBriefJson, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+                return Json(new { message = Localization.Localization.ErrorGeneralException, success = false });
+            }
         }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult UserEvents()
+        {
+            try
+            {
+                var userEvents = JsonConvert.SerializeObject(_eventService.GetByUser(User.Identity.GetUserId()),
+                        Formatting.None,
+                        new IsoDateTimeConverter() { DateTimeFormat = EventSettings.DateTimeToJsonLong });
+                return Json(userEvents, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { message = Localization.Localization.ErrorGeneralException, success = false });
+            }
+        }
+
 
         [HttpGet]
         [AllowAnonymous]
         public ActionResult Index(int id)
         {
-            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(ApplicationDbContext.Create()));
-            var eventInfo = _eventService.Get(id);
-            eventInfo.Id = id;
-
-            var author = userManager.FindById(eventInfo.UserId).UserName;
-
-            return View(new EventViewModel
+            try
             {
-                Event = eventInfo,
-                Participants = _participantService.Get(id),
-                Author = author
-            });
+                var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(ApplicationDbContext.Create()));
+                var eventInfo = _eventService.Get(id);
+                eventInfo.Id = id;
+
+                var author = userManager.FindById(eventInfo.UserId).UserName;
+
+                return View(new EventViewModel
+                {
+                    Event = eventInfo,
+                    Participants = _participantService.Get(id),
+                    Author = author
+                });
+            }
+            catch (Exception)
+            {
+                return Json(new { message = Localization.Localization.ErrorGeneralException, success = false });
+            }
+
         }
 
-
-        [Authorize]
-        [HttpGet]
-        public ActionResult UserEvents()
+        [HttpPost]
+        public ActionResult ByClassRoom(int id, DateTime dateEventsFrom, DateTime dateEventsTo)
         {
-            var userEvents = JsonConvert.SerializeObject(_eventService.GetByUser(User.Identity.GetUserId()), Formatting.None, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd-HH-mm-ss" });
-            return Json(userEvents, JsonRequestBehavior.AllowGet);
+            if (!DateTimeValidationHelper.IsDateTimeValid(dateEventsFrom, dateEventsTo))
+            {
+                return Json(new { message = Localization.Localization.ErrorInvalidDatetime, success = false });
+            }
+            try
+            {
+                var eventsByClassRoom = JsonConvert.SerializeObject(_eventService.GetByClassRoom(id, dateEventsFrom, dateEventsTo),
+                    Formatting.None, new IsoDateTimeConverter() { DateTimeFormat = EventSettings.DateTimeToJsonLong });
+                return Json(eventsByClassRoom, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { message = Localization.Localization.ErrorGeneralException, success = false });
+            }
         }
 
         [HttpPost]
@@ -75,7 +127,7 @@ namespace SofthemeClassBooking.Controllers
                         Id = id
                     });
 
-                    return Json(new {success = true});
+                    return Json(new { success = true });
                 }
             }
             catch (Exception)
@@ -86,51 +138,34 @@ namespace SofthemeClassBooking.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult InfoVerbose(int id)
+        public ActionResult InfoVerbose(int id, bool isPrivate)
         {
+
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(ApplicationDbContext.Create()));
-            var eventInfo = _eventService.Get(id);
-            eventInfo.Id = id;
-
-            return PartialView(new EventViewModel
+            try
             {
-                Event = eventInfo,
-                ParticipantCount = _participantService.GetCount(id),
-                Author = userManager.FindById(eventInfo.UserId).UserName
-            });
-        }
-
-        [HttpGet]
-        [Authorize]
-        public ActionResult InfoPrivate(int id)
-        {
-          
-            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(ApplicationDbContext.Create()));
-            var eventInfo = _eventService.Get(id);
-
-            if (User.Identity.GetUserId() != eventInfo.UserId)
-            {
-                return null;
-            }
-
+                var eventInfo = _eventService.Get(id);
                 eventInfo.Id = id;
 
-            return PartialView(new EventViewModel
+                if (isPrivate && !User.IsInRole(WebConfigurationManager.AppSettings["UserRoleAdmin"]))
+                {
+                    if (eventInfo.UserId != User.Identity.GetUserId())
+                    {
+                        return Json(new { message = false, success = true });
+                    }
+                }
+
+                return PartialView(new EventViewModel
+                {
+                    Event = eventInfo,
+                    ParticipantCount = _participantService.GetCount(id),
+                    Author = userManager.FindById(eventInfo.UserId).UserName
+                });
+            }
+            catch (Exception)
             {
-                Event = eventInfo,
-                ParticipantCount = _participantService.GetCount(id),
-                Author = userManager.FindById(eventInfo.UserId).UserName
-            });
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public ActionResult Info(int id)
-        {
-            var eventInfo = _eventService.Get(id);
-            eventInfo.Id = id;
-
-            return PartialView(eventInfo);
+                return Json(new { message = Localization.Localization.ErrorGeneralException, success = false });
+            }
         }
 
         [HttpGet]

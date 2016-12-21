@@ -70,6 +70,7 @@ function eventmodalCreateNewInit() {
 
     eventmodalPosition.off('click', `#${eventmodalCreateNewSubmit.attr('id')}`);
     eventmodalPosition.off('click', `#${eventmodalCreateNewClose.attr('id')}`);
+    eventmodalPosition.off();
 
     eventmodalPosition.on('click', `#${eventmodalCreateNewClose.attr('id')}`, function () {
         checkCurrentTimeInterval(true);
@@ -125,12 +126,22 @@ function eventmodalCreateNewInit() {
 
     eventmodalPosition.on('keyup', `#${eventmodalCreateNewFormTitle.attr('id')}`, function () {
 
-        if (eventmodalCreateNewFormTitle.val().length >= 1 && eventmodalCreateNewCorrectDateTime) {
-            eventmodalCreateNewSubmit.attr('class', 'save-ready');
-        } else {
+        if (eventmodalCreateNewFormTitle.val().length < 1) {
             eventmodalCreateNewSubmit.attr('class', 'save');
+            eventmodalCreateNewTitleError.show();
+        } else {
+            eventmodalCreateNewSubmit.attr('class', 'save-ready');
+            eventmodalCreateNewTitleError.hide();
         }
 
+    });
+
+    eventmodalPosition.on('click', '#IsAuthorShown-new', function() {
+        if ($("#IsAuthorShown-new").is(':checked')) {
+            $('#event-new-organizer').attr('disabled', true);
+        } else {
+            $('#event-new-organizer').attr('disabled', false);
+        }
     });
 
     eventmodalPosition.on('click', `#${eventmodalCreateNewSubmit.attr('id')}`, function () {
@@ -147,10 +158,11 @@ function eventmodalCreateNewInit() {
 
         if (eventmodalCreateNewFormTitle.val().length >= 1) {
 
+
             checkDateTime(eventModalCreateNewDateTimeTargetBegin, eventModalCreateNewDateTimeTargetEnd);
             eventmodalCreateNewErrorMessages.hide();
 
-            if (dateCorrect) {
+            if (eventmodalCreateNewCorrectDateTime) {
 
                 eventmodalCreateNewFormBeginingDate.val(convertToDateTime(eventModalCreateNewDateTimeTargetBegin));
                 eventmodalCreateNewFormEndingDate.val(convertToDateTime(eventModalCreateNewDateTimeTargetEnd));
@@ -173,7 +185,8 @@ function eventmodalCreateNewInit() {
                         eventmodalCreateNewErrorMessage.html(successResponse.message);
 
                     }, function (errorResponse) {
-                        console.log(errorResponse);
+                        eventPageDialogWindowError.BodyMessage += `#${errorResponse.message}`;
+                        eventPageDialogWindowError.show();
                     });
             }
 

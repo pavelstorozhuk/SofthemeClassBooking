@@ -4,6 +4,9 @@ var monthNamesAccusative = ["Января", "Февраля", "Марта", "А�
 
 var oneMinute = 1000 * 60;
 var date = new Date();
+var weekendSaturday = 5;
+var weekendSunday = 6;
+
 
 var dateFormats = {
     CShartDateTime: 0
@@ -69,6 +72,14 @@ function compareTime(time, timeTo) {
     }
 }
 
+function dateDiffInDays(date, dateFrom) {
+
+    var utc1 = Date.UTC(date.year, date.month + 1, date.day);
+    var utc2 = Date.UTC(dateFrom.year, dateFrom.month + 1, dateFrom.day);
+    return Math.floor((utc2 - utc1) / milisecondsPerDay);
+
+}
+
 function copyDate(dateFrom) {
 
     return {
@@ -106,6 +117,10 @@ function compareDates(date, dateTo, ignoreDays, incudeTime) {
 
 function getDaysInMonth(month, year) {
     return new Date(year, month, 0).getDate();
+}
+
+function getDurationInMinutes(hour, minutes) {
+    return parseInt(hour) * 60 + parseInt(minutes);
 }
 
 function renderTimeMinutes(hours, minutes, asObject) {

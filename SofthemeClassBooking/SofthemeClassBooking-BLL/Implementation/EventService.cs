@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Linq.Expressions;
 using SofthemeClassBooking_BOL.Contract.Models;
 using SofthemeClassBooking_BOL.Contract.Services;
 using SofthemeClassBooking_BOL.Enum;
@@ -13,7 +12,6 @@ using SofthemeClassBooking_DAL;
 namespace SofthemeClassBooking_BLL.Implementation
 {
    
-
     public class EventService : IEventService<IEvent>
     {
         public void Add(IEvent eventModel)
@@ -50,8 +48,6 @@ namespace SofthemeClassBooking_BLL.Implementation
 
         }
 
-        
-
         public IEnumerable<IEvent> Get()
         {
             var eventsList = new List<IEvent>();
@@ -75,24 +71,57 @@ namespace SofthemeClassBooking_BLL.Implementation
             }
         }
 
-        public IEnumerable<IEvent> GetBrief()
+        public IEnumerable<IEvent> GetByClassRoom(int id, DateTime dateEventsFrom, DateTime dateEventsTo)
         {
-            var todayDate = DateTime.Now.Date;
+            var eventsInClassroom = new List<IEvent>();
+
+            using (var context = new ClassBookingContext())
+            {
+                var events = context.Events
+                    .Where(e => e.BeginingDate >= dateEventsFrom && e.EndingDate <= dateEventsTo &&
+                           e.ClassRoomId == id)
+                    .OrderBy(e => e.BeginingDate)
+                    .Select(e => new EventModel()
+                    {
+                        Id = e.Id,
+                        Title = e.Title,
+                        ClassRoomId = e.ClassRoomId,
+                        BeginingDate = e.BeginingDate,
+                        EndingDate = e.EndingDate,
+                        IsPrivate = e.IsPrivate,
+                        Description = e.Description.Substring(0, EventSettings.MaxCharactersInBriefDescription)
+                    })
+                    .ToList();
+
+                foreach (var eventBrief in events)
+                {
+                    eventsInClassroom.Add(eventBrief);
+                }
+            }
+
+            return eventsInClassroom;
+        }
+
+
+        public IEnumerable<IEvent> GetBrief(DateTime dateEventsFrom, DateTime dateEventsTo)
+        {
             var eventsList = new List<IEvent>();
 
             using (var context = new ClassBookingContext())
             {
-                var eventsBrief = context.Events.Where(e => DbFunctions.TruncateTime(e.BeginingDate) == todayDate)
-                .Select(e => new EventModel()
-                {
-                    Id = e.Id,
-                    Title = e.Title,
-                    ClassRoomId = e.ClassRoomId,
-                    BeginingDate = e.BeginingDate,
-                    EndingDate = e.EndingDate,
-                    IsPrivate = e.IsPrivate,
-                    Description = e.Description.Substring(0, EventSettings.MaxCharactersInBriefDescription)
-                }).ToList();
+                var eventsBrief = context.Events
+                    .Where(e => e.BeginingDate >= dateEventsFrom && e.EndingDate <= dateEventsTo)
+                    .Select(e => new EventModel()
+                    {
+                        Id = e.Id,
+                        Title = e.Title,
+                        ClassRoomId = e.ClassRoomId,
+                        BeginingDate = e.BeginingDate,
+                        EndingDate = e.EndingDate,
+                        IsPrivate = e.IsPrivate,
+                        UserId = e.UserId,
+                        Description = e.Description.Substring(0, EventSettings.MaxCharactersInBriefDescription)
+                    }).ToList();
 
                 foreach (var eventBrief in eventsBrief)
                 {
@@ -123,7 +152,8 @@ namespace SofthemeClassBooking_BLL.Implementation
                                   BeginingDate = e.BeginingDate,
                                   EndingDate = e.EndingDate,
                                   Title = e.Title,
-                                  Description = e.Description
+                                  Description = e.Description,
+                                  IsPrivate = e.IsPrivate
                               }).ToList();
 
 
@@ -195,11 +225,35 @@ namespace SofthemeClassBooking_BLL.Implementation
         public void Update(IEvent eventModel, IEvent pivotModel)
         {
 
-            if ((DateTime.Compare(eventModel.BeginingDate, pivotModel.BeginingDate) < 0) &&
-                (DateTime.Compare(eventModel.EndingDate, pivotModel.EndingDate) > 0) ||
-                eventModel.ClassRoomId != pivotModel.ClassRoomId)
+            if (eventModel.ClassRoomId != pivotModel.ClassRoomId)
             {
                 if (ServiceHelper.IsRoomBusy(eventModel))
+                {
+                    throw new RoomIsBusyException();
+                }
+            }
+
+            if(DateTime.Compare(eventModel.BeginingDate, pivotModel.BeginingDate) < 0)
+            {
+                if (ServiceHelper.IsRoomBusy(new EventModel
+                {
+                    BeginingDate = eventModel.BeginingDate,
+                    EndingDate = pivotModel.BeginingDate,
+                    ClassRoomId = eventModel.ClassRoomId
+                }))
+                {
+                    throw new RoomIsBusyException();
+                }
+            }
+
+            if (DateTime.Compare(eventModel.EndingDate, pivotModel.EndingDate) > 0)
+            {
+                if (ServiceHelper.IsRoomBusy(new EventModel
+                {
+                    BeginingDate = pivotModel.EndingDate,
+                    EndingDate = eventModel.EndingDate,
+                    ClassRoomId = eventModel.ClassRoomId
+                }))
                 {
                     throw new RoomIsBusyException();
                 }

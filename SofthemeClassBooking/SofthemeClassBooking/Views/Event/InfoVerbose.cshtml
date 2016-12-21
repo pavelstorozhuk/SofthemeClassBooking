@@ -44,14 +44,16 @@
 
     <h4 id="event-title">@Model.Event.Title</h4>
 
-    <div class="event-body">
-        @Model.Event.Description
+    <div class="event-body event-body-verbose">
+        <pre>@Model.Event.Description</pre>
     </div>
 
     <div class="event-users">
         <div class="event-creator">
             <i class="fa fa-user fa-2x"></i>
-            <div class="event-creator-name">@Model.Author</div>
+            <div class="event-creator-name">
+                @(Model.Event.IsAuthorShown? Model.Author : Model.Event.Organizer)
+            </div>
         </div>
 
         <div class="event-participant">
@@ -61,7 +63,7 @@
     </div>
 
 
-    @if (@Model.Event.IsParticipantsAllowed)
+    @if (Model.Event.IsParticipantsAllowed && !Model.Event.IsPrivate)
     {
         <div class="event-add">
 
@@ -69,8 +71,9 @@
             {
 
                 <input id="event-modal-email-take-part" class="display-none" name="Email" type="text" placeholder="@Localization.ErrorEventAlreadyEnrolledPlaceholder" disabled />
+                <i id="verbose-remove-participant-submit"  class="fa fa-minus fa-lg display-none"></i>
 
-                using (Html.BeginForm("Add", "Participant", FormMethod.Post, new { id = "verbose-add-participant-form", @class="display-none" }))
+                using (Html.BeginForm("Add", "Participant", FormMethod.Post, new { id = "verbose-add-participant-form", @class = "display-none" }))
                 {
                     <input id="verbose-add-participant-email" name="Email" type="text" placeholder="@Localization.EventParticipantJoin" required />
                         <i id="verbose-add-participant-submit" class="fa fa-plus fa-lg"></i>

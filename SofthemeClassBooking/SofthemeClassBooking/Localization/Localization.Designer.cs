@@ -88,6 +88,15 @@ namespace SofthemeClassBooking.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Закрыть.
+        /// </summary>
+        public static string ButtonClose {
+            get {
+                return ResourceManager.GetString("ButtonClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Создать.
         /// </summary>
         public static string ButtonCreate {
@@ -115,6 +124,15 @@ namespace SofthemeClassBooking.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Открыть.
+        /// </summary>
+        public static string ButtonOpen {
+            get {
+                return ResourceManager.GetString("ButtonOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Сохранить.
         /// </summary>
         public static string ButtonSave {
@@ -129,6 +147,24 @@ namespace SofthemeClassBooking.Localization {
         public static string ButtonSend {
             get {
                 return ResourceManager.GetString("ButtonSend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Подтверждение email.
+        /// </summary>
+        public static string ConfirmEmail {
+            get {
+                return ResourceManager.GetString("ConfirmEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Здравствуйте, {0} &lt;BR/&gt;Спасибо за регистрацию, пожалуйста перейдите по ссылке для того чтобы подтвердить Ваш email  &lt;a href=\&quot;{1}\&quot; title=\&quot;User Email Confirm\&quot;&gt;{1}&lt;/a&gt;.
+        /// </summary>
+        public static string ConfirmEmailMessage {
+            get {
+                return ResourceManager.GetString("ConfirmEmailMessage", resourceCulture);
             }
         }
         
@@ -183,6 +219,42 @@ namespace SofthemeClassBooking.Localization {
         public static string DialogYes {
             get {
                 return ResourceManager.GetString("DialogYes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Страничку не найдено :(.
+        /// </summary>
+        public static string Error404 {
+            get {
+                return ResourceManager.GetString("Error404", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Произошла ошибка при выполнении запроса. Повторите через некоторое время или перезагрузите страницу..
+        /// </summary>
+        public static string ErrorDefaultBodyMessage {
+            get {
+                return ResourceManager.GetString("ErrorDefaultBodyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка.
+        /// </summary>
+        public static string ErrorDefaultTitle {
+            get {
+                return ResourceManager.GetString("ErrorDefaultTitle", resourceCulture);
             }
         }
         
@@ -264,6 +336,15 @@ namespace SofthemeClassBooking.Localization {
         public static string ErrorIncorrectEmail {
             get {
                 return ResourceManager.GetString("ErrorIncorrectEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата и (или) время указаны не верно.
+        /// </summary>
+        public static string ErrorInvalidDatetime {
+            get {
+                return ResourceManager.GetString("ErrorInvalidDatetime", resourceCulture);
             }
         }
         
@@ -529,6 +610,24 @@ namespace SofthemeClassBooking.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Неверные данные.
+        /// </summary>
+        public static string InccorrectData {
+            get {
+                return ResourceManager.GetString("InccorrectData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неверные данные.
+        /// </summary>
+        public static string IncorrectData {
+            get {
+                return ResourceManager.GetString("IncorrectData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ваше событие было успешно добавлено в рассписание.
         /// </summary>
         public static string InfoEventAddedSuccess {
@@ -628,6 +727,15 @@ namespace SofthemeClassBooking.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Сейчас.
+        /// </summary>
+        public static string Now {
+            get {
+                return ResourceManager.GetString("Now", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to или.
         /// </summary>
         public static string Or {
@@ -646,11 +754,47 @@ namespace SofthemeClassBooking.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Сброс пароля.
+        /// </summary>
+        public static string PasswordReset {
+            get {
+                return ResourceManager.GetString("PasswordReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Для сброса пароля, перейдите по ссылке.
+        /// </summary>
+        public static string PasswordResetMessage {
+            get {
+                return ResourceManager.GetString("PasswordResetMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to человек.
         /// </summary>
         public static string People {
             get {
                 return ResourceManager.GetString("People", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пожалуйста, подтвердите email.
+        /// </summary>
+        public static string PleaseConfirmEmail {
+            get {
+                return ResourceManager.GetString("PleaseConfirmEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to сбросить.
+        /// </summary>
+        public static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
             }
         }
         
@@ -678,6 +822,24 @@ namespace SofthemeClassBooking.Localization {
         public static string StageSelect {
             get {
                 return ResourceManager.GetString("StageSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обратная связь.
+        /// </summary>
+        public static string TitleFeedback {
+            get {
+                return ResourceManager.GetString("TitleFeedback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сегодня.
+        /// </summary>
+        public static string Today {
+            get {
+                return ResourceManager.GetString("Today", resourceCulture);
             }
         }
         
@@ -723,6 +885,24 @@ namespace SofthemeClassBooking.Localization {
         public static string UserChangePassword {
             get {
                 return ResourceManager.GetString("UserChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователя с такой электронной почтой не существует!.
+        /// </summary>
+        public static string UserWithSuchEmailDoesNotExist {
+            get {
+                return ResourceManager.GetString("UserWithSuchEmailDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователь с такими данными уже существует.
+        /// </summary>
+        public static string UserWithThisDataIsExist {
+            get {
+                return ResourceManager.GetString("UserWithThisDataIsExist", resourceCulture);
             }
         }
         
